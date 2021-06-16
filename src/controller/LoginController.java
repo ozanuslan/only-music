@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.event.ActionEvent;
+import model.Address;
 import model.Administrator;
 import model.Customer;
 import helper.DatabaseConnection;
@@ -14,6 +15,7 @@ import helper.SceneBuilder;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 import static model.Administrator.authLevel.HIGH;
@@ -72,6 +74,7 @@ public class LoginController{
                     if(queryResult.getInt("privilegeLevel") == 0){
                         Customer customer = new Customer(queryResult.getString("username"), queryResult.getString("name"), queryResult.getString("surname"),queryResult.getString("email"),queryResult.getInt("idUser"));
                         storage.setActiveUser(customer);
+                        setCustomerAddress(customer,connectDB);
                         sb.createScene("main");
                     }
 
@@ -92,6 +95,17 @@ public class LoginController{
         }catch (Exception e){
             e.printStackTrace();
             e.getCause();
+        }
+    }
+
+    void setCustomerAddress(Customer customer, Connection connectDB) throws SQLException {
+        Statement statement = connectDB.createStatement();
+        String addressQuery = "SELECT * FROM `address` where idUser= " + customer.getId();
+        ResultSet queryResult = statement.executeQuery(addressQuery);
+
+        while(queryResult.next()){
+            Address address = new Address(queryResult.getString("city"),queryResult.getString("province"),queryResult.getString("address"),queryResult.getString("phone"),Integer.parseInt(queryResult.getString("postCode")));
+            customer.setAddress(address);
         }
     }
 }
