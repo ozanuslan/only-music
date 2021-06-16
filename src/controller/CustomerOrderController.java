@@ -2,16 +2,10 @@ package controller;
 
 import helper.DatabaseConnection;
 import helper.Storage;
-import model.Administrator;
-import model.Customer;
-import model.Order;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
-
-import static model.Administrator.authLevel.HIGH;
-import static model.Administrator.authLevel.LOW;
 
 public class CustomerOrderController {
 
@@ -29,7 +23,6 @@ public class CustomerOrderController {
 
             while(queryResult.next()){
                 int orderId = queryResult.getInt("orderId");
-                Order order = new Order();
             }
 
         }catch (Exception e){
