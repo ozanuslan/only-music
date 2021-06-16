@@ -1,5 +1,6 @@
 package controller;
 
+import helper.Helper;
 import helper.Storage;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -69,6 +70,11 @@ public class LoginController{
                     loginMessageLabel.setText("Congratulations!");
                     Thread.sleep(1000);
 
+                    try {
+                        storage.setItemList(Helper.getItems());
+                    } catch (SQLException throwables) {
+                        throwables.printStackTrace();
+                    }
 
                     sb.closeScene(loginButton);
                     if(queryResult.getInt("privilegeLevel") == 0){
