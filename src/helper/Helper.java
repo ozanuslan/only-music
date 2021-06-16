@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 public class Helper {
@@ -154,5 +155,12 @@ public class Helper {
         }
 
         return itemList;
+    }
+
+    public static Item findItem(List<Item> il, int id){
+        for(Item i: il){
+            if(id == i.getId()) return i;
+        }
+        return null;
     }
 }
