@@ -55,15 +55,6 @@
                   </ImageView>
                </children>
             </VBox>
-            <Button layoutX="785.0" layoutY="403.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="167.0" stylesheets="@../css/style.css" text="Add to Cart">
-               <styleClass>
-                  <String fx:value="icon-color-blue" />
-                  <String fx:value="radius-30" />
-                  <String fx:value="shadow" />
-                  <String fx:value="text-color-white" />
-                  <String fx:value="text-item-name" />
-               </styleClass>
-            </Button>
             <VBox layoutX="410.0" layoutY="83.0" prefHeight="335.0" prefWidth="400.0">
                <children>
                   <Label prefHeight="20.0" prefWidth="84.0" styleClass="text-item-name" stylesheets="@../css/style.css" text="Item Name" />
@@ -74,6 +65,15 @@
                   <Label fx:id="itemDetailsLabel" alignment="TOP_LEFT" prefHeight="220.0" prefWidth="374.0" styleClass="text-item-price" stylesheets="@../css/style.css" />
                </children>
             </VBox>
+            <Button layoutX="785.0" layoutY="403.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="167.0" stylesheets="@../css/style.css" text="Add to Cart">
+               <styleClass>
+                  <String fx:value="icon-color-blue" />
+                  <String fx:value="radius-30" />
+                  <String fx:value="shadow" />
+                  <String fx:value="text-color-white" />
+                  <String fx:value="text-item-name" />
+               </styleClass>
+            </Button>
          </children>
       </AnchorPane>
    </center>

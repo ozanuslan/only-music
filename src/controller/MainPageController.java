@@ -75,7 +75,7 @@ public class MainPageController implements Initializable {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("/GUI/itemBlock.fxml"));
 
-                AnchorPane anchorPane = fxmlLoader.load();
+            AnchorPane anchorPane = fxmlLoader.load();
 
             ItemController itemController = fxmlLoader.getController();
             itemController.setData(storage.getItemList().get(i));

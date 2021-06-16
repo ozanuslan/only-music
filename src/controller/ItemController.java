@@ -43,8 +43,10 @@ public class ItemController {
         fxmlLoader.setLocation(getClass().getResource("/GUI/itemPage.fxml"));
         BorderPane borderPane = fxmlLoader.load();
         ItemPageController itemPageController = fxmlLoader.getController();
+        System.out.println(itemPageController);
         itemPageController.setItem(item);
         sceneBuilder.createScene("itemPage");
+        itemPageController.setLabels();
     }
     @FXML
     void addCardButtonAction(ActionEvent event) {

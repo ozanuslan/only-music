@@ -45,6 +45,11 @@ public class ItemPageController {
 
     void setItem(Item item){
         this.item = item;
+        System.out.println(item.getName());
+        System.out.println(String.valueOf(item.getPrice()));
+        System.out.println(item.getImagePath());
+    }
+    void setLabels(){
         itemNameLabel.setText(item.getName());
         itemPriceLabel.setText(String.valueOf(item.getPrice()));
         Image image = new Image(getClass().getResourceAsStream(item.getImagePath()));
