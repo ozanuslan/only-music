@@ -1,11 +1,14 @@
 package helper;
 
+import controller.ItemPageController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
-import javafx.stage.Window;
+import model.Item;
+
+import java.io.IOException;
 
 public class SceneBuilder {
 
@@ -23,9 +26,6 @@ public class SceneBuilder {
     public void closeScene(Button btn){
         Stage stage = (Stage) btn.getScene().getWindow();
         stage.close();
-    }
-    public void hideScene(Button btn){
-        btn.getScene().getWindow().hide();
     }
 
 }

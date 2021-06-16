@@ -11,6 +11,7 @@ public class Storage {
     private User activeUser;
     private ArrayList<User> userList;
     private ArrayList<Item> itemList;
+    private Item lastClickedItem;
     private Stack<String> lastLocation = new Stack<>();
 
     public static Storage getStorage(){
@@ -54,5 +55,13 @@ public class Storage {
 
     public void setLastLocation(Stack<String> lastLocation) {
         this.lastLocation = lastLocation;
+    }
+
+    public Item getLastClickedItem() {
+        return lastClickedItem;
+    }
+
+    public void setLastClickedItem(Item lastClickedItem) {
+        this.lastClickedItem = lastClickedItem;
     }
 }

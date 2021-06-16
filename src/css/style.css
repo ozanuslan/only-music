@@ -55,7 +55,9 @@
     -fx-font-size:14;
 }
 .text-header{
+    -fx-font-family:"Poppins";
     -fx-font-size:20;
+    -fx-font-weight:bold;
 }
 .text-item-price{
     -fx-font-family:"Poppins";

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMousePressed="#itemBlockAction" prefHeight="300.0" prefWidth="200.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ItemController">
+   <children>
+      <Label fx:id="itemNameLabel" alignment="CENTER" layoutX="50.0" layoutY="25.0" prefHeight="17.0" prefWidth="100.0" stylesheets="@../css/style.css" text="Name">
+         <styleClass>
+            <String fx:value="text-item-name" />
+            <String fx:value="text-bold" />
+         </styleClass></Label>
+      <HBox alignment="CENTER" layoutY="60.0" prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <ImageView fx:id="itemImage" fitHeight="118.0" fitWidth="178.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/guitar-images/gibson-les-paul.jpg" />
+               </image>
+            </ImageView>
+         </children>
+      </HBox>
+      <Label fx:id="itemPriceLabel" alignment="CENTER" layoutX="50.0" layoutY="194.0" prefWidth="100.0" styleClass="text-item-price" stylesheets="@../css/style.css" text="Price" />
+      <Button fx:id="addCardButton" layoutX="61.0" layoutY="239.0" mnemonicParsing="false" onAction="#addCardButtonAction" stylesheets="@../css/style.css" text="Add to Cart" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+         <styleClass>
+            <String fx:value="radius-30" />
+            <String fx:value="icon-color-blue" />
+            <String fx:value="shadow" />
+         </styleClass>
+      </Button>
+   </children>
+   <effect>
+      <DropShadow>
+         <color>
+            <Color opacity="0.699999988079071" />
+         </color>
+      </DropShadow>
+   </effect>
+   <styleClass>
+      <String fx:value="radius-30" />
+      <String fx:value="background-color-white08" />
+   </styleClass>
+</AnchorPane>

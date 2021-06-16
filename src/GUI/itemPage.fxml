@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.String?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.Bloom?>
@@ -8,6 +9,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ItemPageController">
@@ -22,18 +24,6 @@
                   <Bloom />
                </effect>
                 </ImageView>
-                <Button fx:id="cartButton" layoutX="842.0" layoutY="31.0" mnemonicParsing="false" onAction="#cartButtonAction" prefHeight="40.0" prefWidth="45.0" stylesheets="@../css/style.css">
-                    <styleClass>
-                        <String fx:value="icon-color-blue" />
-                        <String fx:value="cart-icon" />
-                    </styleClass>
-                </Button>
-                <Button fx:id="userButton" layoutX="918.0" layoutY="31.0" mnemonicParsing="false" onAction="#userButtonAction" prefHeight="40.0" prefWidth="35.0" stylesheets="@../css/style.css">
-                    <styleClass>
-                        <String fx:value="user-icon" />
-                        <String fx:value="icon-color-blue" />
-                    </styleClass>
-                </Button>
             <Button fx:id="backwardButton" layoutX="43.0" layoutY="35.0" mnemonicParsing="false" onAction="#backwardButtonAction" prefHeight="32.0" prefWidth="36.0" stylesheets="@../css/style.css">
                <styleClass>
                   <String fx:value="icon-color-blue" />
@@ -46,26 +36,39 @@
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <VBox alignment="CENTER" layoutX="50.0" layoutY="51.0" prefHeight="200.0" prefWidth="100.0">
+            <Label fx:id="errorLabel" alignment="CENTER" layoutX="369.0" layoutY="26.0" prefHeight="17.0" prefWidth="263.0" stylesheets="@../css/style.css" />
+            <HBox alignment="CENTER_LEFT" layoutX="78.0" layoutY="68.0" prefHeight="335.0" prefWidth="845.0" spacing="20.0">
                <children>
-                  <ImageView fx:id="itemImage" fitHeight="338.0" fitWidth="329.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/only-music-item.png" />
-                     </image>
-                  </ImageView>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <ImageView fx:id="itemImage" fitHeight="338.0" fitWidth="329.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/only-music-item.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                     <HBox.margin>
+                        <Insets bottom="30.0" />
+                     </HBox.margin>
+                  </VBox>
+                  <VBox prefHeight="335.0" prefWidth="400.0" spacing="5.0">
+                     <children>
+                        <Label prefHeight="30.0" prefWidth="116.0" styleClass="text-header" stylesheets="@../css/style.css" text="Item Name:" />
+                        <Label fx:id="itemNameLabel" prefHeight="20.0" prefWidth="324.0" styleClass="text-item-name" stylesheets="@../css/style.css" />
+                        <Label prefHeight="17.0" prefWidth="75.0" styleClass="text-header" stylesheets="@../css/style.css" text="Price:" />
+                        <Label fx:id="itemPriceLabel" prefHeight="19.0" prefWidth="187.0" styleClass="text-item-price" stylesheets="@../css/style.css" />
+                        <Label prefHeight="17.0" prefWidth="75.0" styleClass="text-header" stylesheets="@../css/style.css" text="Stock:" />
+                        <Label fx:id="stockLabel" prefHeight="19.0" prefWidth="187.0" styleClass="text-item-price" stylesheets="@../css/style.css" />
+                        <Label alignment="TOP_LEFT" prefHeight="30.0" prefWidth="88.0" styleClass="text-header" stylesheets="@../css/style.css" text="Details:" />
+                        <Label fx:id="itemDetailsLabel" alignment="TOP_LEFT" prefHeight="220.0" prefWidth="374.0" styleClass="text-item-price" stylesheets="@../css/style.css" />
+                     </children>
+                     <HBox.margin>
+                        <Insets top="15.0" />
+                     </HBox.margin>
+                  </VBox>
                </children>
-            </VBox>
-            <VBox layoutX="410.0" layoutY="83.0" prefHeight="335.0" prefWidth="400.0">
-               <children>
-                  <Label prefHeight="20.0" prefWidth="84.0" styleClass="text-item-name" stylesheets="@../css/style.css" text="Item Name" />
-                  <Label fx:id="itemNameLabel" prefHeight="20.0" prefWidth="324.0" styleClass="text-item-price" stylesheets="@../css/style.css" />
-                  <Label prefHeight="17.0" prefWidth="75.0" styleClass="text-item-name" stylesheets="@../css/style.css" text="Price" />
-                  <Label fx:id="itemPriceLabel" prefHeight="19.0" prefWidth="187.0" styleClass="text-item-price" stylesheets="@../css/style.css" />
-                  <Label alignment="TOP_LEFT" prefHeight="10.0" prefWidth="59.0" styleClass="text-item-name" stylesheets="@../css/style.css" text="Details:" />
-                  <Label fx:id="itemDetailsLabel" alignment="TOP_LEFT" prefHeight="220.0" prefWidth="374.0" styleClass="text-item-price" stylesheets="@../css/style.css" />
-               </children>
-            </VBox>
-            <Button layoutX="785.0" layoutY="403.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="167.0" stylesheets="@../css/style.css" text="Add to Cart">
+            </HBox>
+            <Button layoutX="784.0" layoutY="403.0" mnemonicParsing="false" onAction="#addToCartAction" prefHeight="30.0" prefWidth="167.0" stylesheets="@../css/style.css" text="Add to Cart">
                <styleClass>
                   <String fx:value="icon-color-blue" />
                   <String fx:value="radius-30" />

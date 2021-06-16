@@ -40,18 +40,14 @@ public class ItemController {
     void itemBlockAction(MouseEvent event) throws Exception {
         sceneBuilder.closeScene(addCardButton);
         storage.addLastLocation("main");
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("/GUI/itemPage.fxml"));
-        BorderPane borderPane = fxmlLoader.load();
-        ItemPageController itemPageController = fxmlLoader.getController();
-        System.out.println(itemPageController);
-        itemPageController.setItem(item);
+        storage.setLastClickedItem(item);
         sceneBuilder.createScene("itemPage");
-        itemPageController.setLabels();
     }
     @FXML
     void addCardButtonAction(ActionEvent event) {
+        if(item.getStock() != 0)
         ((Customer)storage.getActiveUser()).getCart().addItem(item);
+
 
         System.out.println(((Customer) storage.getActiveUser()).getCart().getItemList().get(0));
     }

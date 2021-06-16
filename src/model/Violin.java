@@ -22,7 +22,7 @@ public class Violin extends StringInstrument{
         description += "Front Cover: "+getFrontCover()+"\n";
         description += "Back Cover: "+getBackCover()+"\n";
         description += "Height: "+getHeight()+"cm\n";
-        description += "Model: "+stringThick+"mm\n";
+        description += "String Thickness: "+stringThick+"mm\n";
 
         return description;
     }
