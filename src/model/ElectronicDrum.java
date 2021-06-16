@@ -15,4 +15,14 @@ public class ElectronicDrum extends PercussionInstrument{
     public void setSoundNumber(int soundNumber) {
         this.soundNumber = soundNumber;
     }
+
+    @Override
+    public String getDescription(){
+        String description = "Snare Drum: "+getSnareDrumNumber()+"\n";
+        description += "Snare Drum Number: "+getBassDrumNumber()+"\n";
+        description += "Tom Number: "+getTomNumber()+"\n";
+        description += "Sound Number: "+soundNumber+"\n";
+
+        return description;
+    }
 }

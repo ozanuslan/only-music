@@ -45,4 +45,15 @@ public class Piano extends Instrument {
     public void setHeight(int height) {
         this.height = height;
     }
+
+    @Override
+    public String getDescription() {
+        String description = "";
+        description += "Key Number: "+keyNumber+"\n";
+        description += "Cabine Type: "+cabineType+"\n";
+        description += "Width: "+width+"cm\n";
+        description += "Height: "+height+"cm\n";
+
+        return description;
+    }
 }

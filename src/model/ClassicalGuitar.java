@@ -25,4 +25,14 @@ public class ClassicalGuitar extends Guitar{
     public void setBodyType(String bodyType) {
         this.bodyType = bodyType;
     }
+
+    @Override
+    public String getDescription(){
+        String description = "Body Material: "+getBodyMaterial()+"\n";
+        description += "Neck Material: "+getNeckMaterial()+"\n";
+        description += "String Number: "+stringNumber+"\n";
+        description += "Body Type: "+bodyType+"\n";
+
+        return description;
+    }
 }

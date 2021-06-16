@@ -25,4 +25,15 @@ public class Trumpet extends WindInstrument{
     public void setBellWidth(int bellWidth) {
         this.bellWidth = bellWidth;
     }
+
+    @Override
+    public String getDescription() {
+        String description = "";
+        description += "Material: "+getMaterial()+"\n";
+        description += "Bore Width: "+getBoreWidth()+"\n";
+        description += "Key Number: "+pistonValve+"\n";
+        description += "Model: "+bellWidth+"\n";
+
+        return description;
+    }
 }

@@ -25,4 +25,15 @@ public class Trombone extends WindInstrument{
     public void setModel(String model) {
         this.model = model;
     }
+
+    @Override
+    public String getDescription() {
+        String description = "";
+        description += "Material: "+getMaterial()+"\n";
+        description += "Bore Width: "+getBoreWidth()+"\n";
+        description += "Key Number: "+valveNumber+"\n";
+        description += "Model: "+model+"\n";
+
+        return description;
+    }
 }

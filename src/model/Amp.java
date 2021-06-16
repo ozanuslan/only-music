@@ -45,5 +45,16 @@ public class Amp extends Item{
     public void setChannelNumber(int channelNumber) {
         this.channelNumber = channelNumber;
     }
+
+    @Override
+    public String getDescription() {
+        String description = "";
+        description += "Effects: "+effects+"\n";
+        description += "Power: "+power+"W\n";
+        description += "Type: "+type+"\n";
+        description += "Channel Number: "+channelNumber+"\n";
+
+        return description;
+    }
 }
 

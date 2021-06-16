@@ -15,4 +15,14 @@ public class AcousticDrum extends PercussionInstrument{
     public void setShellMaterial(String shellMaterial) {
         this.shellMaterial = shellMaterial;
     }
+
+    @Override
+    public String getDescription(){
+        String description = "Snare Drum: "+getSnareDrumNumber()+"\n";
+        description += "Snare Drum Number: "+getBassDrumNumber()+"\n";
+        description += "Tom Number: "+getTomNumber()+"\n";
+        description += "Shell Material: "+shellMaterial+"\n";
+
+        return description;
+    }
 }

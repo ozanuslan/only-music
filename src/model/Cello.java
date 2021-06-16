@@ -15,4 +15,15 @@ public class Cello extends StringInstrument{
     public void setStringCount(int stringCount) {
         this.stringCount = stringCount;
     }
+
+    @Override
+    public String getDescription() {
+        String description = "";
+        description += "Front Cover: "+getFrontCover()+"\n";
+        description += "Back Cover: "+getBackCover()+"\n";
+        description += "Height: "+getHeight()+"cm\n";
+        description += "Model: "+stringCount+"\n";
+
+        return description;
+    }
 }

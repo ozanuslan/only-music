@@ -25,4 +25,15 @@ public class Clarinet extends WindInstrument{
     public void setModel(String model) {
         this.model = model;
     }
+
+    @Override
+    public String getDescription() {
+        String description = "";
+        description += "Material: "+getMaterial()+"\n";
+        description += "Bore Width: "+getBoreWidth()+"\n";
+        description += "Key Number: "+keyNumber+"\n";
+        description += "Model: "+model+"\n";
+
+        return description;
+    }
 }

@@ -25,4 +25,14 @@ public class ElectricGuitar extends Guitar{
     public void setBridgeType(String bridgeType) {
         this.bridgeType = bridgeType;
     }
+
+    @Override
+    public String getDescription(){
+        String description = "Body Material: "+getBodyMaterial()+"\n";
+        description += "Neck Material: "+getNeckMaterial()+"\n";
+        description += "Magnetic Type: "+magneticType+"\n";
+        description += "Bridge Type: "+bridgeType+"\n";
+
+        return description;
+    }
 }

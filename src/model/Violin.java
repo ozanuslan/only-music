@@ -15,4 +15,15 @@ public class Violin extends StringInstrument{
     public void setStringThick(int stringThick) {
         this.stringThick = stringThick;
     }
+
+    @Override
+    public String getDescription() {
+        String description = "";
+        description += "Front Cover: "+getFrontCover()+"\n";
+        description += "Back Cover: "+getBackCover()+"\n";
+        description += "Height: "+getHeight()+"cm\n";
+        description += "Model: "+stringThick+"mm\n";
+
+        return description;
+    }
 }
