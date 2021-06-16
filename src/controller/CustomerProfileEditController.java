@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import model.Customer;
 
@@ -46,14 +47,13 @@ public class CustomerProfileEditController {
     private Button setAddressButton;
 
     @FXML
-    private TextField oldPasswordInput;
+    private PasswordField oldPasswordInput;
 
     @FXML
-    private TextField newPasswordInput;
+    private PasswordField newPasswordInput;
 
     @FXML
-    private TextField rewritePasswordInput;
-
+    private PasswordField rewritePasswordInput;
     @FXML
     private Button changePasswordButton;
 

@@ -29,7 +29,6 @@ public class CustomerOrderController {
 
             while(queryResult.next()){
                 int orderId = queryResult.getInt("orderId");
-                Order order = new Order();
             }
 
         }catch (Exception e){
