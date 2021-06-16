@@ -83,7 +83,7 @@ public class CustomerProfileEditController {
 
     @FXML
     void changePasswordButtonAction(ActionEvent event) throws SQLException {
-        if (newPasswordInput.getText() != null && rewritePasswordInput.getText() != null && rewritePasswordInput.getText() != null) {
+        if (!newPasswordInput.getText().equals("") && !rewritePasswordInput.getText().equals("") && !rewritePasswordInput.getText().equals("")) {
             Statement statement = connectDB.createStatement();
             String passwordQuery = "SELECT password FROM `only-music`.user_account where idUser= " + customer.getId();
             ResultSet queryResult = statement.executeQuery(passwordQuery);
@@ -95,7 +95,25 @@ public class CustomerProfileEditController {
                 ps.setString(1, newPasswordInput.getText());
                 ps.setString(2, Integer.toString(customer.getId()));
                 ps.executeUpdate();
+                errorLabel.setText("Your password is successfully set");
+                errorLabel.getStyleClass().clear();
+                errorLabel.getStyleClass().add("text-item-price");
+                errorLabel.getStyleClass().add("text-color-success");
+            }else{
+                if(!oldPasswordInput.getText().equals(customerPassword)){
+                    errorLabel.setText("Your entered your current password wrong");
+                }else if(!newPasswordInput.getText().equals(rewritePasswordInput.getText())){
+                    errorLabel.setText("Please rewrite your new password correctly");
+                }
+                errorLabel.getStyleClass().clear();
+                errorLabel.getStyleClass().add("text-item-price");
+                errorLabel.getStyleClass().add("text-color-error");
             }
+        }else{
+            errorLabel.setText("Please enter all inputs properly");
+            errorLabel.getStyleClass().clear();
+            errorLabel.getStyleClass().add("text-item-price");
+            errorLabel.getStyleClass().add("text-color-error");
         }
     }
 
@@ -107,7 +125,7 @@ public class CustomerProfileEditController {
     @FXML
     void setAddressButtonAction(ActionEvent event) throws SQLException {
         Statement statement = connectDB.createStatement();
-        if (cityInput.getText() != null && provinceInput.getText() != null && postCodeInput.getText() != null && phoneNumberInput.getText() != null && addressInput.getText() != null) {
+        if (!cityInput.getText().equals("") && !provinceInput.getText().equals("") && !postCodeInput.getText().equals("") && Helper.isPositiveNumber(postCodeInput.getText()) && !phoneNumberInput.getText().equals("") && !addressInput.getText().equals("")) {
             if (customer.getAddress() == null) {
                 String insertQuery = "INSERT INTO `address` (`idUser`, `city`, `province`, `address`, `phone`, `postCode`) VALUES (?, ?, ?, ?, ?, ?)";
                 PreparedStatement ps = connectDB.prepareStatement(insertQuery);
@@ -129,22 +147,36 @@ public class CustomerProfileEditController {
                 ps.setString(6, Integer.toString(customer.getId()));
                 ps.executeUpdate();
             }
+            errorLabel.setText("Your address is successfully set");
+            errorLabel.getStyleClass().clear();
+            errorLabel.getStyleClass().add("text-item-price");
+            errorLabel.getStyleClass().add("text-color-success");
         } else {
+            errorLabel.setText("Please enter all inputs properly");
+            errorLabel.getStyleClass().clear();
+            errorLabel.getStyleClass().add("text-item-price");
+            errorLabel.getStyleClass().add("text-color-error");
         }
     }
 
     @FXML
     void setEmailButtonAction(ActionEvent event) throws SQLException {
-        if (emailInput.getText() != null) {
+        if (!emailInput.getText().equals("")) {
             Statement statement = connectDB.createStatement();
             String updateQuery = "UPDATE `user_account` SET `email` = ? WHERE (`idUser` = ?)";
             PreparedStatement ps = connectDB.prepareStatement(updateQuery);
             ps.setString(1, emailInput.getText());
             ps.setString(2, Integer.toString(customer.getId()));
             ps.executeUpdate();
+            errorLabel.setText("Your email is successfully set");
+            errorLabel.getStyleClass().clear();
+            errorLabel.getStyleClass().add("text-item-price");
+            errorLabel.getStyleClass().add("text-color-success");
         } else {
-
+            errorLabel.setText("Please enter your email address");
+            errorLabel.getStyleClass().clear();
+            errorLabel.getStyleClass().add("text-item-price");
+            errorLabel.getStyleClass().add("text-color-error");
         }
     }
-
 }
