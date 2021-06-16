@@ -1,6 +1,6 @@
 package helper;
 
-import model.Item;
+import model.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,37 +13,37 @@ public class ContentFilter {
             switch (typeToFilterBy) {
                 case GUITAR:
                     try {
-                        list.add(item);
+                        list.add((Guitar)item);
                     } catch (Exception e) {
                     }
                     break;
                 case PIANO:
                     try {
-                        list.add(item);
+                        list.add((Piano)item);
                     } catch (Exception e) {
                     }
                     break;
                 case STRING_INSTRUMENT:
                     try {
-                        list.add(item);
+                        list.add((StringInstrument)item);
                     } catch (Exception e) {
                     }
                     break;
                 case PERCUSSION_INSTRUMENT:
                     try {
-                        list.add(item);
+                        list.add((PercussionInstrument)item);
                     } catch (Exception e) {
                     }
                     break;
                 case WIND_INSTRUMENT:
                     try {
-                        list.add(item);
+                        list.add((WindInstrument)item);
                     } catch (Exception e) {
                     }
                     break;
                 case AMP:
                     try {
-                        list.add(item);
+                        list.add((Amp)item);
                     } catch (Exception e) {
                     }
                     break;
