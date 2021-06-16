@@ -63,7 +63,7 @@ public class ContentFilter {
         return list;
     }
 
-    enum ItemFilterType {
+    public enum ItemFilterType {
         GUITAR, PIANO, STRING_INSTRUMENT, PERCUSSION_INSTRUMENT, WIND_INSTRUMENT, AMP
     }
 }
