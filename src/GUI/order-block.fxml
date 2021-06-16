@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="500.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label fx:id="receiverLabel" layoutX="21.0" layoutY="14.0" styleClass="text-item-name" stylesheets="@../css/style.css" text="Receiver" />
+      <Label fx:id="priceLabel" layoutX="21.0" layoutY="40.0" styleClass="text-item-price" stylesheets="@../css/style.css" text="Price" />
+      <Button fx:id="orderDetailsButton" layoutX="171.0" layoutY="27.0" mnemonicParsing="false" onAction="#orderDetailsAction" prefHeight="27.0" prefWidth="110.0" stylesheets="@../css/style.css" text="Order Details">
+         <styleClass>
+            <String fx:value="icon-color-blue" />
+            <String fx:value="radius-30" />
+            <String fx:value="text-item-price" />
+            <String fx:value="text-color-white" />
+         </styleClass></Button>
+      <Button fx:id="checkButton" layoutX="357.0" layoutY="21.0" mnemonicParsing="false" onAction="#checkButtonAction" prefHeight="39.0" prefWidth="59.0" stylesheets="@../css/style.css">
+         <styleClass>
+            <String fx:value="check-icon" />
+            <String fx:value="icon-color-check" />
+         </styleClass>
+      </Button>
+      <Button fx:id="cancelButton" layoutX="434.0" layoutY="21.0" mnemonicParsing="false" onAction="#cancelButtonAction" prefHeight="39.0" prefWidth="45.0" stylesheets="@../css/style.css">
+         <styleClass>
+            <String fx:value="cancel-icon" />
+            <String fx:value="icon-color-cancel" />
+         </styleClass>
+      </Button>
+   </children>
+</AnchorPane>
