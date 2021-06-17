@@ -46,6 +46,10 @@ public class OrderBlockAdminController {
         this.order = order;
         receiverLabel.setText(order.getCustomer().getName());
         priceLabel.setText("$"+String.valueOf(order.getTotalPrice()));
+        if(order.getStatus() != 0){
+            cancelButton.setVisible(false);
+            checkButton.setVisible(false);
+        }
     }
     void setAdminOrderPageController(AdminOrderPageController adminOrderPageController){
         this.adminOrderPageController = adminOrderPageController;
@@ -87,8 +91,11 @@ public class OrderBlockAdminController {
     }
 
     @FXML
-    void orderDetailsAction(ActionEvent event) {
-
+    void orderDetailsAction(ActionEvent event) throws Exception {
+        sceneBuilder.closeScene(orderDetailsButton);
+        storage.addLastLocation("adminPanel-orders");
+        storage.setLastClidkedOrder(order);
+        sceneBuilder.createScene("orderDetailPage");
     }
 
 }

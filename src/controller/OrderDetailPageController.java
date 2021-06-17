@@ -44,7 +44,7 @@ public class OrderDetailPageController implements Initializable {
 
     private Storage storage = Storage.getStorage();
     private Order order = storage.getLastClidkedOrder();
-    private Customer customer = (Customer) (storage.getActiveUser());
+    private Customer customer = order.getCustomer();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
