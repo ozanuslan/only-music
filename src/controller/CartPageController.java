@@ -39,9 +39,6 @@ public class CartPageController implements Initializable {
     private Button backwardButton;
 
     @FXML
-    private Button userButton;
-
-    @FXML
     private Button logOutButton;
 
     @FXML
@@ -196,9 +193,5 @@ public class CartPageController implements Initializable {
         Helper.logOut(logOutButton);
     }
 
-    @FXML
-    void userButtonAction(ActionEvent event) {
-
-    }
 
 }

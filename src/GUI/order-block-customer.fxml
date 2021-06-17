@@ -3,23 +3,36 @@
 <?import java.lang.String?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="500.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.OrderBlockCustomerController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="400.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.OrderBlockCustomerController">
    <children>
       <Label fx:id="priceLabel" layoutX="33.0" layoutY="31.0" styleClass="text-item-name" stylesheets="@../css/style.css" text="Price" />
-      <Button fx:id="orderDetailsButton" layoutX="195.0" layoutY="27.0" mnemonicParsing="false" onAction="#orderDetailsAction" prefHeight="27.0" prefWidth="110.0" stylesheets="@../css/style.css" text="Order Details">
+      <Button fx:id="orderDetailsButton" layoutX="145.0" layoutY="27.0" mnemonicParsing="false" onAction="#orderDetailsAction" prefHeight="27.0" prefWidth="110.0" stylesheets="@../css/style.css" text="Order Details">
          <styleClass>
             <String fx:value="icon-color-blue" />
             <String fx:value="radius-30" />
             <String fx:value="text-item-price" />
             <String fx:value="text-color-white" />
          </styleClass></Button>
-      <Button fx:id="cancelButton" layoutX="434.0" layoutY="21.0" mnemonicParsing="false" onAction="#cancelButtonAction" prefHeight="39.0" prefWidth="45.0" stylesheets="@../css/style.css">
+      <Button fx:id="cancelButton" layoutX="329.0" layoutY="18.0" mnemonicParsing="false" onAction="#cancelButtonAction" prefHeight="47.0" prefWidth="45.0" stylesheets="@../css/style.css">
          <styleClass>
-            <String fx:value="cancel-icon" />
+            <String fx:value="trash-bin" />
             <String fx:value="icon-color-cancel" />
          </styleClass>
       </Button>
    </children>
+   <styleClass>
+      <String fx:value="background-color-white08" />
+      <String fx:value="radius-30" />
+   </styleClass>
+   <effect>
+      <DropShadow>
+         <color>
+            <Color opacity="0.699999988079071" />
+         </color>
+      </DropShadow>
+   </effect>
 </AnchorPane>

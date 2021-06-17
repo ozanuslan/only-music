@@ -90,8 +90,6 @@ public class CustomerOrderController implements Initializable {
                     pendingOrdersGrid.setMinHeight(Region.USE_COMPUTED_SIZE);
                     pendingOrdersGrid.setPrefHeight(Region.USE_COMPUTED_SIZE);
                     pendingOrdersGrid.setMaxHeight(Region.USE_PREF_SIZE);
-
-                    GridPane.setMargin(anchorPane, new Insets(20));
                 }
                 else{
                     completedOrdersGrid.add(anchorPane, 0, rowCompleted++);
@@ -103,6 +101,8 @@ public class CustomerOrderController implements Initializable {
                     completedOrdersGrid.setPrefHeight(Region.USE_COMPUTED_SIZE);
                     completedOrdersGrid.setMaxHeight(Region.USE_PREF_SIZE);
                 }
+                GridPane.setMargin(anchorPane, new Insets(20,60,20,60));
+
             }
         }
         catch (IOException e) {

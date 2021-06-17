@@ -3,12 +3,14 @@
 <?import java.lang.String?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CartItemBlockController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="600.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CartItemBlockController">
    <children>
       <VBox alignment="CENTER" layoutX="14.0" layoutY="11.0" prefHeight="98.0" prefWidth="113.0">
          <children>
@@ -20,7 +22,7 @@
          </children>
       </VBox>
       <Label fx:id="itemNameLabel" layoutX="157.0" layoutY="28.0" prefHeight="17.0" prefWidth="209.0" styleClass="text-item-price" stylesheets="@../css/style.css" text="ItemName" />
-      <AnchorPane layoutX="359.0" layoutY="8.0" prefHeight="106.0" prefWidth="139.0">
+      <AnchorPane layoutX="331.0" layoutY="6.0" prefHeight="106.0" prefWidth="139.0">
          <children>
             <Button fx:id="increaseQuantityButton" layoutX="70.0" layoutY="16.0" mnemonicParsing="false" onAction="#increaseQuantityButtonAction" prefHeight="19.0" prefWidth="25.0" stylesheets="@../css/style.css">
                <styleClass>
@@ -35,16 +37,27 @@
                </styleClass>
             </Button>
             <Label fx:id="quantityLabel" alignment="CENTER" layoutX="14.0" layoutY="20.0" prefHeight="66.0" prefWidth="44.0" styleClass="text-item-price" stylesheets="@../css/style.css" />
+            <Label layoutX="110.0" layoutY="23.0" prefHeight="19.0" prefWidth="65.0" styleClass="text-item-price" stylesheets="@../css/style.css" text="Stock:" />
+            <Label fx:id="itemStockLabel" layoutX="110.0" layoutY="46.0" prefHeight="19.0" prefWidth="65.0" styleClass="text-item-price" stylesheets="@../css/style.css" />
          </children>
       </AnchorPane>
-      <Button fx:id="cancelButton" layoutX="614.0" layoutY="37.0" mnemonicParsing="false" onAction="#cancelButtonAction" prefHeight="47.0" prefWidth="44.0" stylesheets="@../css/style.css">
+      <Button fx:id="cancelButton" layoutX="526.0" layoutY="36.0" mnemonicParsing="false" onAction="#cancelButtonAction" prefHeight="47.0" prefWidth="45.0" stylesheets="@../css/style.css">
          <styleClass>
-            <String fx:value="cancel-icon" />
+            <String fx:value="trash-bin" />
             <String fx:value="icon-color-cancel" />
          </styleClass>
       </Button>
-      <Label layoutX="498.0" layoutY="26.0" prefHeight="19.0" prefWidth="65.0" styleClass="text-item-price" stylesheets="@../css/style.css" text="Stock:" />
-      <Label fx:id="itemStockLabel" layoutX="498.0" layoutY="49.0" prefHeight="19.0" prefWidth="65.0" styleClass="text-item-price" stylesheets="@../css/style.css" />
       <Label fx:id="itemPriceLabel" layoutX="157.0" layoutY="62.0" styleClass="text-item-price" stylesheets="@../css/style.css" text="Price" />
    </children>
+   <styleClass>
+      <String fx:value="radius-30" />
+      <String fx:value="background-color-white08" />
+   </styleClass>
+   <effect>
+      <DropShadow>
+         <color>
+            <Color opacity="0.699999988079071" />
+         </color>
+      </DropShadow>
+   </effect>
 </AnchorPane>
