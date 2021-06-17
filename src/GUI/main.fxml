@@ -119,7 +119,7 @@
                   </Button>
                </children>
             </HBox>
-            <Label fx:id="errorLabel" layoutX="274.0" layoutY="78.0" prefHeight="17.0" prefWidth="453.0" styleClass="text-item-price" stylesheets="@../css/style.css" />
+            <Label fx:id="errorLabel" alignment="CENTER" layoutX="274.0" layoutY="78.0" prefHeight="17.0" prefWidth="453.0" styleClass="text-item-price" stylesheets="@../css/style.css" />
          </children>
       </AnchorPane>
    </center>
