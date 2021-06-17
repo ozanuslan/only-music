@@ -168,8 +168,8 @@ public class Helper {
     public static void getOrder() {
         DatabaseConnection connection = new DatabaseConnection();
         Connection connectDB = connection.getConnection();
-
-        String orderQuery = "SELECT * FROM `order` WHERE userId=" + storage.getActiveUser().getId();
+        Customer activeUser = (Customer) storage.getActiveUser();
+        String orderQuery = "SELECT * FROM `order` WHERE userId=" + activeUser.getId();
 
         try {
             Statement statement = connectDB.createStatement();
@@ -188,7 +188,7 @@ public class Helper {
                 }
                 while (queryResult.next()) {
                     if (queryResult.getInt("orderId") != orderId) {
-                        orders.add(new Order(orderId, items, new Date(lastDate), lastStatus));
+                        orders.add(new Order(orderId, items, new Date(lastDate), lastStatus, activeUser));
                         items = new ArrayList<>();
                     }
                     orderId = queryResult.getInt("orderId");
@@ -196,9 +196,9 @@ public class Helper {
                     lastStatus = queryResult.getInt("status");
                     items.add(new CartItem(Helper.findItem(storage.getItemList(), queryResult.getInt("itemId")), queryResult.getInt("quantity")));
                 }
-                orders.add(new Order(orderId, items, new Date(lastDate), lastStatus));
+                orders.add(new Order(orderId, items, new Date(lastDate), lastStatus, activeUser));
             }
-            ((Customer) storage.getActiveUser()).setOrder(orders);
+            activeUser.setOrder(orders);
 
         } catch (Exception e) {
             e.printStackTrace();

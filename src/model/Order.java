@@ -6,13 +6,15 @@ import java.util.Date;
 public class Order {
     private int id, status;
     private ArrayList<CartItem> items = new ArrayList<>();
+    private Customer customer;
     private Date date;
 
-    public Order(int id, ArrayList<CartItem> items, Date date, int status) {
+    public Order(int id, ArrayList<CartItem> items, Date date, int status, Customer customer) {
         this.id = id;
         this.items = items;
         this.date = date;
         this.status = status;
+        this.customer = customer;
     }
 
     public int getId() {
@@ -39,6 +41,14 @@ public class Order {
         this.date = date;
     }
 
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
     public int getStatus() {
         return status;
     }
@@ -47,9 +57,9 @@ public class Order {
         this.status = status;
     }
 
-    public int getTotalPrice(){
+    public int getTotalPrice() {
         int sum = 0;
-        for(CartItem i : items){
+        for (CartItem i : items) {
             sum += i.getItem().getPrice() * i.getQuantity();
         }
         return sum;
