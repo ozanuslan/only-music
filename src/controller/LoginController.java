@@ -83,7 +83,7 @@ public class LoginController{
                         Customer customer = new Customer(queryResult.getString("username"), queryResult.getString("name"), queryResult.getString("surname"),queryResult.getString("email"),queryResult.getInt("idUser"));
                         storage.setActiveUser(customer);
                         customer.setOrder((ArrayList<Order>) Helper.getCustomerOrders());
-                        setCustomerAddress(customer,connectDB);
+                        Helper.setCustomerAddress(customer,connectDB);
                         sb.createScene("main");
                     }
 
@@ -91,6 +91,7 @@ public class LoginController{
                         Administrator admin = new Administrator(queryResult.getString("username"), queryResult.getString("name"),
                                 queryResult.getString("surname"),queryResult.getString("email"),queryResult.getInt("idUser"),queryResult.getInt("privilegeLevel")> 1 ? HIGH : LOW);
                         storage.setActiveUser(admin);
+                        storage.setUserList(Helper.getAllUsers());
                         sb.createScene("adminPanel");
                     }
 
@@ -104,17 +105,6 @@ public class LoginController{
         }catch (Exception e){
             e.printStackTrace();
             e.getCause();
-        }
-    }
-
-    void setCustomerAddress(Customer customer, Connection connectDB) throws SQLException {
-        Statement statement = connectDB.createStatement();
-        String addressQuery = "SELECT * FROM `address` where idUser= " + customer.getId();
-        ResultSet queryResult = statement.executeQuery(addressQuery);
-
-        while(queryResult.next()){
-            Address address = new Address(queryResult.getString("city"),queryResult.getString("province"),queryResult.getString("address"),queryResult.getString("phone"),Integer.parseInt(queryResult.getString("postCode")));
-            customer.setAddress(address);
         }
     }
 }

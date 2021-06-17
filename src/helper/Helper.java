@@ -13,6 +13,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Stack;
 
+import static model.Administrator.authLevel.HIGH;
+import static model.Administrator.authLevel.LOW;
+
 public class Helper {
 
     static SceneBuilder sb = SceneBuilder.getSceneBuilder();
@@ -262,5 +265,46 @@ public class Helper {
             e.getCause();
         }
         return  null;
+    }
+
+    public static ArrayList<User> getAllUsers() throws SQLException {
+        DatabaseConnection connection = new DatabaseConnection();
+        Connection connectDB = connection.getConnection();
+
+        ArrayList<User> users = new ArrayList<>();
+        String verifyLogin = "SELECT * FROM user_account";
+
+        try{
+            Statement statement = connectDB.createStatement();
+            ResultSet queryResult = statement.executeQuery(verifyLogin);
+
+            while(queryResult.next()){
+                    if(queryResult.getInt("privilegeLevel") == 0){
+                        Customer customer = new Customer(queryResult.getString("username"), queryResult.getString("name"), queryResult.getString("surname"),queryResult.getString("email"),queryResult.getInt("idUser"));
+                        setCustomerAddress(customer,connectDB);
+                        users.add(customer);
+                    }
+                    else{
+                        Administrator admin = new Administrator(queryResult.getString("username"), queryResult.getString("name"),
+                                queryResult.getString("surname"),queryResult.getString("email"),queryResult.getInt("idUser"),queryResult.getInt("privilegeLevel")> 1 ? HIGH : LOW);
+                        users.add(admin);
+                    }
+
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            e.getCause();
+        }
+        return users;
+    }
+    public static void setCustomerAddress(Customer customer, Connection connectDB) throws SQLException {
+        Statement statement = connectDB.createStatement();
+        String addressQuery = "SELECT * FROM `address` where idUser= " + customer.getId();
+        ResultSet queryResult = statement.executeQuery(addressQuery);
+
+        while(queryResult.next()){
+            Address address = new Address(queryResult.getString("city"),queryResult.getString("province"),queryResult.getString("address"),queryResult.getString("phone"),Integer.parseInt(queryResult.getString("postCode")));
+            customer.setAddress(address);
+        }
     }
 }
