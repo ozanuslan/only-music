@@ -46,4 +46,12 @@ public class Order {
     public void setStatus(int status) {
         this.status = status;
     }
+
+    public int getTotalPrice(){
+        int sum = 0;
+        for(CartItem i : items){
+            sum += i.getItem().getPrice() * i.getQuantity();
+        }
+        return sum;
+    }
 }

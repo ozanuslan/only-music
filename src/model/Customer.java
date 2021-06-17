@@ -1,9 +1,10 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.Stack;
 
 public class Customer extends User {
-    private Stack<Order> order;
+    private ArrayList<Order> order;
     private Cart cart = new Cart();
     private Address address;
 
@@ -19,11 +20,11 @@ public class Customer extends User {
         this.address = address;
     }
 
-    public Stack<Order> getOrder() {
+    public ArrayList<Order> getOrder() {
         return order;
     }
 
-    public void setOrder(Stack<Order> order) {
+    public void setOrder(ArrayList<Order> order) {
         this.order = order;
     }
 

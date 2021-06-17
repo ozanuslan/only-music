@@ -80,6 +80,7 @@ public class LoginController{
                     if(queryResult.getInt("privilegeLevel") == 0){
                         Customer customer = new Customer(queryResult.getString("username"), queryResult.getString("name"), queryResult.getString("surname"),queryResult.getString("email"),queryResult.getInt("idUser"));
                         storage.setActiveUser(customer);
+                        Helper.getOrder();
                         setCustomerAddress(customer,connectDB);
                         sb.createScene("main");
                     }

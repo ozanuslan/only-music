@@ -1,61 +1,118 @@
 package controller;
 
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
+
 import helper.DatabaseConnection;
 import helper.Helper;
 import helper.Storage;
+import javafx.scene.layout.Region;
 import model.CartItem;
 import model.Customer;
+import model.Item;
 import model.Order;
 
+import java.io.IOException;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.ResourceBundle;
 import java.util.Stack;
 
-public class CustomerOrderController {
+public class CustomerOrderController implements Initializable {
+
+
+    @FXML
+    private Button backwardButton;
+
+    @FXML
+    private Button logoutButton;
+
+    @FXML
+    private ScrollPane pendingOrdersScroll;
+
+    @FXML
+    private GridPane pendingOrdersGrid;
+
+    @FXML
+    private ScrollPane completedOrderScroll;
+
+    @FXML
+    private GridPane completedOrdersGrid;
+
+    @FXML
+    void backwardButtonAction(ActionEvent event) throws Exception {
+        Helper.goBackward(backwardButton);
+    }
+
+    @FXML
+    void logoutButtonAction(ActionEvent event) throws Exception {
+        Helper.logOut(logoutButton);
+    }
 
     Storage storage = Storage.getStorage();
+    ArrayList<Order> orders = ((Customer)(storage.getActiveUser())).getOrder();
 
-    void getOrder() {
-        DatabaseConnection connection = new DatabaseConnection();
-        Connection connectDB = connection.getConnection();
-
-        String orderQuery = "SELECT * FROM `order` WHERE userId=" + storage.getActiveUser().getId();
-
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        update();
+    }
+    public void update(){
+        int rowPending = 0;
+        int rowCompleted = 0;
         try {
-            Statement statement = connectDB.createStatement();
-            ResultSet queryResult = statement.executeQuery(orderQuery);
+            int size = orders.size();
+            for(int i = 0;i<size;i++){
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                fxmlLoader.setLocation(getClass().getResource("/GUI/order-block-customer.fxml"));
 
-            Stack<Order> orders = new Stack<>();
-            ArrayList<CartItem> items = new ArrayList<>();
-            if (queryResult.next()) {
-                int orderId = queryResult.getInt("orderId");
-                long lastDate = queryResult.getLong("date");
-                int lastStatus = queryResult.getInt("status");
-                if (Helper.findItem(storage.getItemList(), queryResult.getInt("itemId")) != null) {
-                    items.add(new CartItem(Helper.findItem(storage.getItemList(), queryResult.getInt("itemId")), queryResult.getInt("quantity")));
-                } else {
-                    System.out.println("Item id: " + queryResult.getInt("itemId") + " couldn't be found in the item list. Therefore item wasn't added to order id: " + queryResult.getInt("orderId"));
+                AnchorPane anchorPane = fxmlLoader.load();
+
+                OrderBlockCustomerController orderBlockCustomerController = fxmlLoader.getController();
+                orderBlockCustomerController.setOrder(orders.get(i));
+                orderBlockCustomerController.setCustomerOrderController(this);
+                if(orders.get(i).getStatus() == 0){
+                    pendingOrdersGrid.add(anchorPane, 0, rowPending++);
+                    pendingOrdersGrid.setMinWidth(Region.USE_COMPUTED_SIZE);
+                    pendingOrdersGrid.setPrefWidth(Region.USE_COMPUTED_SIZE);
+                    pendingOrdersGrid.setMaxWidth(Region.USE_PREF_SIZE);
+
+                    pendingOrdersGrid.setMinHeight(Region.USE_COMPUTED_SIZE);
+                    pendingOrdersGrid.setPrefHeight(Region.USE_COMPUTED_SIZE);
+                    pendingOrdersGrid.setMaxHeight(Region.USE_PREF_SIZE);
+
+                    GridPane.setMargin(anchorPane, new Insets(20));
                 }
-                while (queryResult.next()) {
-                    if (queryResult.getInt("orderId") != orderId) {
-                        orders.add(new Order(orderId, items, new Date(lastDate), lastStatus));
-                        items = new ArrayList<>();
-                    }
-                    orderId = queryResult.getInt("orderId");
-                    lastDate = queryResult.getLong("date");
-                    lastStatus = queryResult.getInt("status");
-                    items.add(new CartItem(Helper.findItem(storage.getItemList(), queryResult.getInt("itemId")), queryResult.getInt("quantity")));
+                else{
+                    completedOrdersGrid.add(anchorPane, 0, rowCompleted++);
+                    completedOrdersGrid.setMinWidth(Region.USE_COMPUTED_SIZE);
+                    completedOrdersGrid.setPrefWidth(Region.USE_COMPUTED_SIZE);
+                    completedOrdersGrid.setMaxWidth(Region.USE_PREF_SIZE);
+
+                    completedOrdersGrid.setMinHeight(Region.USE_COMPUTED_SIZE);
+                    completedOrdersGrid.setPrefHeight(Region.USE_COMPUTED_SIZE);
+                    completedOrdersGrid.setMaxHeight(Region.USE_PREF_SIZE);
                 }
-                orders.add(new Order(orderId, items, new Date(lastDate), lastStatus));
             }
-            ((Customer) storage.getActiveUser()).setOrder(orders);
-
-        } catch (Exception e) {
+        }
+        catch (IOException e) {
             e.printStackTrace();
-            e.getCause();
         }
     }
+    void deleteGrid(){
+        pendingOrdersGrid.getChildren().removeIf(node -> true);
+        completedOrdersGrid.getChildren().removeIf(node -> true);
+    }
+
+
 }

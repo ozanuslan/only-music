@@ -66,7 +66,7 @@ public class CustomerProfilePageController implements Initializable {
         void myOrdersAction(MouseEvent event) throws Exception {
                 sceneBuilder.closeScene(cartButton);
                 storage.addLastLocation("customerProfilePage");
-                sceneBuilder.createScene("customerOrdersPage");
+                sceneBuilder.createScene("customerOrderPage");
         }
 
 }
