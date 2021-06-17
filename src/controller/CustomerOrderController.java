@@ -22,7 +22,7 @@ public class CustomerOrderController {
         DatabaseConnection connection = new DatabaseConnection();
         Connection connectDB = connection.getConnection();
 
-        String orderQuery = "SELECT * FROM order WHERE userId=" + storage.getActiveUser().getId();
+        String orderQuery = "SELECT * FROM `order` WHERE userId=" + storage.getActiveUser().getId();
 
         try {
             Statement statement = connectDB.createStatement();

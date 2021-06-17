@@ -38,4 +38,12 @@ public class Order {
     public void setDate(Date date) {
         this.date = date;
     }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
 }
