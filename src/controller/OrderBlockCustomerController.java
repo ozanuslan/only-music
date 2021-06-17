@@ -1,12 +1,14 @@
 package controller;
 
 import helper.DatabaseConnection;
+import helper.Helper;
 import helper.SceneBuilder;
 import helper.Storage;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import model.CartItem;
 import model.Order;
 
 import java.sql.Connection;
@@ -34,15 +36,15 @@ public class OrderBlockCustomerController {
     DatabaseConnection connection = new DatabaseConnection();
     Connection connectDB = connection.getConnection();
 
-    void setOrder(Order order){
+    void setOrder(Order order) {
         this.order = order;
-        priceLabel.setText("$"+order.getTotalPrice());
-        if(order.getStatus() != 0) {
+        priceLabel.setText("$" + order.getTotalPrice());
+        if (order.getStatus() != 0) {
             cancelButton.setVisible(false);
         }
     }
 
-    void setCustomerOrderController(CustomerOrderController customerOrderController){
+    void setCustomerOrderController(CustomerOrderController customerOrderController) {
         this.customerOrderController = customerOrderController;
     }
 
@@ -52,11 +54,20 @@ public class OrderBlockCustomerController {
         customerOrderController.deleteGrid();
         customerOrderController.update();
         Statement statement = connectDB.createStatement();
-        String updateQuery = "UPDATE `order` SET `status` = ? WHERE (`orderId` = ?)";
-        PreparedStatement ps = connectDB.prepareStatement(updateQuery);
-        ps.setString(1, "2");
-        ps.setString(2, Integer.toString(order.getId()));
-        ps.executeUpdate();
+        String updateStatusQuery = "UPDATE `order` SET `status` = ? WHERE (`orderId` = ?)";
+        PreparedStatement ps1 = connectDB.prepareStatement(updateStatusQuery);
+        ps1.setString(1, "2");
+        ps1.setString(2, Integer.toString(order.getId()));
+        ps1.executeUpdate();
+
+        String updateStockQuery = "UPDATE `item` SET `stock` = ? WHERE (`idItem` = ?)";
+        PreparedStatement ps2 = connectDB.prepareStatement(updateStockQuery);
+        for (CartItem item : order.getItems()) {
+            ps2.setString(1, Integer.toString(item.getItem().getStock() + item.getQuantity()));
+            ps2.setString(2, Integer.toString(item.getItem().getId()));
+            ps2.executeUpdate();
+            item.getItem().increaseStock(item.getQuantity());
+        }
     }
 
     @FXML

@@ -54,5 +54,9 @@ public abstract class Item{
         this.price = price;
     }
 
+    public void increaseStock(int stock){ this.stock += stock; }
+
+    public void decreaseStock(int stock){ this.stock -= stock; }
+
     public abstract String getDescription();
 }

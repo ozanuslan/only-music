@@ -160,6 +160,15 @@ public class CartPageController implements Initializable {
                     e.getCause();
                 }
             }
+
+            String updateStockQuery = "UPDATE `item` SET `stock` = ? WHERE (`idItem` = ?)";
+            PreparedStatement ps2 = connectDB.prepareStatement(updateStockQuery);
+            for (CartItem item : cart.getItemList()) {
+                ps2.setString(1, Integer.toString(item.getItem().getStock() - item.getQuantity()));
+                ps2.setString(2, Integer.toString(item.getItem().getId()));
+                ps2.executeUpdate();
+                item.getItem().decreaseStock(item.getQuantity());
+            }
         }
     }
 
