@@ -38,8 +38,11 @@ public class Cart {
 
             }
         }
-        this.itemList.add(new CartItem(item));
-        return true;
+        if(item.getStock() != 0){
+            this.itemList.add(new CartItem(item));
+            return true;
+        }
+        return false;
     }
 
     public void deleteItem(CartItem item) {

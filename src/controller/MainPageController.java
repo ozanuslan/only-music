@@ -35,6 +35,28 @@ public class MainPageController implements Initializable {
     private TextField searchBarInput;
 
     @FXML
+    private Button menuAllButton;
+
+    @FXML
+    private Button menuGuitarButton;
+
+    @FXML
+    private Button menuPianoButton;
+
+    @FXML
+    private Button menuPercussionButton;
+
+    @FXML
+    private Button menuWindButton;
+
+    @FXML
+    private Button menuStringButton;
+
+    @FXML
+    private Button menuAmpButton;
+
+
+    @FXML
     private Button userButton;
 
     @FXML
@@ -74,22 +96,26 @@ public class MainPageController implements Initializable {
 
     @FXML
     void ampMenuButtonAction(ActionEvent event) {
-        filterByCategory(ContentFilter.ItemFilterType.AMP);
+         filterByCategory(ContentFilter.ItemFilterType.AMP);
+         setSelected(menuAmpButton);
     }
 
     @FXML
     void guitarMenuButtonAction(ActionEvent event) {
         filterByCategory(ContentFilter.ItemFilterType.GUITAR);
+        setSelected(menuGuitarButton);
     }
 
     @FXML
     void percussionMenuButtonAction(ActionEvent event) {
         filterByCategory(ContentFilter.ItemFilterType.PERCUSSION_INSTRUMENT);
+        setSelected(menuPercussionButton);
     }
 
     @FXML
     void pianoMenuButtonAction(ActionEvent event) {
         filterByCategory(ContentFilter.ItemFilterType.PIANO);
+        setSelected(menuPianoButton);
     }
 
     @FXML
@@ -100,17 +126,20 @@ public class MainPageController implements Initializable {
     @FXML
     void stringMenuButtonAction(ActionEvent event) {
         filterByCategory(ContentFilter.ItemFilterType.STRING_INSTRUMENT);
+        setSelected(menuStringButton);
     }
 
     @FXML
     void windMenuButtonAction(ActionEvent event) {
         filterByCategory(ContentFilter.ItemFilterType.WIND_INSTRUMENT);
+        setSelected(menuWindButton);
     }
 
     @FXML
     void allMenuButtonAction(ActionEvent event) {
         filteredList = storage.getItemList();
         update(filteredList);
+        setSelected(menuAllButton);
     }
 
     void filterByCategory(ContentFilter.ItemFilterType filterType){
@@ -123,6 +152,7 @@ public class MainPageController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        setSelected(menuAllButton);
         int column = 0;
         int row = 1;
         try {
@@ -189,7 +219,7 @@ public class MainPageController implements Initializable {
                 gridPane.setPrefHeight(Region.USE_COMPUTED_SIZE);
                 gridPane.setMaxHeight(Region.USE_PREF_SIZE);
 
-                GridPane.setMargin(anchorPane, new Insets(20));
+                GridPane.setMargin(anchorPane, new Insets(10,20,10,20));
             }
 
         }
@@ -208,9 +238,35 @@ public class MainPageController implements Initializable {
         errorLabel.getStyleClass().add("text-color-error");
     }
     public void addToCartSuccesful(){
-        errorLabel.setText("Succesfully added to your cart");
+        errorLabel.setText("Successfully added to your cart");
         errorLabel.getStyleClass().clear();
         errorLabel.getStyleClass().add("text-item-price");
         errorLabel.getStyleClass().add("text-color-success");
     }
+
+    public void setSelected(Button button){
+        setOthersInitial();
+        button.getStyleClass().clear();
+        button.getStyleClass().add("radius-30");
+        button.getStyleClass().add("shadow-high");
+        button.getStyleClass().add("icon-color-blue");
+    }
+
+    public void setOthersInitial(){
+        setInitial(menuAllButton);
+        setInitial(menuGuitarButton);
+        setInitial(menuPianoButton);
+        setInitial(menuPercussionButton);
+        setInitial(menuStringButton);
+        setInitial(menuWindButton);
+        setInitial(menuAmpButton);
+    }
+    public void setInitial(Button button){
+        button.getStyleClass().clear();
+        button.getStyleClass().add("radius-30");
+        button.getStyleClass().add("shadow");
+        button.getStyleClass().add("background-color-dark-blue");
+    }
+
+
 }

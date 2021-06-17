@@ -52,69 +52,76 @@
    <center>
       <AnchorPane prefHeight="100.0" prefWidth="1000.0" styleClass="transparent" stylesheets="@../css/style.css" BorderPane.alignment="CENTER">
          <children>
-            <HBox alignment="CENTER" layoutX="185.0" prefHeight="72.0" prefWidth="631.0" spacing="10.0">
+            <HBox alignment="CENTER" layoutX="160.0" prefHeight="72.0" prefWidth="682.0" spacing="10.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#allMenuButtonAction" prefWidth="88.0" style="-fx-background-color: #00AFF0;" stylesheets="@../css/style.css" text="All" textFill="WHITE">
+                  <Button fx:id="menuAllButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#allMenuButtonAction" prefHeight="27.0" prefWidth="88.0" stylesheets="@../css/style.css" text="All" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font>
                      <styleClass>
                         <String fx:value="radius-30" />
                         <String fx:value="shadow" />
+                        <String fx:value="background-color-dark-blue" />
                      </styleClass>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#guitarMenuButtonAction" prefWidth="88.0" style="-fx-background-color: #00AFF0;" stylesheets="@../css/style.css" text="Guitar" textFill="WHITE">
+                  <Button fx:id="menuGuitarButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#guitarMenuButtonAction" prefHeight="27.0" prefWidth="88.0" stylesheets="@../css/style.css" text="Guitar" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font>
                      <styleClass>
                         <String fx:value="radius-30" />
                         <String fx:value="shadow" />
+                        <String fx:value="background-color-dark-blue" />
                      </styleClass>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#pianoMenuButtonAction" prefWidth="88.0" style="-fx-background-color: #00AFF0;" stylesheets="@../css/style.css" text="Piano" textFill="WHITE">
+                  <Button fx:id="menuPianoButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#pianoMenuButtonAction" prefHeight="27.0" prefWidth="88.0" stylesheets="@../css/style.css" text="Piano" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font>
                      <styleClass>
                         <String fx:value="radius-30" />
                         <String fx:value="shadow" />
+                        <String fx:value="background-color-dark-blue" />
                      </styleClass>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#percussionMenuButtonAction" prefWidth="88.0" style="-fx-background-color: #00AFF0;" stylesheets="@../css/style.css" text="Percussion" textFill="WHITE">
+                  <Button fx:id="menuPercussionButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#percussionMenuButtonAction" prefHeight="27.0" prefWidth="88.0" stylesheets="@../css/style.css" text="Percussion" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font>
                      <styleClass>
                         <String fx:value="radius-30" />
                         <String fx:value="shadow" />
+                        <String fx:value="background-color-dark-blue" />
                      </styleClass>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#windMenuButtonAction" prefWidth="88.0" style="-fx-background-color: #00AFF0;" stylesheets="@../css/style.css" text="Wind" textFill="WHITE">
+                  <Button fx:id="menuWindButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#windMenuButtonAction" prefHeight="27.0" prefWidth="88.0" stylesheets="@../css/style.css" text="Wind" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font>
                      <styleClass>
                         <String fx:value="radius-30" />
                         <String fx:value="shadow" />
+                        <String fx:value="background-color-dark-blue" />
                      </styleClass>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#stringMenuButtonAction" prefWidth="88.0" style="-fx-background-color: #00AFF0;" stylesheets="@../css/style.css" text="String" textFill="WHITE">
+                  <Button fx:id="menuStringButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#stringMenuButtonAction" prefHeight="27.0" prefWidth="88.0" stylesheets="@../css/style.css" text="String" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font>
                      <styleClass>
                         <String fx:value="radius-30" />
                         <String fx:value="shadow" />
+                        <String fx:value="background-color-dark-blue" />
                      </styleClass>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#ampMenuButtonAction" style="-fx-background-color: #00AFF0;" stylesheets="@../css/style.css" text="Amp" textFill="WHITE">
+                  <Button fx:id="menuAmpButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#ampMenuButtonAction" prefHeight="27.0" prefWidth="88.0" stylesheets="@../css/style.css" text="Amp" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font>
                      <styleClass>
                         <String fx:value="radius-30" />
                         <String fx:value="shadow" />
+                        <String fx:value="background-color-dark-blue" />
                      </styleClass>
                   </Button>
                </children>
