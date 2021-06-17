@@ -46,6 +46,12 @@ public class OrderBlockCustomerController {
         order.setStatus(2);
         customerOrderController.deleteGrid();
         customerOrderController.update();
+        Statement statement = connectDB.createStatement();
+        String updateQuery = "UPDATE `order` SET `status` = ? WHERE (`orderId` = ?)";
+        PreparedStatement ps = connectDB.prepareStatement(updateQuery);
+        ps.setString(1, "2");
+        ps.setString(2, Integer.toString(order.getId()));
+        ps.executeUpdate();
     }
 
     @FXML
