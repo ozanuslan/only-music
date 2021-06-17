@@ -51,4 +51,10 @@ public class Address {
     public void setPostCode(int postCode) {
         this.postCode = postCode;
     }
+
+    public String addressToString(){
+        String formattedAdress = "";
+        formattedAdress += city+"/"+province+"\n"+address+"\n"+phoneNumber+"\n"+postCode;
+        return formattedAdress;
+    }
 }

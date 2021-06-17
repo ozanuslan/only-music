@@ -61,7 +61,7 @@
                   </ScrollPane>
                </children>
             </VBox>
-            <Label layoutX="693.0" layoutY="6.0" styleClass="text-item-name" stylesheets="@../css/style.css" text="CONFIRMED ORDERS" />
+            <Label layoutX="693.0" layoutY="6.0" styleClass="text-item-name" stylesheets="@../css/style.css" text="COMPLETED ORDERS" />
             <VBox alignment="TOP_CENTER" layoutX="500.0" layoutY="25.0" prefHeight="475.0" prefWidth="500.0">
                <children>
                   <ScrollPane fx:id="completedOrderScroll" prefHeight="475.0" prefWidth="500.0" styleClass="transparent" stylesheets="@../css/style.css">

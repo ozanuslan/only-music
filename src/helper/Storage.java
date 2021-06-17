@@ -1,6 +1,7 @@
 package helper;
 
 import model.Item;
+import model.Order;
 import model.User;
 
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ public class Storage {
     private ArrayList<User> userList;
     private ArrayList<Item> itemList;
     private Item lastClickedItem;
+    private Order lastClidkedOrder;
     private Stack<String> lastLocation = new Stack<>();
 
     public static Storage getStorage(){
@@ -63,5 +65,13 @@ public class Storage {
 
     public void setLastClickedItem(Item lastClickedItem) {
         this.lastClickedItem = lastClickedItem;
+    }
+
+    public Order getLastClidkedOrder() {
+        return lastClidkedOrder;
+    }
+
+    public void setLastClidkedOrder(Order lastClidkedOrder) {
+        this.lastClidkedOrder = lastClidkedOrder;
     }
 }

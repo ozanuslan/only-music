@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.OrderDetailPageBlockController">
+   <children>
+      <VBox alignment="CENTER" layoutX="14.0" layoutY="11.0" prefHeight="98.0" prefWidth="113.0">
+         <children>
+            <ImageView fx:id="itemImage" fitHeight="66.0" fitWidth="111.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/only-music-item.png" />
+               </image>
+            </ImageView>
+         </children>
+      </VBox>
+      <Label fx:id="itemNameLabel" layoutX="157.0" layoutY="28.0" prefHeight="17.0" prefWidth="209.0" styleClass="text-item-name" stylesheets="@../css/style.css" text="ItemName" />
+      <Label fx:id="quantityLabel" alignment="CENTER" layoutX="400.0" layoutY="35.0" prefHeight="47.0" prefWidth="65.0" styleClass="text-item-name" stylesheets="@../css/style.css" />
+      <Label layoutX="498.0" layoutY="26.0" prefHeight="19.0" prefWidth="65.0" styleClass="text-item-name" stylesheets="@../css/style.css" text="Total:" />
+      <Label fx:id="totalPriceItemLabel" layoutX="498.0" layoutY="49.0" prefHeight="19.0" prefWidth="149.0" styleClass="text-item-price" stylesheets="@../css/style.css" />
+      <Label fx:id="itemPriceLabel" layoutX="157.0" layoutY="62.0" styleClass="text-item-price" stylesheets="@../css/style.css" text="Price" />
+   </children>
+</AnchorPane>

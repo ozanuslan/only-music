@@ -1,6 +1,8 @@
 package controller;
 
 import helper.DatabaseConnection;
+import helper.SceneBuilder;
+import helper.Storage;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -24,6 +26,9 @@ public class OrderBlockCustomerController {
     private Button cancelButton;
 
     private Order order;
+
+    SceneBuilder sceneBuilder = SceneBuilder.getSceneBuilder();
+    Storage storage = Storage.getStorage();
 
     CustomerOrderController customerOrderController;
     DatabaseConnection connection = new DatabaseConnection();
@@ -55,8 +60,11 @@ public class OrderBlockCustomerController {
     }
 
     @FXML
-    void orderDetailsAction(ActionEvent event) {
-
+    void orderDetailsAction(ActionEvent event) throws Exception {
+        sceneBuilder.closeScene(orderDetailsButton);
+        storage.addLastLocation("customerOrderPage");
+        storage.setLastClidkedOrder(order);
+        sceneBuilder.createScene("orderDetailPage");
     }
 
 }
