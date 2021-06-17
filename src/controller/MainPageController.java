@@ -135,6 +135,7 @@ public class MainPageController implements Initializable {
 
                 ItemController itemController = fxmlLoader.getController();
                 itemController.setData(filteredList.get(i));
+                itemController.setMainPageController(this);
 
                 if(column == 4){
                     column = 0;
@@ -172,6 +173,7 @@ public class MainPageController implements Initializable {
 
                 ItemController itemController = fxmlLoader.getController();
                 itemController.setData(itemList.get(i));
+                itemController.setMainPageController(this);
 
                 if(column == 4){
                     column = 0;
@@ -197,5 +199,18 @@ public class MainPageController implements Initializable {
     }
     void deleteGrid(){
         gridPane.getChildren().removeIf(node -> true);
+    }
+
+    public void addToCartFailed(){
+        errorLabel.setText("Cannot be added to your cart, not enough stock");
+        errorLabel.getStyleClass().clear();
+        errorLabel.getStyleClass().add("text-item-price");
+        errorLabel.getStyleClass().add("text-color-error");
+    }
+    public void addToCartSuccesful(){
+        errorLabel.setText("Succesfully added to your cart");
+        errorLabel.getStyleClass().clear();
+        errorLabel.getStyleClass().add("text-item-price");
+        errorLabel.getStyleClass().add("text-color-success");
     }
 }

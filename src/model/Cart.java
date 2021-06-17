@@ -9,7 +9,7 @@ public class Cart {
     public Cart(ArrayList<CartItem> itemList) {
         this.itemList = itemList;
     }
-    public Cart(){
+    public Cart() {
 
 
     }
@@ -18,25 +18,38 @@ public class Cart {
         return itemList;
     }
 
-    public void clearCart(){
-        itemList= new ArrayList<>();
+    public void clearCart() {
+        itemList = new ArrayList<>();
     }
 
     public void setItemList(ArrayList<CartItem> itemList) {
         this.itemList = itemList;
     }
-    public void addItem(Item item){
-        boolean flag=true;
-        for (CartItem cartitem:itemList) {
-            if(cartitem.getItem().getId()== item.getId()) {
-                flag=false;
-                cartitem.increaseQuantity();
+
+    public boolean addItem(Item item) {
+        for (CartItem cartitem : itemList) {
+            if (cartitem.getItem().getId() == item.getId()) {
+                if (item.getStock() != 0 && cartitem.getQuantity() < item.getStock()) {
+                    cartitem.increaseQuantity();
+                    return true;
+                } else {
+                    return false;
+                }
+
             }
         }
-        if(flag) this.itemList.add(new CartItem(item));
+        this.itemList.add(new CartItem(item));
+        return true;
     }
 
-    public void deleteItem(CartItem item){
+    public void deleteItem(CartItem item) {
         itemList.remove(item);
+    }
+
+    public CartItem getCartItem(int id) {
+        for (CartItem item : itemList) {
+            if (item.getItem().getId() == id) return item;
+        }
+        return null;
     }
 }
