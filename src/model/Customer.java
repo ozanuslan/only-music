@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Stack;
 
 public class Customer extends User {
-    private ArrayList<Order> order;
+    private ArrayList<Order> orders;
     private Cart cart = new Cart();
     private Address address;
 
@@ -21,11 +21,11 @@ public class Customer extends User {
     }
 
     public ArrayList<Order> getOrder() {
-        return order;
+        return orders;
     }
 
     public void setOrder(ArrayList<Order> order) {
-        this.order = order;
+        this.orders = order;
     }
 
     public Cart getCart() {
@@ -34,5 +34,9 @@ public class Customer extends User {
 
     public void setCart(Cart cart) {
         this.cart = cart;
+    }
+
+    public void addNewOrder(Order order){
+        orders.add(order);
     }
 }

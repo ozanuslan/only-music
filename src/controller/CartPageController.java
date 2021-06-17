@@ -18,10 +18,13 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
 import model.CartItem;
 import model.Customer;
+import model.Order;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 public class CartPageController implements Initializable {
@@ -142,13 +145,13 @@ public class CartPageController implements Initializable {
     @FXML
     void checkoutButtonAction(ActionEvent event) throws SQLException {
         if (cartIsValid()) {
-            String orderId = Integer.toString(createOrderId());
+            int orderId = createOrderId();
             for (CartItem item : cart.getItemList()) {
                 String insertOrder = "INSERT INTO `order` (orderId, userId, itemId, quantity, status, date) VALUES (?, ?, ?, ?, ?, ?);";
                 try {
                     Statement statement = connectDB.createStatement();
                     PreparedStatement ps = connectDB.prepareStatement(insertOrder);
-                    ps.setString(1, orderId);
+                    ps.setString(1, Integer.toString(orderId));
                     ps.setString(2, Integer.toString(customer.getId()));
                     ps.setString(3, Integer.toString(item.getItem().getId()));
                     ps.setString(4, Integer.toString(item.getQuantity()));
@@ -169,6 +172,10 @@ public class CartPageController implements Initializable {
                 ps2.executeUpdate();
                 item.getItem().decreaseStock(item.getQuantity());
             }
+            customer.addNewOrder(new Order(orderId,cart.getItemList(), new Date(System.currentTimeMillis()), 0, customer));
+            Helper.clearScreen(gridPane);
+            totalPriceLabel.setText("$0");
+            customer.getCart().clearCart();
         }
     }
 

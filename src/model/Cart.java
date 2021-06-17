@@ -18,6 +18,10 @@ public class Cart {
         return itemList;
     }
 
+    public void clearCart(){
+        itemList= new ArrayList<>();
+    }
+
     public void setItemList(ArrayList<CartItem> itemList) {
         this.itemList = itemList;
     }

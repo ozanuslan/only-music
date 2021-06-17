@@ -47,9 +47,6 @@ public class ItemController {
     void addCardButtonAction(ActionEvent event) {
         if(item.getStock() != 0)
         ((Customer)storage.getActiveUser()).getCart().addItem(item);
-
-
-        System.out.println(((Customer) storage.getActiveUser()).getCart().getItemList().get(0));
     }
 
     private Item item;

@@ -1,6 +1,7 @@
 package helper;
 
 import javafx.scene.control.Button;
+import javafx.scene.layout.GridPane;
 import model.*;
 
 import java.sql.Connection;
@@ -39,6 +40,10 @@ public class Helper {
         } catch (NumberFormatException e) {
             return false;
         }
+    }
+
+    public static void clearScreen(GridPane gridPane){
+        gridPane.getChildren().removeIf(node -> true);
     }
 
     public static ArrayList<Item> getItems() throws SQLException {
