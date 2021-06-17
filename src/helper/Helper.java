@@ -170,7 +170,14 @@ public class Helper {
         return null;
     }
 
-    public static void getOrder() {
+    public static User findUser(List<User> ul, int id){
+        for(User u: ul){
+            if(id == u.getId()) return u;
+        }
+        return null;
+    }
+
+    public static List<Order> getCustomerOrders() {
         DatabaseConnection connection = new DatabaseConnection();
         Connection connectDB = connection.getConnection();
         Customer activeUser = (Customer) storage.getActiveUser();
@@ -203,11 +210,57 @@ public class Helper {
                 }
                 orders.add(new Order(orderId, items, new Date(lastDate), lastStatus, activeUser));
             }
-            activeUser.setOrder(orders);
+            return orders;
 
         } catch (Exception e) {
             e.printStackTrace();
             e.getCause();
         }
+        return null;
+    }
+
+    public static List<Order> getAllOrders() {
+        DatabaseConnection connection = new DatabaseConnection();
+        Connection connectDB = connection.getConnection();
+        Customer orderOwner;
+        String orderQuery = "SELECT * FROM `order`";
+
+        try {
+            Statement statement = connectDB.createStatement();
+            ResultSet queryResult = statement.executeQuery(orderQuery);
+
+            ArrayList<Order> orders = new ArrayList<>();
+            ArrayList<CartItem> items = new ArrayList<>();
+            if (queryResult.next()) {
+                int orderId = queryResult.getInt("orderId");
+                long lastDate = queryResult.getLong("date");
+                int lastStatus = queryResult.getInt("status");
+                int userId = queryResult.getInt("userId");
+                if (Helper.findItem(storage.getItemList(), queryResult.getInt("itemId")) != null) {
+                    items.add(new CartItem(Helper.findItem(storage.getItemList(), queryResult.getInt("itemId")), queryResult.getInt("quantity")));
+                } else {
+                    System.out.println("Item id: " + queryResult.getInt("itemId") + " couldn't be found in the item list. Therefore item wasn't added to order id: " + queryResult.getInt("orderId"));
+                }
+                orderOwner = (Customer) findUser(storage.getUserList(), userId);
+                while (queryResult.next()) {
+                    if (queryResult.getInt("orderId") != orderId) {
+                        orderOwner = (Customer) findUser(storage.getUserList(), userId);
+                        orders.add(new Order(orderId, items, new Date(lastDate), lastStatus, orderOwner));
+                        items = new ArrayList<>();
+                    }
+                    userId = queryResult.getInt("userId");
+                    orderId = queryResult.getInt("orderId");
+                    lastDate = queryResult.getLong("date");
+                    lastStatus = queryResult.getInt("status");
+                    items.add(new CartItem(Helper.findItem(storage.getItemList(), queryResult.getInt("itemId")), queryResult.getInt("quantity")));
+                }
+                orders.add(new Order(orderId, items, new Date(lastDate), lastStatus, orderOwner));
+            }
+            return orders;
+        } catch (Exception e) {
+            e.printStackTrace();
+            e.getCause();
+        }
+        return  null;
     }
 }

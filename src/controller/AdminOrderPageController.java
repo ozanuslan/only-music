@@ -12,8 +12,6 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
-import model.Administrator;
-import model.Customer;
 import model.Order;
 
 import java.io.IOException;
@@ -56,6 +54,7 @@ public class AdminOrderPageController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        orders = (ArrayList<Order>) Helper.getAllOrders();
         update();
     }
 

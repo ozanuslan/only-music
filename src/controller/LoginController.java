@@ -13,11 +13,13 @@ import model.Administrator;
 import model.Customer;
 import helper.DatabaseConnection;
 import helper.SceneBuilder;
+import model.Order;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import static model.Administrator.authLevel.HIGH;
 import static model.Administrator.authLevel.LOW;
@@ -80,7 +82,7 @@ public class LoginController{
                     if(queryResult.getInt("privilegeLevel") == 0){
                         Customer customer = new Customer(queryResult.getString("username"), queryResult.getString("name"), queryResult.getString("surname"),queryResult.getString("email"),queryResult.getInt("idUser"));
                         storage.setActiveUser(customer);
-                        Helper.getOrder();
+                        customer.setOrder((ArrayList<Order>) Helper.getCustomerOrders());
                         setCustomerAddress(customer,connectDB);
                         sb.createScene("main");
                     }
