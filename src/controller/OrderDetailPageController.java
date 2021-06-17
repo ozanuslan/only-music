@@ -75,7 +75,7 @@ public class OrderDetailPageController implements Initializable {
             e.printStackTrace();
         }
         addressLabel.setText(customer.getAddress().addressToString());
-        totalPriceLabel.setText(String.valueOf(order.getTotalPrice()));
+        totalPriceLabel.setText("$"+String.valueOf(order.getTotalPrice()));
         if(order.getStatus() == 0)
         orderStatusLabel.setText("Pending order");
         else if(order.getStatus() == 1)

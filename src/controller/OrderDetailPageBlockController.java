@@ -29,9 +29,9 @@ public class OrderDetailPageBlockController {
         this.cartItem = cartItem;
         double totalPrice = cartItem.getItem().getPrice() * cartItem.getQuantity();
         itemNameLabel.setText(cartItem.getItem().getName());
-        itemPriceLabel.setText(String.valueOf(cartItem.getItem().getPrice()));
+        itemPriceLabel.setText("$"+String.valueOf(cartItem.getItem().getPrice()));
         quantityLabel.setText("x"+cartItem.getQuantity());
-        totalPriceItemLabel.setText(String.valueOf(totalPrice));
+        totalPriceItemLabel.setText("$"+String.valueOf(totalPrice));
         Image image = new Image(getClass().getResourceAsStream((cartItem.getItem()).getImagePath()));
         itemImage.setImage(image);
     }
