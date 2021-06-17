@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.input.InputMethodEvent;
@@ -38,6 +39,9 @@ public class MainPageController implements Initializable {
 
     @FXML
     private Button logoutButton;
+
+    @FXML
+    private Label errorLabel;
 
     @FXML
     private ScrollPane scrollPane;
