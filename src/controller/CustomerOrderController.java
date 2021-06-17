@@ -33,23 +33,25 @@ public class CustomerOrderController {
             if (queryResult.next()) {
                 int orderId = queryResult.getInt("orderId");
                 long lastDate = queryResult.getLong("date");
+                int lastStatus = queryResult.getInt("status");
                 if (Helper.findItem(storage.getItemList(), queryResult.getInt("itemId")) != null) {
                     items.add(new CartItem(Helper.findItem(storage.getItemList(), queryResult.getInt("itemId")), queryResult.getInt("quantity")));
                 } else {
                     System.out.println("Item id: " + queryResult.getInt("itemId") + " couldn't be found in the item list. Therefore item wasn't added to order id: " + queryResult.getInt("orderId"));
                 }
                 while (queryResult.next()) {
-                    if(queryResult.getInt("orderId") != orderId){
-                        orders.add(new Order(orderId,items,new Date(lastDate)));
+                    if (queryResult.getInt("orderId") != orderId) {
+                        orders.add(new Order(orderId, items, new Date(lastDate), lastStatus));
                         items = new ArrayList<>();
                     }
                     orderId = queryResult.getInt("orderId");
                     lastDate = queryResult.getLong("date");
+                    lastStatus = queryResult.getInt("status");
                     items.add(new CartItem(Helper.findItem(storage.getItemList(), queryResult.getInt("itemId")), queryResult.getInt("quantity")));
                 }
-                orders.add(new Order(orderId,items,new Date(lastDate)));
+                orders.add(new Order(orderId, items, new Date(lastDate), lastStatus));
             }
-            ((Customer)storage.getActiveUser()).setOrder(orders);
+            ((Customer) storage.getActiveUser()).setOrder(orders);
 
         } catch (Exception e) {
             e.printStackTrace();

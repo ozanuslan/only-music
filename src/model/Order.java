@@ -4,14 +4,15 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Order {
-    private int id;
+    private int id, status;
     private ArrayList<CartItem> items = new ArrayList<>();
     private Date date;
 
-    public Order(int id, ArrayList<CartItem> items, Date date) {
+    public Order(int id, ArrayList<CartItem> items, Date date, int status) {
         this.id = id;
         this.items = items;
         this.date = date;
+        this.status = status;
     }
 
     public int getId() {
