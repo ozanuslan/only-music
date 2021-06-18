@@ -10,9 +10,7 @@ import javafx.scene.control.TextField;
 import helper.DatabaseConnection;
 import helper.SceneBuilder;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.Statement;
+import java.sql.*;
 
 public class RegisterController {
 
@@ -39,26 +37,35 @@ public class RegisterController {
 
     @FXML
     private Label labelMessage;
+    DatabaseConnection connection = new DatabaseConnection();
+    Connection connectDB = connection.getConnection();
 
-    SceneBuilder sb = SceneBuilder.getSceneBuilder();
-
-
-    public void registerButtonAction(ActionEvent event){
-
-        if(usernameField.getText().isBlank() && passwordField.getText().isBlank() && nameField.getText().isBlank() && surnameField.getText().isBlank() && emailField.getText().isBlank()){
+    public void registerButtonAction(ActionEvent event) throws SQLException {
+        if(usernameField.getText().isBlank() || passwordField.getText().isBlank() || nameField.getText().isBlank() || surnameField.getText().isBlank() || emailField.getText().isBlank()){
             labelMessage.setText("Please enter empty fields.");
         } else{
-            registerUser();
+            boolean register=true;
+            Statement statement = connectDB.createStatement();
+            String usernameQuery = "SELECT username FROM `user_account`";
+            ResultSet queryResult = statement.executeQuery(usernameQuery);
+            while(queryResult.next()){
+                if(usernameField.getText().equals(queryResult.getString("username"))) register=false;
+            }
+            if(register) {
+                registerUser();
+            }else{
+                labelMessage.getStyleClass().clear();
+                labelMessage.getStyleClass().add("text-color-error");
+                labelMessage.setText("User name is already taken.");
+            }
         }
     }
+
     public void cancelButtonAction(ActionEvent event) throws Exception {
         Helper.goBackward(cancelButton);
     }
 
     public void registerUser(){
-        DatabaseConnection connection = new DatabaseConnection();
-        Connection connectDB = connection.getConnection();
-
         String queryText = "INSERT INTO user_account"+"(username,password,name,surname,email) VALUES "+"(?,?,?,?,?)";
         try {
             Statement st=connectDB.createStatement();
@@ -75,9 +82,5 @@ public class RegisterController {
         }  catch (Exception e3) {
             e3.printStackTrace();
         }
-
-
     }
-
-
 }
