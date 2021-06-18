@@ -33,6 +33,8 @@ public class Helper {
         sb.closeScene(logoutButton);
         storage.setActiveUser(null);
         storage.setLastLocation(new Stack<>());
+        storage.setUserList(new ArrayList<>());
+        storage.setItemList(new ArrayList<>());
         sb.createScene("login");
     }
 

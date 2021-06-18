@@ -1,22 +1,34 @@
 package controller;
 
+import helper.ContentFilter;
 import helper.DatabaseConnection;
 import helper.Helper;
 import helper.Storage;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.control.cell.TextFieldTreeTableCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.Callback;
+import javafx.util.converter.IntegerStringConverter;
+import model.Item;
 
 import java.io.File;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class AdminItemPageController implements Initializable {
@@ -85,29 +97,24 @@ public class AdminItemPageController implements Initializable {
     private TextField searchBox;
 
     @FXML
-    private TableView<?> tableView;
+    private TableView<Item> tableView;
 
     @FXML
-    private TableColumn<?, ?> itemId;
+    private TableColumn<Item, Integer> itemId;
 
     @FXML
-    private TableColumn<?, ?> itemType;
+    private TableColumn<Item, String> itemName;
 
     @FXML
-    private TableColumn<?, ?> itemName;
+    private TableColumn<Item, Double> itemPrice;
 
     @FXML
-    private TableColumn<?, ?> itemPrice;
-
-    @FXML
-    private TableColumn<?, ?> itemStock;
-
-    @FXML
-    private TableColumn<?, ?> itemDescription;
+    private TableColumn<Item, Integer> itemStock;
 
     DatabaseConnection db = new DatabaseConnection();
     Connection connectDB = db.getConnection();
     Storage storage = Storage.getStorage();
+    private ObservableList<Item> itemList = FXCollections.observableArrayList(storage.getItemList());
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -122,8 +129,12 @@ public class AdminItemPageController implements Initializable {
         addItemType.getItems().add("Violin");
         addItemType.getItems().add("Cello");
         addItemType.getItems().add("Amp");
+        loadTable(itemList);
     }
 
+    ObservableList getTableList(String filter){
+        return FXCollections.observableList(ContentFilter.getFilteredItemList(storage.getItemList(), filter));
+    }
     @FXML
     void backwardButtonAction(ActionEvent event) throws Exception {
         Helper.goBackward(backwardButton);
@@ -405,6 +416,37 @@ public class AdminItemPageController implements Initializable {
     //********************ITEM EDIT PAGE************************
 
 
+    public void loadTable(ObservableList<Item> items){
+        tableView.setEditable(true);
 
+        itemName.setCellValueFactory(new PropertyValueFactory<Item,String>("name"));
+        itemId.setCellValueFactory(new PropertyValueFactory<Item,Integer>("id"));
+        itemPrice.setCellValueFactory(new PropertyValueFactory<Item,Double>("price"));
+        itemStock.setCellValueFactory((new PropertyValueFactory<Item, Integer>("stock")));
+        itemStock.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        itemStock.setOnEditCommit(
+                new EventHandler<TableColumn.CellEditEvent<Item, Integer>>() {
+                    @Override
+                    public void handle(TableColumn.CellEditEvent<Item, Integer> t) {
+                        if(t.getNewValue() >= 0){
+                            ((Item) t.getTableView().getItems().get(
+                                    t.getTablePosition().getRow())
+                            ).setStock(t.getNewValue());
+                        }
+                        else{
+                            ((Item) t.getTableView().getItems().get(
+                                    t.getTablePosition().getRow())
+                            ).setStock(t.getOldValue());
+                        }
+                    }
+                }
+        );
+        tableView.setItems(items);
+    }
+
+    @FXML
+    void searchBarTyped(KeyEvent event) {
+        loadTable(getTableList(searchBox.getText()));
+    }
 
 }

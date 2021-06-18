@@ -115,15 +115,13 @@
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
                               <Label layoutX="568.0" layoutY="32.0" styleClass="text-item-price" stylesheets="@../css/style.css" text="Search Box" />
-                              <TextField fx:id="searchBox" layoutX="648.0" layoutY="29.0" prefHeight="25.0" prefWidth="266.0" />
-                              <TableView fx:id="tableView" layoutX="19.0" layoutY="29.0" prefHeight="428.0" prefWidth="500.0">
+                              <TextField fx:id="searchBox" layoutX="648.0" layoutY="29.0" onKeyTyped="#searchBarTyped" prefHeight="25.0" prefWidth="266.0" />
+                              <TableView fx:id="tableView" layoutX="53.0" layoutY="22.0" prefHeight="428.0" prefWidth="498.0">
                                 <columns>
                                   <TableColumn fx:id="itemId" prefWidth="75.0" text="Id" />
-                                    <TableColumn fx:id="itemType" prefWidth="75.0" text="Type" />
-                                  <TableColumn fx:id="itemName" prefWidth="75.0" text="Name" />
-                                    <TableColumn fx:id="itemPrice" prefWidth="75.0" text="Price" />
-                                    <TableColumn fx:id="itemStock" prefWidth="75.0" text="Stock" />
-                                    <TableColumn fx:id="itemDescription" prefWidth="124.0" text="Description" />
+                                  <TableColumn fx:id="itemName" prefWidth="245.0" text="Name" />
+                                    <TableColumn fx:id="itemPrice" minWidth="0.0" prefWidth="89.0" text="Price" />
+                                    <TableColumn fx:id="itemStock" minWidth="0.0" prefWidth="88.0" text="Stock" />
                                 </columns>
                               </TableView>
                            </children>
