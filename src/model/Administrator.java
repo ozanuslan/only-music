@@ -22,8 +22,4 @@ public class Administrator extends User {
         this.auth = auth;
     }
 
-    /*public JsonObject toJsonObject()
-    {
-        return null;
-    }*/
 }
