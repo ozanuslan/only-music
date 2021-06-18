@@ -1,9 +1,6 @@
 package controller;
 
-import helper.ContentFilter;
-import helper.Helper;
-import helper.SceneBuilder;
-import helper.Storage;
+import helper.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,7 +23,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class MainPageController implements Initializable {
+public class MainPageController implements Initializable, DynamicGridController {
 
     @FXML
     private Button cartButton;
@@ -74,6 +71,7 @@ public class MainPageController implements Initializable {
     Storage storage = Storage.getStorage();
     SceneBuilder sceneBuilder = SceneBuilder.getSceneBuilder();
     ArrayList<Item> filteredList = storage.getItemList();
+    GUIHelper guiHelper = GUIHelper.getGuiHelper();
 
     @FXML
     void cartButtonAction(ActionEvent event) throws Exception {
@@ -153,79 +151,11 @@ public class MainPageController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setSelected(menuAllButton);
-        int column = 0;
-        int row = 1;
-        try {
-            int size = filteredList.size();
-            for(int i = 0;i<size;i++){
-                FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("/GUI/itemBlock.fxml"));
-
-                AnchorPane anchorPane = fxmlLoader.load();
-
-                ItemController itemController = fxmlLoader.getController();
-                itemController.setData(filteredList.get(i));
-                itemController.setMainPageController(this);
-
-                if(column == 4){
-                    column = 0;
-                    row++;
-                }
-
-                gridPane.add(anchorPane, column++, row);
-                gridPane.setMinWidth(Region.USE_COMPUTED_SIZE);
-                gridPane.setPrefWidth(Region.USE_COMPUTED_SIZE);
-                gridPane.setMaxWidth(Region.USE_PREF_SIZE);
-
-                gridPane.setMinHeight(Region.USE_COMPUTED_SIZE);
-                gridPane.setPrefHeight(Region.USE_COMPUTED_SIZE);
-                gridPane.setMaxHeight(Region.USE_PREF_SIZE);
-
-                GridPane.setMargin(anchorPane, new Insets(20));
-            }
-
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
+        guiHelper.showDynamicGrid(filteredList, gridPane,this,"itemBlock",20,20);
     }
     public void update(ArrayList<Item> itemList){
         deleteGrid();
-        int column = 0;
-        int row = 1;
-        try {
-            int size = itemList.size();
-            for(int i = 0;i<size;i++){
-                FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("/GUI/itemBlock.fxml"));
-
-                AnchorPane anchorPane = fxmlLoader.load();
-
-                ItemController itemController = fxmlLoader.getController();
-                itemController.setData(itemList.get(i));
-                itemController.setMainPageController(this);
-
-                if(column == 4){
-                    column = 0;
-                    row++;
-                }
-
-                gridPane.add(anchorPane, column++, row);
-                gridPane.setMinWidth(Region.USE_COMPUTED_SIZE);
-                gridPane.setPrefWidth(Region.USE_COMPUTED_SIZE);
-                gridPane.setMaxWidth(Region.USE_PREF_SIZE);
-
-                gridPane.setMinHeight(Region.USE_COMPUTED_SIZE);
-                gridPane.setPrefHeight(Region.USE_COMPUTED_SIZE);
-                gridPane.setMaxHeight(Region.USE_PREF_SIZE);
-
-                GridPane.setMargin(anchorPane, new Insets(10,20,10,20));
-            }
-
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
+        guiHelper.showDynamicGrid(itemList, gridPane,this,"itemBlock",20,20);
     }
     void deleteGrid(){
         gridPane.getChildren().removeIf(node -> true);

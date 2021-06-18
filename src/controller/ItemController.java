@@ -16,7 +16,7 @@ import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import model.*;
 
-public class ItemController {
+public class ItemController implements BlockController {
 
     @FXML
     private Label itemNameLabel;
@@ -55,16 +55,16 @@ public class ItemController {
 
     private Item item;
 
-    public void setData(Item item) {
-        this.item = item;
+    public <T> void setData(T data) {
+        this.item = (Item) data;
         itemNameLabel.setText(item.getName());
         itemPriceLabel.setText("$" + String.valueOf(item.getPrice()));
         Image image = new Image(getClass().getResourceAsStream(((Instrument) item).getImagePath()));
         itemImage.setImage(image);
     }
 
-    public void setMainPageController(MainPageController mainPageController) {
-        this.mainPageController = mainPageController;
+    public void setController(DynamicGridController dynamicGridController) {
+        this.mainPageController = (MainPageController) dynamicGridController;
     }
 
 }

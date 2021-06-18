@@ -16,7 +16,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class OrderBlockCustomerController {
+public class OrderBlockCustomerController implements BlockController{
 
     @FXML
     private Label priceLabel;
@@ -36,16 +36,16 @@ public class OrderBlockCustomerController {
     DatabaseConnection connection = new DatabaseConnection();
     Connection connectDB = connection.getConnection();
 
-    void setOrder(Order order) {
-        this.order = order;
+    public <T> void setData(T data) {
+        this.order = (Order) data;
         priceLabel.setText("$" + order.getTotalPrice());
         if (order.getStatus() != 0) {
             cancelButton.setVisible(false);
         }
     }
 
-    void setCustomerOrderController(CustomerOrderController customerOrderController) {
-        this.customerOrderController = customerOrderController;
+    public void setController(DynamicGridController dynamicGridController) {
+        this.customerOrderController = (CustomerOrderController) dynamicGridController;
     }
 
     @FXML

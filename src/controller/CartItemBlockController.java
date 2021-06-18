@@ -12,7 +12,7 @@ import model.Cart;
 import model.CartItem;
 import model.Customer;
 
-public class CartItemBlockController{
+public class CartItemBlockController implements BlockController{
 
     @FXML
     private ImageView itemImage;
@@ -44,8 +44,8 @@ public class CartItemBlockController{
     SceneBuilder sceneBuilder = SceneBuilder.getSceneBuilder();
     CartPageController cartPageController;
 
-    void setCartItem(CartItem cartItem){
-        this.cartitem = cartItem;
+    public <T> void setData(T data){
+        this.cartitem = (CartItem) data;
         itemNameLabel.setText(cartitem.getItem().getName());
         itemPriceLabel.setText("$"+String.valueOf(cartitem.getItem().getPrice()));
         itemStockLabel.setText(String.valueOf(cartitem.getItem().getStock()));
@@ -54,17 +54,16 @@ public class CartItemBlockController{
         itemImage.setImage(image);
     }
 
-    void setCartPageController(CartPageController cartPageController){
-        this.cartPageController = cartPageController;
+    public void setController(DynamicGridController dynamicGridController){
+        this.cartPageController = (CartPageController) dynamicGridController;
     }
 
     @FXML
     void cancelButtonAction(ActionEvent event) {
         Customer customer = (Customer)storage.getActiveUser();
         Cart cart = customer.getCart();
-        cartPageController.reArrangeGrid(cartitem.getRow());
         cart.deleteItem(cartitem);
-        cartPageController.setTotalCartPrice();
+        cartPageController.update();
     }
 
     @FXML

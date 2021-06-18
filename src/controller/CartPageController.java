@@ -1,9 +1,6 @@
 package controller;
 
-import helper.DatabaseConnection;
-import helper.Helper;
-import helper.SceneBuilder;
-import helper.Storage;
+import helper.*;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -23,11 +20,10 @@ import model.Order;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
 
-public class CartPageController implements Initializable {
+public class CartPageController implements Initializable, DynamicGridController {
 
     public static CartPageController cartPageController;
 
@@ -62,41 +58,17 @@ public class CartPageController implements Initializable {
     Storage storage = Storage.getStorage();
     Customer customer = (Customer) storage.getActiveUser();
     Cart cart = customer.getCart();
+    GUIHelper guiHelper = GUIHelper.getGuiHelper();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         update();
-        setTotalCartPrice();
     }
 
     public void update() {
-        try {
-            int size = cart.getItemList().size();
-            for (int i = 0; i < size; i++) {
-                FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("/GUI/cartItemBlock.fxml"));
-
-                AnchorPane anchorPane = fxmlLoader.load();
-
-                CartItemBlockController cartItemBlockController = fxmlLoader.getController();
-                cart.getItemList().get(i).setRow(i);
-                cartItemBlockController.setCartItem(cart.getItemList().get(i));
-                cartItemBlockController.setCartPageController(this);
-
-                gridPane.add(anchorPane, 0, i);
-                gridPane.setMinWidth(Region.USE_COMPUTED_SIZE);
-                gridPane.setPrefWidth(Region.USE_COMPUTED_SIZE);
-                gridPane.setMaxWidth(Region.USE_PREF_SIZE);
-
-                gridPane.setMinHeight(Region.USE_COMPUTED_SIZE);
-                gridPane.setPrefHeight(Region.USE_COMPUTED_SIZE);
-                gridPane.setMaxHeight(Region.USE_PREF_SIZE);
-
-                GridPane.setMargin(anchorPane, new Insets(20));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        deleteGrid();
+        guiHelper.showDynamicGrid(cart.getItemList(), gridPane,this,"cartItemBlock",20,20);
+        setTotalCartPrice();
     }
 
     void setTotalCartPrice() {
@@ -107,8 +79,8 @@ public class CartPageController implements Initializable {
         totalPriceLabel.setText("$" + Integer.toString(sum));
     }
 
-    void reArrangeGrid(int deletedRow) {
-        gridPane.getChildren().removeIf(node -> GridPane.getRowIndex(node) == deletedRow);
+    void deleteGrid() {
+        gridPane.getChildren().removeIf(node -> true);
     }
 
     @FXML
