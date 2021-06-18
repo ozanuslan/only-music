@@ -74,7 +74,7 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </Button>
-            <Label fx:id="labelMessage" layoutX="164.0" layoutY="377.0" prefHeight="17.0" prefWidth="172.0" textFill="WHITE">
+            <Label fx:id="labelMessage" layoutX="114.0" layoutY="376.0" prefHeight="20.0" prefWidth="273.0" stylesheets="@../css/style.css" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
