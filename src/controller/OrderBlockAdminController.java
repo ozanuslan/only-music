@@ -15,7 +15,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class OrderBlockAdminController {
+public class OrderBlockAdminController implements BlockController {
 
     @FXML
     private Label receiverLabel;
@@ -42,8 +42,8 @@ public class OrderBlockAdminController {
     DatabaseConnection connection = new DatabaseConnection();
     Connection connectDB = connection.getConnection();
 
-    void setOrder(Order order){
-        this.order = order;
+    public <T> void  setData(T data){
+        this.order =(Order) data;
         receiverLabel.setText(order.getCustomer().getName());
         priceLabel.setText("$"+String.valueOf(order.getTotalPrice()));
         if(order.getStatus() != 0){
@@ -51,8 +51,8 @@ public class OrderBlockAdminController {
             checkButton.setVisible(false);
         }
     }
-    void setAdminOrderPageController(AdminOrderPageController adminOrderPageController){
-        this.adminOrderPageController = adminOrderPageController;
+    public void setController(DynamicGridController adminOrderPageController){
+        this.adminOrderPageController = (AdminOrderPageController) adminOrderPageController;
     }
 
     @FXML

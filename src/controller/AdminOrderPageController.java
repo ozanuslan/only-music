@@ -1,25 +1,21 @@
 package controller;
 
+import helper.GUIHelper;
 import helper.Helper;
 import helper.Storage;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Region;
 import model.Order;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class AdminOrderPageController implements Initializable {
+public class AdminOrderPageController implements Initializable, DynamicGridController {
 
     @FXML
     private Button backwardButton;
@@ -39,6 +35,7 @@ public class AdminOrderPageController implements Initializable {
     @FXML
     private GridPane completedOrdersGrid;
 
+    GUIHelper guiHelper = GUIHelper.getGuiHelper();
     Storage storage = Storage.getStorage();
     ArrayList<Order> orders = new ArrayList<>();
 
@@ -59,46 +56,7 @@ public class AdminOrderPageController implements Initializable {
     }
 
     public void update(){
-        int rowPending = 0;
-        int rowCompleted = 0;
-        try {
-            int size = orders.size();
-            for(int i = 0;i<size;i++){
-                FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("/GUI/order-block-admin.fxml"));
-
-                AnchorPane anchorPane = fxmlLoader.load();
-
-                OrderBlockAdminController orderBlockAdminController = fxmlLoader.getController();
-                orderBlockAdminController.setOrder(orders.get(i));
-                orderBlockAdminController.setAdminOrderPageController(this);
-                if(orders.get(i).getStatus() == 0){
-                    pendingOrdersGrid.add(anchorPane, 0, rowPending++);
-                    pendingOrdersGrid.setMinWidth(Region.USE_COMPUTED_SIZE);
-                    pendingOrdersGrid.setPrefWidth(Region.USE_COMPUTED_SIZE);
-                    pendingOrdersGrid.setMaxWidth(Region.USE_PREF_SIZE);
-
-                    pendingOrdersGrid.setMinHeight(Region.USE_COMPUTED_SIZE);
-                    pendingOrdersGrid.setPrefHeight(Region.USE_COMPUTED_SIZE);
-                    pendingOrdersGrid.setMaxHeight(Region.USE_PREF_SIZE);
-                }
-                else{
-                    completedOrdersGrid.add(anchorPane, 0, rowCompleted++);
-                    completedOrdersGrid.setMinWidth(Region.USE_COMPUTED_SIZE);
-                    completedOrdersGrid.setPrefWidth(Region.USE_COMPUTED_SIZE);
-                    completedOrdersGrid.setMaxWidth(Region.USE_PREF_SIZE);
-
-                    completedOrdersGrid.setMinHeight(Region.USE_COMPUTED_SIZE);
-                    completedOrdersGrid.setPrefHeight(Region.USE_COMPUTED_SIZE);
-                    completedOrdersGrid.setMaxHeight(Region.USE_PREF_SIZE);
-                }
-                GridPane.setMargin(anchorPane, new Insets(20,60,20,60));
-
-            }
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
+        guiHelper.showDoubleDynamicGrid(orders,pendingOrdersGrid,completedOrdersGrid,this,"order-block-admin",20,60);
     }
     void deleteGrid(){
         Helper.clearScreen(pendingOrdersGrid);
