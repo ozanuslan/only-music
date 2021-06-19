@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import model.Address;
 import model.Customer;
 
 import java.sql.*;
@@ -99,17 +100,17 @@ public class CustomerProfileEditController {
                 errorLabel.getStyleClass().clear();
                 errorLabel.getStyleClass().add("text-item-price");
                 errorLabel.getStyleClass().add("text-color-success");
-            }else{
-                if(!oldPasswordInput.getText().equals(customerPassword)){
+            } else {
+                if (!oldPasswordInput.getText().equals(customerPassword)) {
                     errorLabel.setText("Your entered your current password wrong");
-                }else if(!newPasswordInput.getText().equals(rewritePasswordInput.getText())){
+                } else if (!newPasswordInput.getText().equals(rewritePasswordInput.getText())) {
                     errorLabel.setText("Please rewrite your new password correctly");
                 }
                 errorLabel.getStyleClass().clear();
                 errorLabel.getStyleClass().add("text-item-price");
                 errorLabel.getStyleClass().add("text-color-error");
             }
-        }else{
+        } else {
             errorLabel.setText("Please enter all inputs properly");
             errorLabel.getStyleClass().clear();
             errorLabel.getStyleClass().add("text-item-price");
@@ -136,8 +137,8 @@ public class CustomerProfileEditController {
                 ps.setString(5, phoneNumberInput.getText());
                 ps.setString(6, postCodeInput.getText());
                 ps.executeUpdate();
-            }else{
-                String updateQuery="UPDATE `address` SET `city` = ?, `province` = ?, `address` = ?, `postCode` = ? WHERE (`idUser` = ?)";
+            } else {
+                String updateQuery = "UPDATE `address` SET `city` = ?, `province` = ?, `address` = ?, `postCode` = ? WHERE (`idUser` = ?)";
                 PreparedStatement ps = connectDB.prepareStatement(updateQuery);
                 ps.setString(1, cityInput.getText());
                 ps.setString(2, provinceInput.getText());
@@ -147,6 +148,7 @@ public class CustomerProfileEditController {
                 ps.setString(6, Integer.toString(customer.getId()));
                 ps.executeUpdate();
             }
+            customer.setAddress(new Address(cityInput.getText(), provinceInput.getText(), addressInput.getText(), phoneNumberInput.getText(), Integer.parseInt(postCodeInput.getText())));
             errorLabel.setText("Your address is successfully set");
             errorLabel.getStyleClass().clear();
             errorLabel.getStyleClass().add("text-item-price");
