@@ -259,6 +259,7 @@ public class Helper {
                     lastStatus = queryResult.getInt("status");
                     items.add(new CartItem(Helper.findItem(storage.getItemList(), queryResult.getInt("itemId")), queryResult.getInt("quantity")));
                 }
+                orderOwner = (Customer) findUser(storage.getUserList(), userId);
                 orders.add(new Order(orderId, items, new Date(lastDate), lastStatus, orderOwner));
             }
             return orders;
