@@ -25,6 +25,9 @@ public class OrderBlockCustomerController implements BlockController{
     private Button orderDetailsButton;
 
     @FXML
+    private Label orderStatusLabel;
+
+    @FXML
     private Button cancelButton;
 
     private Order order;
@@ -41,6 +44,18 @@ public class OrderBlockCustomerController implements BlockController{
         priceLabel.setText("$" + order.getTotalPrice());
         if (order.getStatus() != 0) {
             cancelButton.setVisible(false);
+            if(order.getStatus() == 2){
+                orderStatusLabel.getStyleClass().clear();
+                orderStatusLabel.getStyleClass().add("text-item-price");
+                orderStatusLabel.getStyleClass().add("text-color-error");
+                orderStatusLabel.setText("Canceled");
+            }
+            else {
+                orderStatusLabel.getStyleClass().clear();
+                orderStatusLabel.getStyleClass().add("text-item-price");
+                orderStatusLabel.getStyleClass().add("text-color-success");
+                orderStatusLabel.setText("Completed");
+            }
         }
     }
 

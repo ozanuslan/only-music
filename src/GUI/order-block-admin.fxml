@@ -30,6 +30,7 @@
             <String fx:value="icon-color-cancel" />
          </styleClass>
       </Button>
+      <Label fx:id="orderStatusLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="278.0" layoutY="33.0" prefHeight="17.0" prefWidth="110.0" stylesheets="@../css/style.css" />
    </children>
    <styleClass>
       <String fx:value="background-color-white08" />
