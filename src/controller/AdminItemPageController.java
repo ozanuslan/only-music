@@ -435,7 +435,6 @@ public class AdminItemPageController implements Initializable {
                             item.setStock(t.getNewValue());
                             String updateQuery = "UPDATE `item` SET `stock` = " + t.getNewValue() + " WHERE idItem = " + item.getId();
                             try {
-                                Statement statement = connectDB.createStatement();
                                 PreparedStatement ps = connectDB.prepareStatement(updateQuery);
                                 ps.executeUpdate();
                             } catch (SQLException throwables) {

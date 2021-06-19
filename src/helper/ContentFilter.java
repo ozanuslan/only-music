@@ -81,7 +81,7 @@ public class ContentFilter {
                     break;
                 case HIGH_ADMIN:
                     try {
-                        if (((Administrator) user).getAuth().equals(Administrator.authLevel.HIGH)) {
+                        if (((Administrator) user).getPrivilegeLevel() == 2) {
                             list.add((Administrator) user);
                         }
                     } catch (Exception e) {
@@ -89,7 +89,7 @@ public class ContentFilter {
                     break;
                 case LOW_ADMIN:
                     try {
-                        if (((Administrator) user).getAuth().equals(Administrator.authLevel.LOW)) {
+                        if (((Administrator) user).getPrivilegeLevel() == 1) {
                             list.add((Administrator) user);
                         }
                     } catch (Exception e) {

@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import model.Administrator;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -35,14 +36,13 @@ public class AdminController implements Initializable {
     private AnchorPane userPane;
 
 
-
     SceneBuilder sb = SceneBuilder.getSceneBuilder();
     Storage storage = Storage.getStorage();
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        welcomeAdminLabel.setText("Welcome "+storage.getActiveUser().getName());
+        welcomeAdminLabel.setText("Welcome " + storage.getActiveUser().getName());
     }
 
     @FXML
@@ -67,9 +67,15 @@ public class AdminController implements Initializable {
 
     @FXML
     void usersClicked(MouseEvent event) throws Exception {
-        sb.closeScene(logoutButton);
-        storage.addLastLocation("adminPanel");
-        sb.createScene("adminPanel-users");
+        if (((Administrator) storage.getActiveUser()).getPrivilegeLevel() == 2) {
+            sb.closeScene(logoutButton);
+            storage.addLastLocation("adminPanel");
+            sb.createScene("adminPanel-users");
+        } else {
+            errorLabel.setText("You have no privilege to enter this page");
+            errorLabel.getStyleClass().clear();
+            errorLabel.getStyleClass().add("text-item-name");
+            errorLabel.getStyleClass().add("text-color-error");
+        }
     }
-
 }

@@ -8,8 +8,8 @@ public class Customer extends User {
     private Cart cart = new Cart();
     private Address address;
 
-    public Customer(String username,String name, String surname, String email, int id) {
-        super(username,name, surname, email,id);
+    public Customer(String username,String name, String surname, String email, int id,int privilegeLevel) {
+        super(username,name, surname, email,id,privilegeLevel);
     }
 
     public Address getAddress() {

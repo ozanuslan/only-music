@@ -14,10 +14,15 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.KeyEvent;
+import javafx.util.converter.IntegerStringConverter;
+import model.Administrator;
 import model.User;
 
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ResourceBundle;
 
 public class AdminUserPageController implements Initializable {
@@ -53,7 +58,7 @@ public class AdminUserPageController implements Initializable {
     private TableColumn<User, String> surnameColumn;
 
     @FXML
-    private TableColumn<User, Enum> privilegeLevelColumn;
+    private TableColumn<User, Integer> privilegeLevelColumn;
 
     @FXML
     private TextField nameInput;
@@ -82,8 +87,36 @@ public class AdminUserPageController implements Initializable {
     }
 
     @FXML
-    void addUserButtonAction(ActionEvent event) {
-
+    void addUserButtonAction(ActionEvent event) throws SQLException {
+        if (nameInput.getText().isBlank() || surnameInput.getText().isBlank() || usernameInput.getText().isBlank() || passwordInput.getText().isBlank() || privilegeLevelInput.getText().isBlank() || !Helper.isPositiveNumber(privilegeLevelInput.getText())) {
+            errorLabel.setText("Please fill all the blanks properly");
+            errorLabel.getStyleClass().clear();
+            errorLabel.getStyleClass().add("text-item-name");
+            errorLabel.getStyleClass().add("text-color-error");
+        } else {
+            if (Integer.parseInt(privilegeLevelInput.getText()) > 2 || Integer.parseInt(privilegeLevelInput.getText()) < 1) {
+                errorLabel.setText("Privilege level can only be 1 or 2");
+                errorLabel.getStyleClass().clear();
+                errorLabel.getStyleClass().add("text-item-name");
+                errorLabel.getStyleClass().add("text-color-error");
+            } else {
+                String queryText = "INSERT INTO user_account" + "(username,password,name,surname,email,privilegeLevel) VALUES " + "(?,?,?,?,?,?)";
+                PreparedStatement ps = connectDB.prepareStatement(queryText);
+                ps.setString(1, usernameInput.getText());
+                ps.setString(2, passwordInput.getText());
+                ps.setString(3, nameInput.getText());
+                ps.setString(4, surnameInput.getText());
+                ps.setString(5, emailInput.getText());
+                ps.setString(6, privilegeLevelInput.getText());
+                ps.executeUpdate();
+                errorLabel.setText("New admin successfully created");
+                errorLabel.getStyleClass().clear();
+                errorLabel.getStyleClass().add("text-item-name");
+                errorLabel.getStyleClass().add("text-color-success");
+                userList = FXCollections.observableArrayList(Helper.getAllUsers());
+                loadTable(userList);
+            }
+        }
     }
 
     @FXML
@@ -101,26 +134,38 @@ public class AdminUserPageController implements Initializable {
         loadTable(getTableList(searchBox.getText()));
     }
 
-    ObservableList getTableList(String filter){
+    ObservableList getTableList(String filter) {
         return FXCollections.observableList(ContentFilter.getFilteredUserList(storage.getUserList(), filter));
     }
 
-    public void loadTable(ObservableList<User> users){
+    public void loadTable(ObservableList<User> users) {
         tableView.setEditable(true);
 
-        idColumn.setCellValueFactory(new PropertyValueFactory<User,Integer>("id"));
-        nameColumn.setCellValueFactory(new PropertyValueFactory<User,String>("name"));
-        surnameColumn.setCellValueFactory(new PropertyValueFactory<User,String>("surname"));
+        idColumn.setCellValueFactory(new PropertyValueFactory<User, Integer>("id"));
+        nameColumn.setCellValueFactory(new PropertyValueFactory<User, String>("name"));
+        surnameColumn.setCellValueFactory(new PropertyValueFactory<User, String>("surname"));
         usernameColumn.setCellValueFactory((new PropertyValueFactory<User, String>("username")));
-        //privilegeLevelColumn.setCellValueFactory((new PropertyValueFactory<User, Enum>("privilegeLevel")));
-        nameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-        nameColumn.setOnEditCommit(
-                new EventHandler<TableColumn.CellEditEvent<User, String>>() {
+        privilegeLevelColumn.setCellValueFactory((new PropertyValueFactory<User, Integer>("privilegeLevel")));
+        privilegeLevelColumn.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        privilegeLevelColumn.setOnEditCommit(
+                new EventHandler<TableColumn.CellEditEvent<User, Integer>>() {
                     @Override
-                    public void handle(TableColumn.CellEditEvent<User, String> t) {
-                            ((User) t.getTableView().getItems().get(
-                                    t.getTablePosition().getRow())
-                            ).setName(t.getNewValue());
+                    public void handle(TableColumn.CellEditEvent<User, Integer> t) {
+                        User user = t.getTableView().getItems().get(t.getTablePosition().getRow());
+                        if (user instanceof Administrator && !user.getUsername().equals(storage.getActiveUser().getUsername()) && t.getNewValue() > 0 && t.getNewValue() < 3) {
+                            if (!t.getNewValue().equals(t.getOldValue())) {
+                                Administrator admin = (Administrator) user;
+                                admin = (Administrator) Helper.findUser(storage.getUserList(), admin.getId());
+                                admin.setPrivilegeLevel(t.getNewValue());
+                                String updateQuery = "UPDATE `user_account` SET `privilegeLevel` = " + t.getNewValue() + " WHERE idUser = " + admin.getId();
+                                try {
+                                    PreparedStatement ps = connectDB.prepareStatement(updateQuery);
+                                    ps.executeUpdate();
+                                } catch (SQLException throwables) {
+                                    throwables.printStackTrace();
+                                }
+                            }
+                        }
                     }
                 }
         );

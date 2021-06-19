@@ -1,15 +1,16 @@
 package model;
 
 public abstract class User {
-    protected String username,name, surname, email;
-    protected int id;
+    protected String username, name, surname, email;
+    protected int id, privilegeLevel;
 
-    public User(String username,String name, String surname, String email, int id) {
+    public User(String username, String name, String surname, String email, int id, int privilegeLevel) {
         this.username = username;
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.id = id;
+        this.privilegeLevel = privilegeLevel;
     }
 
     public String getName() {
@@ -51,4 +52,8 @@ public abstract class User {
     public void setUsername(String username) {
         this.username = username;
     }
+
+    public int getPrivilegeLevel() { return privilegeLevel; }
+
+    public void setPrivilegeLevel(int privilegeLevel) {this.privilegeLevel = privilegeLevel; }
 }

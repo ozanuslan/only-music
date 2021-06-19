@@ -8,7 +8,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.event.ActionEvent;
-import model.Address;
 import model.Administrator;
 import model.Customer;
 import helper.DatabaseConnection;
@@ -20,9 +19,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-
-import static model.Administrator.authLevel.HIGH;
-import static model.Administrator.authLevel.LOW;
 
 
 public class LoginController{
@@ -80,7 +76,7 @@ public class LoginController{
 
                     sb.closeScene(loginButton);
                     if(queryResult.getInt("privilegeLevel") == 0){
-                        Customer customer = new Customer(queryResult.getString("username"), queryResult.getString("name"), queryResult.getString("surname"),queryResult.getString("email"),queryResult.getInt("idUser"));
+                        Customer customer = new Customer(queryResult.getString("username"), queryResult.getString("name"), queryResult.getString("surname"),queryResult.getString("email"),queryResult.getInt("idUser"),queryResult.getInt("privilegeLevel"));
                         storage.setActiveUser(customer);
                         customer.setOrder((ArrayList<Order>) Helper.getCustomerOrders());
                         Helper.setCustomerAddress(customer,connectDB);
@@ -89,7 +85,7 @@ public class LoginController{
 
                     else{
                         Administrator admin = new Administrator(queryResult.getString("username"), queryResult.getString("name"),
-                                queryResult.getString("surname"),queryResult.getString("email"),queryResult.getInt("idUser"),queryResult.getInt("privilegeLevel")> 1 ? HIGH : LOW);
+                                queryResult.getString("surname"),queryResult.getString("email"),queryResult.getInt("idUser"),queryResult.getInt("privilegeLevel")> 1 ? 2 : 1);
                         storage.setActiveUser(admin);
                         storage.setUserList(Helper.getAllUsers());
                         sb.createScene("adminPanel");

@@ -13,8 +13,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Stack;
 
-import static model.Administrator.authLevel.HIGH;
-import static model.Administrator.authLevel.LOW;
 
 public class Helper {
 
@@ -283,13 +281,13 @@ public class Helper {
 
             while(queryResult.next()){
                     if(queryResult.getInt("privilegeLevel") == 0){
-                        Customer customer = new Customer(queryResult.getString("username"), queryResult.getString("name"), queryResult.getString("surname"),queryResult.getString("email"),queryResult.getInt("idUser"));
+                        Customer customer = new Customer(queryResult.getString("username"), queryResult.getString("name"), queryResult.getString("surname"),queryResult.getString("email"),queryResult.getInt("idUser"),queryResult.getInt("privilegeLevel"));
                         setCustomerAddress(customer,connectDB);
                         users.add(customer);
                     }
                     else{
                         Administrator admin = new Administrator(queryResult.getString("username"), queryResult.getString("name"),
-                                queryResult.getString("surname"),queryResult.getString("email"),queryResult.getInt("idUser"),queryResult.getInt("privilegeLevel")> 1 ? HIGH : LOW);
+                                queryResult.getString("surname"),queryResult.getString("email"),queryResult.getInt("idUser"),queryResult.getInt("privilegeLevel")> 1 ? 2 : 1);
                         users.add(admin);
                     }
 

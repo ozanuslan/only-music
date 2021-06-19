@@ -68,7 +68,6 @@ public class RegisterController {
     public void registerUser(){
         String queryText = "INSERT INTO user_account"+"(username,password,name,surname,email) VALUES "+"(?,?,?,?,?)";
         try {
-            Statement st=connectDB.createStatement();
             PreparedStatement ps=connectDB.prepareStatement(queryText);
             ps.setString(1, usernameField.getText());
             ps.setString(2, passwordField.getText());
