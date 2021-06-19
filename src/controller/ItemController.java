@@ -59,7 +59,7 @@ public class ItemController implements BlockController {
         this.item = (Item) data;
         itemNameLabel.setText(item.getName());
         itemPriceLabel.setText("$" + String.valueOf(item.getPrice()));
-        Image image = new Image(getClass().getResourceAsStream(((Instrument) item).getImagePath()));
+        Image image = new Image(getClass().getResourceAsStream((item).getImagePath()));
         itemImage.setImage(image);
     }
 
