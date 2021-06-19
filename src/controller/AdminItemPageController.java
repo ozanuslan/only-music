@@ -152,6 +152,10 @@ public class AdminItemPageController implements Initializable {
             if (inputValidation()) {
                 String queryText = "INSERT INTO item" + "(price,name,attribute1,attribute2,attribute3,attribute4,stock,imagePath,type) VALUES " + "(?,?,?,?,?,?,?,?,?)";
                 try {
+                    String imagePath;
+                    if(imagePathInput.getText().isBlank()){
+                        imagePath="/images/only-music-item.png";
+                    }else imagePath = imagePathInput.getText();
 
                     Statement st = connectDB.createStatement();
                     PreparedStatement ps = connectDB.prepareStatement(queryText);
@@ -163,7 +167,7 @@ public class AdminItemPageController implements Initializable {
                     ps.setString(5, addAttribute3.getText());
                     ps.setString(6, addAttribute4.getText());
                     ps.setString(7, addStockInput.getText());
-                    ps.setString(8, imagePathInput.getText());
+                    ps.setString(8, imagePath);
                     ps.setString(9, addItemType.getValue());
 
                     ps.executeUpdate();
