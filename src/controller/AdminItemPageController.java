@@ -27,6 +27,7 @@ import java.io.File;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -146,7 +147,7 @@ public class AdminItemPageController implements Initializable {
     }
 
     @FXML
-    void addItemButtonAction(ActionEvent event) {
+    void addItemButtonAction(ActionEvent event) throws SQLException {
         if(addItemNameInput.getText().isBlank() || addPriceInput.getText().isBlank() || addAttribute1.getText().isBlank() || addAttribute2.getText().isBlank() || addAttribute3.getText().isBlank() || addAttribute4.getText().isBlank() || addStockInput.getText().isBlank() || addItemType.getValue() == null){
             errorLabel.setText("Please fill the empty spaces.");
         }
@@ -175,7 +176,8 @@ public class AdminItemPageController implements Initializable {
                     e3.printStackTrace();
                     errorLabel.setText("Item name must be different.");
                 }
-
+                itemList = FXCollections.observableArrayList(Helper.getItems());
+                loadTable(itemList);
             }
         }
     }
