@@ -1,15 +1,9 @@
 package helper;
 
-import controller.ItemController;
-import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.scene.control.Button;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Region;
 import model.*;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -227,7 +221,7 @@ public class Helper {
             e.printStackTrace();
             e.getCause();
         }
-        return null;
+        return new ArrayList<>();
     }
 
     public static List<Order> getAllOrders() {
@@ -272,7 +266,7 @@ public class Helper {
             e.printStackTrace();
             e.getCause();
         }
-        return  null;
+        return new ArrayList<>();
     }
 
     public static ArrayList<User> getAllUsers() throws SQLException {
