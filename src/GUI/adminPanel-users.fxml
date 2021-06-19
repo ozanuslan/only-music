@@ -56,7 +56,7 @@
                               <TableColumn fx:id="privilegeLevelColumn" minWidth="0.0" prefWidth="208.0" text="Privilege Level" />
                           </columns>
                       </TableView>
-            <VBox alignment="CENTER_LEFT" layoutX="643.0" layoutY="96.0" prefHeight="309.0" prefWidth="299.0" spacing="8.0">
+            <VBox alignment="CENTER_LEFT" layoutX="643.0" layoutY="84.0" prefHeight="309.0" prefWidth="299.0" spacing="6.0">
                <children>
                   <Label styleClass="text-item-name" stylesheets="@../css/style.css" text="Name" />
                   <TextField fx:id="nameInput" prefHeight="25.0" prefWidth="225.0" />
@@ -64,6 +64,8 @@
                   <TextField fx:id="surnameInput" prefHeight="25.0" prefWidth="225.0" />
                   <Label styleClass="text-item-name" stylesheets="@../css/style.css" text="Username" />
                   <TextField fx:id="usernameInput" prefHeight="25.0" prefWidth="225.0" />
+                  <Label styleClass="text-item-name" stylesheets="@../css/style.css" text="Email" />
+                  <TextField fx:id="emailInput" prefHeight="25.0" prefWidth="225.0" />
                   <Label styleClass="text-item-name" stylesheets="@../css/style.css" text="Password" />
                   <PasswordField fx:id="passwordInput" prefHeight="25.0" prefWidth="226.0" />
                   <Label styleClass="text-item-name" stylesheets="@../css/style.css" text="Privilege Level" />

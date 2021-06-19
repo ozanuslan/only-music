@@ -35,6 +35,9 @@ public class AdminUserPageController implements Initializable {
     private TextField searchBox;
 
     @FXML
+    private TextField emailInput;
+
+    @FXML
     private TableView<User> tableView;
 
     @FXML
