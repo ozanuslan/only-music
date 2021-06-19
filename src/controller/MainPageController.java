@@ -52,7 +52,6 @@ public class MainPageController implements Initializable, DynamicGridController 
     @FXML
     private Button menuAmpButton;
 
-
     @FXML
     private Button userButton;
 

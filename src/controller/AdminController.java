@@ -29,6 +29,9 @@ public class AdminController implements Initializable {
     private AnchorPane itemPane;
 
     @FXML
+    private Label errorLabel;
+
+    @FXML
     private AnchorPane userPane;
 
 
