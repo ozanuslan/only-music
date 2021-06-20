@@ -65,6 +65,14 @@ public class ItemPageController implements Initializable {
 
         Image image = new Image(getClass().getResourceAsStream(item.getImagePath()));
         itemImage.setImage(image);
+        if(item.getStock() == 0){
+            cartButton.getStyleClass().clear();
+            cartButton.getStyleClass().add("text-item-name");
+            cartButton.getStyleClass().add("icon-color-cancel");
+            cartButton.getStyleClass().add("text-color-white");
+            cartButton.getStyleClass().add("radius-30");
+            cartButton.setText("Out of Stock");
+        }
     }
 
     @FXML

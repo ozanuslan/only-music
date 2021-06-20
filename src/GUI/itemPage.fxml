@@ -68,7 +68,7 @@
                   </VBox>
                </children>
             </HBox>
-            <Button layoutX="784.0" layoutY="403.0" mnemonicParsing="false" onAction="#addToCartAction" prefHeight="30.0" prefWidth="167.0" stylesheets="@../css/style.css" text="Add to Cart">
+            <Button fx:id="cartButton" alignment="CENTER" contentDisplay="CENTER" layoutX="784.0" layoutY="403.0" mnemonicParsing="false" onAction="#addToCartAction" prefHeight="30.0" prefWidth="167.0" stylesheets="@../css/style.css" text="Add to Cart">
                <styleClass>
                   <String fx:value="icon-color-blue" />
                   <String fx:value="radius-30" />

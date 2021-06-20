@@ -66,7 +66,7 @@ public class OrderDetailPageController implements DynamicGridController,Initiali
         else if(order.getStatus() == 1)
             orderStatusLabel.setText("Completed order");
         else
-            orderStatusLabel.setText("Canceled order");
+            orderStatusLabel.setText("Cancelled order");
 
         orderDateLabel.setText(order.getDate().toString());
     }

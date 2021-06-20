@@ -61,6 +61,13 @@ public class ItemController implements BlockController {
         itemPriceLabel.setText("$" + String.valueOf(item.getPrice()));
         Image image = new Image(getClass().getResourceAsStream((item).getImagePath()));
         itemImage.setImage(image);
+        if(item.getStock() == 0){
+            addCardButton.getStyleClass().clear();
+            addCardButton.getStyleClass().add("icon-color-cancel");
+            addCardButton.getStyleClass().add("shadow");
+            addCardButton.getStyleClass().add("radius-30");
+            addCardButton.setText("Out of Stock");
+        }
     }
 
     public void setController(DynamicGridController dynamicGridController) {

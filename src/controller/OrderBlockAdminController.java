@@ -56,7 +56,7 @@ public class OrderBlockAdminController implements BlockController {
                 orderStatusLabel.getStyleClass().clear();
                 orderStatusLabel.getStyleClass().add("text-item-price");
                 orderStatusLabel.getStyleClass().add("text-color-error");
-                orderStatusLabel.setText("Canceled");
+                orderStatusLabel.setText("Cancelled");
             }
             else {
                 orderStatusLabel.getStyleClass().clear();
