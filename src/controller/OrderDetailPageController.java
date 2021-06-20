@@ -1,5 +1,6 @@
 package controller;
 
+import helper.GUIHelper;
 import helper.Helper;
 import helper.Storage;
 import javafx.event.ActionEvent;
@@ -19,13 +20,19 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class OrderDetailPageController implements Initializable {
+public class OrderDetailPageController implements DynamicGridController,Initializable {
 
     @FXML
     private Button backwardButton;
 
     @FXML
     private Button logoutButton;
+
+    @FXML
+    private Label nameSurnameLabel;
+
+    @FXML
+    private Label emailLabel;
 
     @FXML
     private GridPane gridPane;
@@ -45,37 +52,15 @@ public class OrderDetailPageController implements Initializable {
     private Storage storage = Storage.getStorage();
     private Order order = storage.getLastClidkedOrder();
     private Customer customer = order.getCustomer();
+    GUIHelper guiHelper = GUIHelper.getGuiHelper();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        try {
-            int size = order.getItems().size();
-            for(int i = 0;i<size;i++){
-                FXMLLoader fxmlLoader = new FXMLLoader();
-                fxmlLoader.setLocation(getClass().getResource("/GUI/orderDetailPageBlock.fxml"));
-
-                AnchorPane anchorPane = fxmlLoader.load();
-
-                OrderDetailPageBlockController orderDetailPageBlockController = fxmlLoader.getController();
-                orderDetailPageBlockController.setCartItem(order.getItems().get(i));
-
-                gridPane.add(anchorPane, 0, i);
-                gridPane.setMinWidth(Region.USE_COMPUTED_SIZE);
-                gridPane.setPrefWidth(Region.USE_COMPUTED_SIZE);
-                gridPane.setMaxWidth(Region.USE_PREF_SIZE);
-
-                gridPane.setMinHeight(Region.USE_COMPUTED_SIZE);
-                gridPane.setPrefHeight(Region.USE_COMPUTED_SIZE);
-                gridPane.setMaxHeight(Region.USE_PREF_SIZE);
-
-                GridPane.setMargin(anchorPane, new Insets(20));
-            }
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
+        guiHelper.showDynamicGrid(order.getItems(),gridPane,this,"orderDetailPageBlock",20,20);
         addressLabel.setText(customer.getAddress().addressToString());
         totalPriceLabel.setText("$"+String.valueOf(order.getTotalPrice()));
+        nameSurnameLabel.setText(order.getCustomer().getName()+" "+order.getCustomer().getSurname());
+        emailLabel.setText(order.getCustomer().getEmail());
         if(order.getStatus() == 0)
         orderStatusLabel.setText("Pending order");
         else if(order.getStatus() == 1)

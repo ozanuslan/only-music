@@ -6,7 +6,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import model.CartItem;
 
-public class OrderDetailPageBlockController {
+public class OrderDetailPageBlockController implements BlockController {
 
     @FXML
     private ImageView itemImage;
@@ -25,8 +25,8 @@ public class OrderDetailPageBlockController {
 
     private CartItem cartItem;
 
-    void setCartItem(CartItem cartItem){
-        this.cartItem = cartItem;
+    public <T> void setData(T data){
+        this.cartItem = (CartItem) data;
         double totalPrice = cartItem.getItem().getPrice() * cartItem.getQuantity();
         itemNameLabel.setText(cartItem.getItem().getName());
         itemPriceLabel.setText("$"+String.valueOf(cartItem.getItem().getPrice()));
@@ -36,5 +36,9 @@ public class OrderDetailPageBlockController {
         itemImage.setImage(image);
     }
 
+    @Override
+    public void setController(DynamicGridController dynamicGridController) {
+
+    }
 }
 
