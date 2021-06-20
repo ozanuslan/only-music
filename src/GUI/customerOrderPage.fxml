@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.effect.Bloom?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -12,6 +13,7 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CustomerOrderController">
     <top>
@@ -43,8 +45,21 @@
     <center>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Label layoutX="201.0" layoutY="6.0" styleClass="text-item-name" stylesheets="@../css/style.css" text="PENDING ORDERS" />
-            <VBox alignment="CENTER" layoutY="25.0" prefHeight="475.0" prefWidth="500.0">
+            <Label alignment="CENTER" layoutX="179.0" layoutY="4.0" prefHeight="20.0" prefWidth="142.0" stylesheets="@../css/style.css" text="PENDING ORDERS">
+               <styleClass>
+                  <String fx:value="text-item-name" />
+                  <String fx:value="background-color-white08" />
+                  <String fx:value="text-bold" />
+                  <String fx:value="radius-30" />
+               </styleClass>
+               <effect>
+                  <DropShadow>
+                     <color>
+                        <Color opacity="0.699999988079071" />
+                     </color>
+                  </DropShadow>
+               </effect></Label>
+            <VBox alignment="CENTER" layoutY="32.0" prefHeight="468.0" prefWidth="500.0">
                <children>
                   <ScrollPane fx:id="pendingOrdersScroll" prefHeight="475.0" prefWidth="500.0" styleClass="transparent" stylesheets="@../css/style.css">
                      <content>
@@ -57,10 +72,23 @@
                   </ScrollPane>
                </children>
             </VBox>
-            <Label layoutX="693.0" layoutY="6.0" styleClass="text-item-name" stylesheets="@../css/style.css" text="COMPLETED ORDERS" />
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="672.0" layoutY="4.0" prefHeight="20.0" prefWidth="157.0" stylesheets="@../css/style.css" text="COMPLETED ORDERS">
+               <styleClass>
+                  <String fx:value="text-item-name" />
+                  <String fx:value="text-bold" />
+                  <String fx:value="radius-30" />
+                  <String fx:value="background-color-white08" />
+               </styleClass>
+               <effect>
+                  <DropShadow>
+                     <color>
+                        <Color opacity="0.699999988079071" />
+                     </color>
+                  </DropShadow>
+               </effect></Label>
             <VBox alignment="CENTER" layoutX="500.0" layoutY="25.0" prefHeight="475.0" prefWidth="500.0">
                <children>
-                  <ScrollPane fx:id="completedOrderScroll" prefHeight="475.0" prefWidth="500.0" styleClass="transparent" stylesheets="@../css/style.css">
+                  <ScrollPane fx:id="completedOrderScroll" prefHeight="468.0" prefWidth="500.0" styleClass="transparent" stylesheets="@../css/style.css">
                      <content>
                         <GridPane fx:id="completedOrdersGrid">
                            <columnConstraints>

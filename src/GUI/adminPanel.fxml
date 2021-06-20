@@ -35,7 +35,11 @@
     <center>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="welcomeAdminLabel" alignment="CENTER" layoutX="358.0" layoutY="46.0" prefHeight="17.0" prefWidth="284.0" styleClass="header" stylesheets="@../css/style.css" text="Welcome Admin" />
+            <Label fx:id="welcomeAdminLabel" alignment="CENTER" layoutX="358.0" layoutY="46.0" prefHeight="17.0" prefWidth="284.0" stylesheets="@../css/style.css" text="Welcome Admin">
+               <styleClass>
+                  <String fx:value="header" />
+                  <String fx:value="text-bold" />
+               </styleClass></Label>
             <Label fx:id="errorLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="359.0" layoutY="88.0" prefHeight="17.0" prefWidth="284.0" stylesheets="@../css/style.css" />
             <HBox alignment="CENTER" layoutX="46.0" layoutY="151.0" prefHeight="199.0" prefWidth="909.0">
                <children>
@@ -45,6 +49,7 @@
                            <styleClass>
                               <String fx:value="text-color-white" />
                               <String fx:value="text-item-name" />
+                              <String fx:value="text-bold" />
                            </styleClass>
                         </Label>
                         <Button layoutX="67.0" layoutY="49.0" mnemonicParsing="false" prefHeight="69.0" prefWidth="66.0" stylesheets="@../css/style.css">

@@ -16,7 +16,7 @@
    <children>
       <VBox alignment="CENTER" prefHeight="350.0" prefWidth="250.0" spacing="10.0">
          <children>
-            <Label fx:id="itemNameLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="218.0" styleClass="text-item-name" stylesheets="@../css/style.css" text="Name" />
+            <Label fx:id="itemNameLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="8.0" prefWidth="210.0" styleClass="text-item-name" stylesheets="@../css/style.css" text="Name" />
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" />
             <ImageView fx:id="itemImage" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
             <Label fx:id="itemPriceLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="218.0" styleClass="text-item-price" stylesheets="@../css/style.css" text="Price" />

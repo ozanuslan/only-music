@@ -59,17 +59,41 @@
             </VBox>
             <VBox layoutX="700.0" prefHeight="500.0" prefWidth="300.0" spacing="10.0">
                <children>
-                  <Label styleClass="text-item-name" stylesheets="@../css/style.css" text="Address:" />
+                  <Label stylesheets="@../css/style.css" text="Address:">
+                     <styleClass>
+                        <String fx:value="text-item-name" />
+                        <String fx:value="text-bold" />
+                     </styleClass></Label>
                   <Label fx:id="addressLabel" alignment="TOP_LEFT" prefHeight="126.0" prefWidth="275.0" styleClass="text-item-price" stylesheets="@../css/style.css" />
-                  <Label prefHeight="20.0" prefWidth="124.0" styleClass="text-item-name" stylesheets="@../css/style.css" text="Name Surname:" />
+                  <Label prefHeight="20.0" prefWidth="124.0" stylesheets="@../css/style.css" text="Name Surname:">
+                     <styleClass>
+                        <String fx:value="text-item-name" />
+                        <String fx:value="text-bold" />
+                     </styleClass></Label>
                   <Label fx:id="nameSurnameLabel" prefHeight="20.0" prefWidth="219.0" styleClass="text-item-price" stylesheets="@../css/style.css" />
-                  <Label prefHeight="20.0" prefWidth="124.0" styleClass="text-item-name" stylesheets="@../css/style.css" text="Email:" />
+                  <Label prefHeight="20.0" prefWidth="124.0" stylesheets="@../css/style.css" text="Email:">
+                     <styleClass>
+                        <String fx:value="text-item-name" />
+                        <String fx:value="text-bold" />
+                     </styleClass></Label>
                   <Label fx:id="emailLabel" prefHeight="20.0" prefWidth="232.0" styleClass="text-item-price" stylesheets="@../css/style.css" />
-                  <Label prefHeight="20.0" prefWidth="87.0" styleClass="text-item-name" stylesheets="@../css/style.css" text="Total Price:" />
+                  <Label prefHeight="20.0" prefWidth="87.0" stylesheets="@../css/style.css" text="Total Price:">
+                     <styleClass>
+                        <String fx:value="text-item-name" />
+                        <String fx:value="text-bold" />
+                     </styleClass></Label>
                   <Label fx:id="totalPriceLabel" prefHeight="20.0" prefWidth="208.0" styleClass="text-item-price" stylesheets="@../css/style.css" />
-                  <Label prefHeight="20.0" prefWidth="103.0" styleClass="text-item-name" stylesheets="@../css/style.css" text="Order Status:" />
+                  <Label prefHeight="20.0" prefWidth="103.0" stylesheets="@../css/style.css" text="Order Status:">
+                     <styleClass>
+                        <String fx:value="text-item-name" />
+                        <String fx:value="text-bold" />
+                     </styleClass></Label>
                   <Label fx:id="orderStatusLabel" prefHeight="20.0" prefWidth="229.0" styleClass="text-item-price" stylesheets="@../css/style.css" />
-                  <Label prefHeight="20.0" prefWidth="103.0" styleClass="text-item-name" stylesheets="@../css/style.css" text="Order Date:" />
+                  <Label prefHeight="20.0" prefWidth="103.0" stylesheets="@../css/style.css" text="Order Date:">
+                     <styleClass>
+                        <String fx:value="text-item-name" />
+                        <String fx:value="text-bold" />
+                     </styleClass></Label>
                   <Label fx:id="orderDateLabel" prefHeight="20.0" prefWidth="274.0" styleClass="text-item-price" stylesheets="@../css/style.css" />
                </children>
                <padding>

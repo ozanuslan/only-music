@@ -9,7 +9,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="400.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.OrderBlockAdminController">
    <children>
-      <Label fx:id="receiverLabel" layoutX="21.0" layoutY="14.0" styleClass="text-item-name" stylesheets="@../css/style.css" text="Receiver" />
+      <Label fx:id="orderIdLabel" layoutX="21.0" layoutY="14.0" styleClass="text-item-name" stylesheets="@../css/style.css" text="Order ID" />
       <Label fx:id="priceLabel" layoutX="21.0" layoutY="40.0" styleClass="text-item-price" stylesheets="@../css/style.css" text="Price" />
       <Button fx:id="orderDetailsButton" layoutX="145.0" layoutY="27.0" mnemonicParsing="false" onAction="#orderDetailsAction" prefHeight="27.0" prefWidth="110.0" stylesheets="@../css/style.css" text="Order Details">
          <styleClass>

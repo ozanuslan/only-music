@@ -21,7 +21,7 @@
             </ImageView>
          </children>
       </VBox>
-      <Label fx:id="itemNameLabel" layoutX="157.0" layoutY="28.0" prefHeight="17.0" prefWidth="209.0" styleClass="text-item-price" stylesheets="@../css/style.css" text="ItemName" />
+      <Label fx:id="itemNameLabel" layoutX="157.0" layoutY="20.0" prefHeight="32.0" prefWidth="209.0" styleClass="text-item-price" stylesheets="@../css/style.css" text="ItemName" wrapText="true" />
       <AnchorPane layoutX="331.0" layoutY="6.0" prefHeight="106.0" prefWidth="139.0">
          <children>
             <Button fx:id="increaseQuantityButton" layoutX="70.0" layoutY="16.0" mnemonicParsing="false" onAction="#increaseQuantityButtonAction" prefHeight="19.0" prefWidth="25.0" stylesheets="@../css/style.css">

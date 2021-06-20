@@ -18,7 +18,7 @@ import java.sql.Statement;
 public class OrderBlockAdminController implements BlockController {
 
     @FXML
-    private Label receiverLabel;
+    private Label orderIdLabel;
 
     @FXML
     private Label priceLabel;
@@ -47,7 +47,7 @@ public class OrderBlockAdminController implements BlockController {
 
     public <T> void  setData(T data){
         this.order =(Order) data;
-        receiverLabel.setText(order.getCustomer().getName());
+        orderIdLabel.setText("Id: "+String.valueOf(order.getId()));
         priceLabel.setText("$"+String.valueOf(order.getTotalPrice()));
         if(order.getStatus() != 0){
             cancelButton.setVisible(false);

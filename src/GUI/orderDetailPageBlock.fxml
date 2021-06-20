@@ -20,7 +20,7 @@
             </ImageView>
          </children>
       </VBox>
-      <Label fx:id="itemNameLabel" layoutX="157.0" layoutY="28.0" prefHeight="17.0" prefWidth="209.0" styleClass="text-item-name" stylesheets="@../css/style.css" text="ItemName" />
+      <Label fx:id="itemNameLabel" layoutX="157.0" layoutY="19.0" prefHeight="39.0" prefWidth="209.0" styleClass="text-item-name" stylesheets="@../css/style.css" text="ItemName" wrapText="true" />
       <Label fx:id="itemPriceLabel" layoutX="157.0" layoutY="62.0" styleClass="text-item-price" stylesheets="@../css/style.css" text="Price" />
       <Label fx:id="quantityLabel" alignment="CENTER" layoutX="366.0" layoutY="28.0" prefHeight="47.0" prefWidth="65.0" styleClass="text-item-name" stylesheets="@../css/style.css" />
       <Label layoutX="476.0" layoutY="28.0" prefHeight="19.0" prefWidth="65.0" styleClass="text-item-name" stylesheets="@../css/style.css" text="Total:" />
