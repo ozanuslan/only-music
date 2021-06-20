@@ -45,7 +45,7 @@ public class Helper {
         }
     }
 
-    public static void clearScreen(GridPane gridPane){
+    public static void clearScreen(GridPane gridPane) {
         gridPane.getChildren().removeIf(node -> true);
     }
 
@@ -166,28 +166,38 @@ public class Helper {
         return itemList;
     }
 
-    public static Item findItem(List<Item> il, int id){
-        for(Item i: il){
-            if(id == i.getId()) return i;
+    public static Item findItem(List<Item> il, int id) {
+        for (Item i : il) {
+            if (id == i.getId()) return i;
         }
         return null;
     }
 
-    public static User findUser(List<User> ul, int id){
-        for(User u: ul){
-            if(id == u.getId()) return u;
+    public static User findUser(List<User> ul, int id) {
+        for (User u : ul) {
+            if (id == u.getId()) return u;
         }
         return null;
     }
 
     //email validator with regex
-    public static boolean isValidEmail(String email){
+    public static boolean isValidEmail(String email) {
         //Regular Expression
         String regex = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}";
         //Compile regular expression to get the pattern
         Pattern pattern = Pattern.compile(regex);
         //Create instance of matcher
         Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
+
+    public static boolean isValidPhone(String phone) {
+        //Regular Expression
+        String regex = "^\\s*(?:\\+?(\\d{1,3}))?[-. (]*(\\d{3})[-. )]*(\\d{3})[-. ]*(\\d{4})(?: *x(\\d+))?\\s*$";
+        //Compile regular expression to get the pattern
+        Pattern pattern = Pattern.compile(regex);
+        //Create instance of matcher
+        Matcher matcher = pattern.matcher(phone);
         return matcher.matches();
     }
 
@@ -286,36 +296,36 @@ public class Helper {
         ArrayList<User> users = new ArrayList<>();
         String verifyLogin = "SELECT * FROM user_account";
 
-        try{
+        try {
             Statement statement = connectDB.createStatement();
             ResultSet queryResult = statement.executeQuery(verifyLogin);
 
-            while(queryResult.next()){
-                    if(queryResult.getInt("privilegeLevel") == 0){
-                        Customer customer = new Customer(queryResult.getString("username"), queryResult.getString("name"), queryResult.getString("surname"),queryResult.getString("email"),queryResult.getInt("idUser"),queryResult.getInt("privilegeLevel"));
-                        setCustomerAddress(customer,connectDB);
-                        users.add(customer);
-                    }
-                    else{
-                        Administrator admin = new Administrator(queryResult.getString("username"), queryResult.getString("name"),
-                                queryResult.getString("surname"),queryResult.getString("email"),queryResult.getInt("idUser"),queryResult.getInt("privilegeLevel")> 1 ? 2 : 1);
-                        users.add(admin);
-                    }
+            while (queryResult.next()) {
+                if (queryResult.getInt("privilegeLevel") == 0) {
+                    Customer customer = new Customer(queryResult.getString("username"), queryResult.getString("name"), queryResult.getString("surname"), queryResult.getString("email"), queryResult.getInt("idUser"), queryResult.getInt("privilegeLevel"));
+                    setCustomerAddress(customer, connectDB);
+                    users.add(customer);
+                } else {
+                    Administrator admin = new Administrator(queryResult.getString("username"), queryResult.getString("name"),
+                            queryResult.getString("surname"), queryResult.getString("email"), queryResult.getInt("idUser"), queryResult.getInt("privilegeLevel") > 1 ? 2 : 1);
+                    users.add(admin);
+                }
 
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             e.getCause();
         }
         return users;
     }
+
     public static void setCustomerAddress(Customer customer, Connection connectDB) throws SQLException {
         Statement statement = connectDB.createStatement();
         String addressQuery = "SELECT * FROM `address` where idUser= " + customer.getId();
         ResultSet queryResult = statement.executeQuery(addressQuery);
 
-        while(queryResult.next()){
-            Address address = new Address(queryResult.getString("city"),queryResult.getString("province"),queryResult.getString("address"),queryResult.getString("phone"),Integer.parseInt(queryResult.getString("postCode")));
+        while (queryResult.next()) {
+            Address address = new Address(queryResult.getString("city"), queryResult.getString("province"), queryResult.getString("address"), queryResult.getString("phone"), Integer.parseInt(queryResult.getString("postCode")));
             customer.setAddress(address);
         }
     }

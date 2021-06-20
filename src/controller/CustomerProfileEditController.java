@@ -125,8 +125,7 @@ public class CustomerProfileEditController {
 
     @FXML
     void setAddressButtonAction(ActionEvent event) throws SQLException {
-        Statement statement = connectDB.createStatement();
-        if (!cityInput.getText().equals("") && !provinceInput.getText().equals("") && !postCodeInput.getText().equals("") && Helper.isPositiveNumber(postCodeInput.getText()) && !phoneNumberInput.getText().equals("") && !addressInput.getText().equals("")) {
+        if (!cityInput.getText().isBlank() && !provinceInput.getText().isBlank() && !postCodeInput.getText().isBlank() && Helper.isPositiveNumber(postCodeInput.getText()) && !phoneNumberInput.getText().isBlank() && !addressInput.getText().isBlank() && Helper.isValidPhone(phoneNumberInput.getText())) {
             if (customer.getAddress() == null) {
                 String insertQuery = "INSERT INTO `address` (`idUser`, `city`, `province`, `address`, `phone`, `postCode`) VALUES (?, ?, ?, ?, ?, ?)";
                 PreparedStatement ps = connectDB.prepareStatement(insertQuery);
@@ -138,7 +137,7 @@ public class CustomerProfileEditController {
                 ps.setString(6, postCodeInput.getText());
                 ps.executeUpdate();
             } else {
-                String updateQuery = "UPDATE `address` SET `city` = ?, `province` = ?, `address` = ?, `postCode` = ? WHERE (`idUser` = ?)";
+                String updateQuery = "UPDATE `address` SET `city` = ?, `province` = ?, `address` = ?, `phone` = ?, `postCode` = ? WHERE (`idUser` = ?)";
                 PreparedStatement ps = connectDB.prepareStatement(updateQuery);
                 ps.setString(1, cityInput.getText());
                 ps.setString(2, provinceInput.getText());
