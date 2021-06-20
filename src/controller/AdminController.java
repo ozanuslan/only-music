@@ -42,7 +42,7 @@ public class AdminController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        welcomeAdminLabel.setText("Welcome " + storage.getActiveUser().getName());
+        welcomeAdminLabel.setText("Welcome \uD83D\uDC4B, " + storage.getActiveUser().getName()+"!");
     }
 
     @FXML

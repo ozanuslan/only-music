@@ -35,7 +35,7 @@ public class CustomerProfilePageController implements Initializable {
 
         @Override
         public void initialize(URL url, ResourceBundle resourceBundle) {
-                welcomeLabel.setText("Hi, "+customer.getName());
+                welcomeLabel.setText("Hi \uD83D\uDC4B, "+customer.getName()+"!");
         }
 
         @FXML
