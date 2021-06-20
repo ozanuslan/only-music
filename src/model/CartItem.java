@@ -2,7 +2,7 @@ package model;
 
 public class CartItem{
     private Item item;
-    private int quantity, row;
+    private int quantity;
 
     public CartItem(Item item) {
         this(item, 1);
@@ -38,13 +38,4 @@ public class CartItem{
         if(quantity < item.getStock())
         quantity++;
     }
-
-    public int getRow() {
-        return row;
-    }
-
-    public void setRow(int row) {
-        this.row = row;
-    }
-
 }
