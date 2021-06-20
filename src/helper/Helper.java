@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Stack;
-
+import java.util.regex.*;
 
 public class Helper {
 
@@ -178,6 +178,17 @@ public class Helper {
             if(id == u.getId()) return u;
         }
         return null;
+    }
+
+    //email validator with regex
+    public static boolean isValidEmail(String email){
+        //Regular Expression
+        String regex = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}";
+        //Compile regular expression to get the pattern
+        Pattern pattern = Pattern.compile(regex);
+        //Create instance of matcher
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
     }
 
     public static List<Order> getCustomerOrders() {

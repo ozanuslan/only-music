@@ -88,18 +88,7 @@ public class AdminUserPageController implements Initializable {
 
     @FXML
     void addUserButtonAction(ActionEvent event) throws SQLException {
-        if (nameInput.getText().isBlank() || surnameInput.getText().isBlank() || usernameInput.getText().isBlank() || passwordInput.getText().isBlank() || privilegeLevelInput.getText().isBlank() || !Helper.isPositiveNumber(privilegeLevelInput.getText())) {
-            errorLabel.setText("Please fill all the blanks properly");
-            errorLabel.getStyleClass().clear();
-            errorLabel.getStyleClass().add("text-item-name");
-            errorLabel.getStyleClass().add("text-color-error");
-        } else {
-            if (Integer.parseInt(privilegeLevelInput.getText()) > 2 || Integer.parseInt(privilegeLevelInput.getText()) < 1) {
-                errorLabel.setText("Privilege level can only be 1 or 2");
-                errorLabel.getStyleClass().clear();
-                errorLabel.getStyleClass().add("text-item-name");
-                errorLabel.getStyleClass().add("text-color-error");
-            } else {
+            if(isInputValid()){
                 String queryText = "INSERT INTO user_account" + "(username,password,name,surname,email,privilegeLevel) VALUES " + "(?,?,?,?,?,?)";
                 PreparedStatement ps = connectDB.prepareStatement(queryText);
                 ps.setString(1, usernameInput.getText());
@@ -116,7 +105,31 @@ public class AdminUserPageController implements Initializable {
                 userList = FXCollections.observableArrayList(Helper.getAllUsers());
                 loadTable(userList);
             }
+    }
+
+    boolean isInputValid(){
+        if (nameInput.getText().isBlank() || surnameInput.getText().isBlank() || usernameInput.getText().isBlank() || passwordInput.getText().isBlank() || privilegeLevelInput.getText().isBlank() || !Helper.isPositiveNumber(privilegeLevelInput.getText())) {
+            errorLabel.setText("Please fill all the blanks properly");
+            errorLabel.getStyleClass().clear();
+            errorLabel.getStyleClass().add("text-item-name");
+            errorLabel.getStyleClass().add("text-color-error");
+            return false;
         }
+        else if(Integer.parseInt(privilegeLevelInput.getText()) > 2 || Integer.parseInt(privilegeLevelInput.getText()) < 1){
+            errorLabel.setText("Privilege level can only be 1 or 2");
+            errorLabel.getStyleClass().clear();
+            errorLabel.getStyleClass().add("text-item-name");
+            errorLabel.getStyleClass().add("text-color-error");
+            return false;
+        }
+        else if(!Helper.isValidEmail(emailInput.getText())){
+            errorLabel.setText("Please enter email field properly");
+            errorLabel.getStyleClass().clear();
+            errorLabel.getStyleClass().add("text-item-name");
+            errorLabel.getStyleClass().add("text-color-error");
+            return false;
+        }
+        return true;
     }
 
     @FXML

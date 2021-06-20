@@ -45,18 +45,22 @@ public class RegisterController {
             labelMessage.setText("Please enter empty fields.");
         } else{
             boolean register=true;
+            boolean isValidEmail = Helper.isValidEmail(emailField.getText());
             Statement statement = connectDB.createStatement();
             String usernameQuery = "SELECT username FROM `user_account`";
             ResultSet queryResult = statement.executeQuery(usernameQuery);
             while(queryResult.next()){
                 if(usernameField.getText().equals(queryResult.getString("username"))) register=false;
             }
+            if(!isValidEmail) register = false;
+
             if(register) {
                 registerUser();
             }else{
                 labelMessage.getStyleClass().clear();
                 labelMessage.getStyleClass().add("text-color-error");
-                labelMessage.setText("User name is already taken.");
+                if(!isValidEmail) labelMessage.setText("Email is not valid.");
+                else labelMessage.setText("User name is already taken.");
             }
         }
     }

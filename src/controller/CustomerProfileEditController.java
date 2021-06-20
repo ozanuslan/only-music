@@ -163,7 +163,8 @@ public class CustomerProfileEditController {
 
     @FXML
     void setEmailButtonAction(ActionEvent event) throws SQLException {
-        if (!emailInput.getText().equals("")) {
+        boolean isValidEmail = Helper.isValidEmail(emailInput.getText());
+        if (isValidEmail) {
             Statement statement = connectDB.createStatement();
             String updateQuery = "UPDATE `user_account` SET `email` = ? WHERE (`idUser` = ?)";
             PreparedStatement ps = connectDB.prepareStatement(updateQuery);
@@ -175,7 +176,7 @@ public class CustomerProfileEditController {
             errorLabel.getStyleClass().add("text-item-price");
             errorLabel.getStyleClass().add("text-color-success");
         } else {
-            errorLabel.setText("Please enter your email address");
+            errorLabel.setText("Please enter your email address properly");
             errorLabel.getStyleClass().clear();
             errorLabel.getStyleClass().add("text-item-price");
             errorLabel.getStyleClass().add("text-color-error");
