@@ -1,9 +1,6 @@
 package controller;
 
-import helper.ContentFilter;
-import helper.DatabaseConnection;
-import helper.Helper;
-import helper.Storage;
+import helper.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,12 +13,16 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.converter.IntegerStringConverter;
 import model.Item;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -29,7 +30,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ResourceBundle;
 
-public class AdminItemPageController implements Initializable {
+public class AdminItemPageController implements Initializable,DynamicGridController {
 
     @FXML
     private Button backwardButton;
@@ -74,6 +75,9 @@ public class AdminItemPageController implements Initializable {
     private TextField addAttribute2;
 
     @FXML
+    private GridPane gridPaneEditItem;
+
+    @FXML
     private Label attribute3Label;
 
     @FXML
@@ -90,6 +94,9 @@ public class AdminItemPageController implements Initializable {
 
     @FXML
     private Button changePhotoButton;
+
+    @FXML
+    private Label errorLabelEditItem;
 
     @FXML
     private TextField searchBox;
@@ -113,6 +120,9 @@ public class AdminItemPageController implements Initializable {
     Connection connectDB = db.getConnection();
     Storage storage = Storage.getStorage();
     private ObservableList<Item> itemList = FXCollections.observableArrayList(storage.getItemList());
+    TableView.TableViewSelectionModel<Item> selectionModel;
+    GUIHelper guiHelper = GUIHelper.getGuiHelper();
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -127,6 +137,8 @@ public class AdminItemPageController implements Initializable {
         addItemType.getItems().add("Violin");
         addItemType.getItems().add("Cello");
         addItemType.getItems().add("Amp");
+        selectionModel = tableView.getSelectionModel();
+        selectionModel.setSelectionMode(SelectionMode.SINGLE);
         loadTable(itemList);
     }
 
@@ -142,6 +154,18 @@ public class AdminItemPageController implements Initializable {
     @FXML
     void logoutButtonAction(ActionEvent event) throws Exception {
         Helper.logOut(logoutButton);
+    }
+    void itemEditSuccessful(){
+        errorLabelEditItem.getStyleClass().clear();
+        errorLabelEditItem.getStyleClass().add("text-item-name");
+        errorLabelEditItem.getStyleClass().add("text-color-success");
+        errorLabelEditItem.setText("Item stock changed successfully");
+    }
+    void itemEditError(){
+        errorLabelEditItem.getStyleClass().clear();
+        errorLabelEditItem.getStyleClass().add("text-item-name");
+        errorLabelEditItem.getStyleClass().add("text-color-error");
+        errorLabelEditItem.setText("Please enter the stock value properly");
     }
 
     @FXML
@@ -171,6 +195,9 @@ public class AdminItemPageController implements Initializable {
                     ps.setString(9, addItemType.getValue());
 
                     ps.executeUpdate();
+                    errorLabel.getStyleClass().clear();
+                    errorLabel.getStyleClass().add("text-item-name");
+                    errorLabel.getStyleClass().add("text-color-success");
                     errorLabel.setText("Item has successfully created.");
                     imagePathLabel.setText("");
                 } catch (Exception e3) {
@@ -286,9 +313,15 @@ public class AdminItemPageController implements Initializable {
     }
 
     boolean inputValidation() {
+        errorLabel.getStyleClass().clear();
+        errorLabel.getStyleClass().add("text-item-name");
+        errorLabel.getStyleClass().add("text-color-error");
         System.out.println(addItemType.getValue());
         if (!Helper.isPositiveNumber(addPriceInput.getText())) {
             errorLabel.setText("Item price must be bigger than zero");
+            errorLabel.getStyleClass().clear();
+            errorLabel.getStyleClass().add("text-item-name");
+            errorLabel.getStyleClass().add("text-color-error");
             return false;
         }
         if (!Helper.isPositiveNumber(addStockInput.getText())) {
@@ -417,37 +450,21 @@ public class AdminItemPageController implements Initializable {
 
     //********************ITEM EDIT PAGE************************
 
+    @FXML
+    void tableClickedAction(MouseEvent event) throws IOException {
+        Item selectedItem = selectionModel.getSelectedItem();
+        if(selectedItem != null){
+            Helper.clearScreen(gridPaneEditItem);
+            guiHelper.showBlock(selectedItem,"itemPreviewBlock",this,gridPaneEditItem);
+        }
+    }
 
     public void loadTable(ObservableList<Item> items) {
-        tableView.setEditable(true);
-
+        tableView.setEditable(false);
         itemName.setCellValueFactory(new PropertyValueFactory<Item, String>("name"));
         itemId.setCellValueFactory(new PropertyValueFactory<Item, Integer>("id"));
         itemPrice.setCellValueFactory(new PropertyValueFactory<Item, Double>("price"));
         itemStock.setCellValueFactory((new PropertyValueFactory<Item, Integer>("stock")));
-        itemStock.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
-        itemStock.setOnEditCommit(
-                new EventHandler<TableColumn.CellEditEvent<Item, Integer>>() {
-                    @Override
-                    public void handle(TableColumn.CellEditEvent<Item, Integer> t) {
-                        if (t.getNewValue() >= 0) {
-                            Item item = ((Item) t.getTableView().getItems().get(t.getTablePosition().getRow()));
-                            item.setStock(t.getNewValue());
-                            String updateQuery = "UPDATE `item` SET `stock` = " + t.getNewValue() + " WHERE idItem = " + item.getId();
-                            try {
-                                PreparedStatement ps = connectDB.prepareStatement(updateQuery);
-                                ps.executeUpdate();
-                            } catch (SQLException throwables) {
-                                throwables.printStackTrace();
-                            }
-                        } else {
-                            ((Item) t.getTableView().getItems().get(
-                                    t.getTablePosition().getRow())
-                            ).setStock(t.getOldValue());
-                        }
-                    }
-                }
-        );
         tableView.setItems(items);
     }
 

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="250.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ItemPreviewBlockController">
+   <children>
+      <VBox alignment="CENTER" prefHeight="350.0" prefWidth="250.0" spacing="10.0">
+         <children>
+            <Label fx:id="itemNameLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="218.0" styleClass="text-item-name" stylesheets="@../css/style.css" text="Name" />
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" />
+            <ImageView fx:id="itemImage" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+            <Label fx:id="itemPriceLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="218.0" styleClass="text-item-price" stylesheets="@../css/style.css" text="Price" />
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="218.0" styleClass="text-item-name" stylesheets="@../css/style.css" text="Stock" />
+            <TextField fx:id="stockInput" alignment="CENTER" prefHeight="20.0" prefWidth="59.0" />
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#setStockButtonAction" prefHeight="25.0" prefWidth="126.0" stylesheets="@../css/style.css" text="Set Stock">
+               <styleClass>
+                  <String fx:value="icon-color-blue" />
+                  <String fx:value="radius-30" />
+                  <String fx:value="text-item-name" />
+                  <String fx:value="text-color-white" />
+               </styleClass>
+            </Button>
+         </children>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
+      </VBox>
+   </children>
+   <styleClass>
+      <String fx:value="background-color-white08" />
+      <String fx:value="radius-30" />
+   </styleClass>
+   <effect>
+      <DropShadow>
+         <color>
+            <Color opacity="0.699999988079071" />
+         </color>
+      </DropShadow>
+   </effect>
+</AnchorPane>

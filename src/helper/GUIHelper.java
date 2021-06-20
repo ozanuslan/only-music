@@ -8,6 +8,7 @@ import javafx.geometry.Insets;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
+import model.Item;
 import model.Order;
 
 import java.io.IOException;
@@ -67,6 +68,24 @@ public class GUIHelper {
         catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    public void showBlock(Item item,String blockName,DynamicGridController dynamicGridController, GridPane gridPane) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("/GUI/"+blockName+".fxml"));
+
+        AnchorPane anchorPane = fxmlLoader.load();
+
+        BlockController blockController = fxmlLoader.getController();
+        blockController.setData(item);
+        blockController.setController(dynamicGridController);
+        gridPane.add(anchorPane, 0, 0);
+        gridPane.setMinWidth(Region.USE_COMPUTED_SIZE);
+        gridPane.setPrefWidth(Region.USE_COMPUTED_SIZE);
+        gridPane.setMaxWidth(Region.USE_PREF_SIZE);
+
+        gridPane.setMinHeight(Region.USE_COMPUTED_SIZE);
+        gridPane.setPrefHeight(Region.USE_COMPUTED_SIZE);
+        gridPane.setMaxHeight(Region.USE_PREF_SIZE);
     }
     public void showDoubleDynamicGrid(ArrayList<Order> list, GridPane gridPane, GridPane gridPane2, DynamicGridController dynamicGridController, String blockName, int topBottom, int rightLeft){
         int rowPending = 0;

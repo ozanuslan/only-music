@@ -14,6 +14,8 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.VBox?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AdminItemPageController">
@@ -114,9 +116,9 @@
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <Label layoutX="568.0" layoutY="32.0" styleClass="text-item-price" stylesheets="@../css/style.css" text="Search Box" />
-                              <TextField fx:id="searchBox" layoutX="648.0" layoutY="29.0" onKeyTyped="#searchBarTyped" prefHeight="25.0" prefWidth="266.0" />
-                              <TableView fx:id="tableView" layoutX="53.0" layoutY="22.0" prefHeight="428.0" prefWidth="498.0">
+                              <Label layoutX="570.0" layoutY="35.0" styleClass="text-item-price" stylesheets="@../css/style.css" text="Search Box" />
+                              <TextField fx:id="searchBox" layoutX="648.0" layoutY="32.0" onKeyTyped="#searchBarTyped" prefHeight="25.0" prefWidth="266.0" />
+                              <TableView fx:id="tableView" layoutX="53.0" layoutY="32.0" onMouseClicked="#tableClickedAction" prefHeight="428.0" prefWidth="498.0">
                                 <columns>
                                   <TableColumn fx:id="itemId" prefWidth="75.0" text="Id" />
                                   <TableColumn fx:id="itemName" prefWidth="245.0" text="Name" />
@@ -124,6 +126,16 @@
                                     <TableColumn fx:id="itemStock" minWidth="0.0" prefWidth="88.0" text="Stock" />
                                 </columns>
                               </TableView>
+                              <AnchorPane layoutX="656.0" layoutY="85.0" prefHeight="350.0" prefWidth="250.0">
+                                 <children>
+                                    <GridPane fx:id="gridPaneEditItem">
+                                      <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                      </columnConstraints>
+                                    </GridPane>
+                                 </children>
+                              </AnchorPane>
+                              <Label fx:id="errorLabelEditItem" layoutX="343.0" layoutY="5.0" prefHeight="19.0" prefWidth="314.0" styleClass="text-item-price" stylesheets="@../css/style.css" />
                            </children>
                         </AnchorPane>
                   </content>
