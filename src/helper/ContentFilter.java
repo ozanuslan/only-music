@@ -6,6 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ContentFilter {
+    /**
+     * Takes the itemList and filters items according to the given type, returns a new arraylist with filtered content
+     * @param itemList
+     * @param typeToFilterBy
+     * @return new filtered item arrayList according to the given type
+     */
     public static List<Item> getFilteredItemList(List<Item> itemList, ItemFilterType typeToFilterBy) {
         List<Item> list = new ArrayList<>();
 
@@ -53,6 +59,12 @@ public class ContentFilter {
         return list;
     }
 
+    /**
+     * Takes the itemList and filters items according to the given string, returns a new arraylist with filtered content
+     * @param itemList
+     * @param stringToFilterBy
+     * @return new filtered item arrayList according to the given string
+     */
     public static List<Item> getFilteredItemList(List<Item> itemList, String stringToFilterBy) {
         List<Item> list = new ArrayList<>();
         for (Item item : itemList) {
@@ -63,6 +75,12 @@ public class ContentFilter {
         return list;
     }
 
+    /**
+     * Takes the userList and filters users according to the given type, returns a new arraylist with filtered content
+     * @param userList
+     * @param typeToFilterBy
+     * @return new filtered user arrayList according to the given type
+     */
     public static List<User> getFilteredUserList(List<User> userList, UserFilterType typeToFilterBy) {
         List<User> list = new ArrayList<>();
         for (User user : userList) {
@@ -100,6 +118,12 @@ public class ContentFilter {
         return list;
     }
 
+    /**
+     * Takes the userList and filters users according to the given string, returns a new arraylist with filtered content
+     * @param userList
+     * @param stringToFilterBy
+     * @return new filtered user arrayList according to the given string
+     */
     public static List<User> getFilteredUserList(List<User> userList, String stringToFilterBy) {
         List<User> list = new ArrayList<>();
         for (User user : userList) {
