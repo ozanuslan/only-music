@@ -60,17 +60,28 @@ public class CartPageController implements Initializable, DynamicGridController 
     Cart cart = customer.getCart();
     GUIHelper guiHelper = GUIHelper.getGuiHelper();
 
+    /**
+     * initialize the cart items in the grid pane and shows the total price of the cart with update() method
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         update();
     }
 
+    /**
+     * shows the cart items in the grid pane and shows the total price of the cart
+     */
     public void update() {
         deleteGrid();
         guiHelper.showDynamicGrid(cart.getItemList(), gridPane,this,"cartItemBlock",20,20);
         setTotalCartPrice();
     }
 
+    /**
+     * calculates the total cart price in the cart and prints it into label.
+     */
     void setTotalCartPrice() {
         int sum = 0;
         for (CartItem i : cart.getItemList()) {
@@ -79,15 +90,27 @@ public class CartPageController implements Initializable, DynamicGridController 
         totalPriceLabel.setText("$" + Integer.toString(sum));
     }
 
+    /**
+     * deletes every item in the grid pane.
+     */
     void deleteGrid() {
         gridPane.getChildren().removeIf(node -> true);
     }
 
+    /**
+     * directs the last used page.
+     * @param event
+     * @throws Exception
+     */
     @FXML
     void backwardButtonAction(ActionEvent event) throws Exception {
         Helper.goBackward(backwardButton);
     }
 
+    /**
+     *  checks the customer address and the cart size.
+     * @return the customer address information is valid and cart is empty
+     */
     boolean cartIsValid() {
         if (customer.getAddress() == null) {
             errorLabel.setText("Customer address must be filled from profile");
@@ -111,6 +134,13 @@ public class CartPageController implements Initializable, DynamicGridController 
 
     }
 
+    /**
+     * if the cart is valid creates a order for the active user.
+     * decreases the item stock in the database and itemList
+     * clears the grid pane
+     * @param event
+     * @throws SQLException
+     */
     @FXML
     void checkoutButtonAction(ActionEvent event) throws SQLException {
         if (cartIsValid()) {
@@ -148,6 +178,11 @@ public class CartPageController implements Initializable, DynamicGridController 
         }
     }
 
+    /**
+     * creates new order id different from previous orders.
+     * @return new order ID
+     * @throws SQLException
+     */
     int createOrderId() throws SQLException {
         String query = "SELECT * FROM `order` ORDER BY `orderId` DESC LIMIT 1";
         Statement statement = connectDB.createStatement();
@@ -160,6 +195,11 @@ public class CartPageController implements Initializable, DynamicGridController 
         return orderId;
     }
 
+    /**
+     * performs log out operation of the user.
+     * @param event
+     * @throws Exception
+     */
     @FXML
     void logOutButtonAction(ActionEvent event) throws Exception {
         Helper.logOut(logOutButton);

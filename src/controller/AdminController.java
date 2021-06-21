@@ -17,39 +17,50 @@ import java.util.ResourceBundle;
 
 public class AdminController implements Initializable {
 
+    //init logOut button.
     @FXML
     private Button logoutButton;
 
+    //init welcomeAdminLabel.
     @FXML
     private Label welcomeAdminLabel;
 
+    //init orderPane.
     @FXML
     private AnchorPane orderPane;
 
+    //init itemPane.
     @FXML
     private AnchorPane itemPane;
 
+    //init errorLabel.
     @FXML
     private Label errorLabel;
 
+    //init userPane.
     @FXML
     private AnchorPane userPane;
 
 
+    //init the SceneBuilder for opening new scenes and closing scenes.
     SceneBuilder sb = SceneBuilder.getSceneBuilder();
+    //init the storage for taking the active user in the program.
     Storage storage = Storage.getStorage();
 
 
+    //init the welcome label for welcome message to the admin.
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         welcomeAdminLabel.setText("Welcome \uD83D\uDC4B, " + storage.getActiveUser().getName()+"!");
     }
 
+    //performs logout when logout button clicked.
     @FXML
     void logoutButtonAction(ActionEvent event) throws Exception {
         Helper.logOut(logoutButton);
     }
 
+    //directs to adminItem page and closes the current page.
     @FXML
     void itemsClicked(MouseEvent event) throws Exception {
         sb.closeScene(logoutButton);
@@ -57,6 +68,7 @@ public class AdminController implements Initializable {
         sb.createScene("adminPanel-item");
     }
 
+    //directs to adminOrder page and closes the current page.
     @FXML
     void ordersClicked(MouseEvent event) throws Exception {
         sb.closeScene(logoutButton);
@@ -65,6 +77,8 @@ public class AdminController implements Initializable {
 
     }
 
+    /*directs to adminUser page if admin privilege leve is equal to 2 closes current page.
+    if admin has no permission then error label shows up. */
     @FXML
     void usersClicked(MouseEvent event) throws Exception {
         if (((Administrator) storage.getActiveUser()).getPrivilegeLevel() == 2) {

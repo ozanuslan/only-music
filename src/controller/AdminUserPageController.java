@@ -81,11 +81,21 @@ public class AdminUserPageController implements Initializable {
     private ObservableList<User> userList = FXCollections.observableArrayList(storage.getUserList());
 
 
+    /**
+     * loads the table with observable userList
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         loadTable(userList);
     }
 
+    /**
+     * if the inputs are valid adds the user to the userList and database.
+     * @param event
+     * @throws SQLException
+     */
     @FXML
     void addUserButtonAction(ActionEvent event) throws SQLException {
             if(isInputValid()){
@@ -107,6 +117,10 @@ public class AdminUserPageController implements Initializable {
             }
     }
 
+    /**
+     *  check all of the inputs for the add user section. If not prints the related error.
+     * @return inputs are valid or not
+     */
     boolean isInputValid(){
         if (nameInput.getText().isBlank() || surnameInput.getText().isBlank() || usernameInput.getText().isBlank() || passwordInput.getText().isBlank() || privilegeLevelInput.getText().isBlank() || !Helper.isPositiveNumber(privilegeLevelInput.getText())) {
             errorLabel.setText("Please fill all the blanks properly");
@@ -132,25 +146,49 @@ public class AdminUserPageController implements Initializable {
         return true;
     }
 
+    /**
+     * directs the last used page.
+     * @param event
+     * @throws Exception
+     */
     @FXML
     void backwardButtonAction(ActionEvent event) throws Exception {
         Helper.goBackward(backwardButton);
     }
 
+    /**
+     * performs log out operation of the user.
+     * @param event
+     * @throws Exception
+     */
     @FXML
     void logoutButtonAction(ActionEvent event) throws Exception {
         Helper.logOut(logoutButton);
     }
 
+    /**
+     * if search bar typed loads table again with filtered userList
+     * @param event
+     */
     @FXML
     void searchBarTyped(KeyEvent event) {
         loadTable(getTableList(searchBox.getText()));
     }
 
+    /**
+     * returns filtered observable list
+     * @param filter
+     * @return
+     */
     ObservableList getTableList(String filter) {
         return FXCollections.observableList(ContentFilter.getFilteredUserList(storage.getUserList(), filter));
     }
 
+    /**
+     * loads the table according to observable user list.
+     * admin can change the privilege level of the other admins in the program.
+     * @param users
+     */
     public void loadTable(ObservableList<User> users) {
         tableView.setEditable(true);
 

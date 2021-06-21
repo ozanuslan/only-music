@@ -44,6 +44,11 @@ public class CartItemBlockController implements BlockController{
     SceneBuilder sceneBuilder = SceneBuilder.getSceneBuilder();
     CartPageController cartPageController;
 
+    /**
+     * sets the cart item and sets the labels information with cart item attrbiutes.
+     * @param data
+     * @param <T>
+     */
     public <T> void setData(T data){
         this.cartitem = (CartItem) data;
         itemNameLabel.setText(cartitem.getItem().getName());
@@ -54,10 +59,18 @@ public class CartItemBlockController implements BlockController{
         itemImage.setImage(image);
     }
 
+    /**
+     * sets the controller for controlling the grid pane in the cartPage.
+     * @param dynamicGridController
+     */
     public void setController(DynamicGridController dynamicGridController){
         this.cartPageController = (CartPageController) dynamicGridController;
     }
 
+    /**
+     * Cancel button action deletes the cart item in the customer cart.
+     * @param event
+     */
     @FXML
     void cancelButtonAction(ActionEvent event) {
         Customer customer = (Customer)storage.getActiveUser();
@@ -66,6 +79,10 @@ public class CartItemBlockController implements BlockController{
         cartPageController.update();
     }
 
+    /**
+     * decreases the quantity of the cart item in the customer cart.
+     * @param event
+     */
     @FXML
     void decreaseQuantityButtonAction(ActionEvent event) {
         cartitem.decreaseQuantity();
@@ -73,6 +90,10 @@ public class CartItemBlockController implements BlockController{
         cartPageController.setTotalCartPrice();
     }
 
+    /**
+     * increases the quantity of the cart item in the customer cart.
+     * @param event
+     */
     @FXML
     void increaseQuantityButtonAction(ActionEvent event) {
         cartitem.increaseQuantity();

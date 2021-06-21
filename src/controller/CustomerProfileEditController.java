@@ -6,6 +6,7 @@ import helper.SceneBuilder;
 import helper.Storage;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -13,9 +14,11 @@ import javafx.scene.control.TextField;
 import model.Address;
 import model.Customer;
 
+import java.net.URL;
 import java.sql.*;
+import java.util.ResourceBundle;
 
-public class CustomerProfileEditController {
+public class CustomerProfileEditController implements Initializable {
 
     @FXML
     private Label errorLabel;
@@ -70,11 +73,21 @@ public class CustomerProfileEditController {
     SceneBuilder sceneBuilder = SceneBuilder.getSceneBuilder();
     Customer customer = (Customer) storage.getActiveUser();
 
+    /**
+     * directs the last used page.
+     * @param event
+     * @throws Exception
+     */
     @FXML
     void backwardButtonAction(ActionEvent event) throws Exception {
         Helper.goBackward(backwardButton);
     }
 
+    /**
+     * directs to the cartPage and adds the current page into last location in storage.
+     * @param event
+     * @throws Exception
+     */
     @FXML
     void cartButtonAction(ActionEvent event) throws Exception {
         sceneBuilder.closeScene(cartButton);
@@ -82,6 +95,29 @@ public class CustomerProfileEditController {
         sceneBuilder.createScene("cartPage");
     }
 
+    /**
+     * initialize the address inputs if the user has address and initialize the email inputs.
+     * @param url
+     * @param resourceBundle
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        if(customer.getAddress() != null){
+            cityInput.setText(customer.getAddress().getCity());
+            provinceInput.setText(customer.getAddress().getProvince());
+            addressInput.setText(customer.getAddress().getAddress());
+            phoneNumberInput.setText(customer.getAddress().getPhoneNumber());
+            postCodeInput.setText(String.valueOf(customer.getAddress().getPostCode()));
+        }
+        emailInput.setText(customer.getEmail());
+    }
+
+    /**
+     * if the old password is matches then check the new passwords is matched between them.
+     * If the input validation is correct user password updates in database.
+     * @param event
+     * @throws SQLException
+     */
     @FXML
     void changePasswordButtonAction(ActionEvent event) throws SQLException {
         if (!newPasswordInput.getText().equals("") && !rewritePasswordInput.getText().equals("") && !rewritePasswordInput.getText().equals("")) {
@@ -118,11 +154,22 @@ public class CustomerProfileEditController {
         }
     }
 
+    /**
+     * performs log out operation of the user.
+     * @param event
+     * @throws Exception
+     */
     @FXML
     void logoutButtonAction(ActionEvent event) throws Exception {
         Helper.logOut(logoutButton);
     }
 
+    /**
+     * if the user has no address creates new address according to inputs.
+     * If the user has already a address update the current address.
+     * @param event
+     * @throws SQLException
+     */
     @FXML
     void setAddressButtonAction(ActionEvent event) throws SQLException {
         if (!cityInput.getText().isBlank() && !provinceInput.getText().isBlank() && !postCodeInput.getText().isBlank() && Helper.isPositiveNumber(postCodeInput.getText()) && !phoneNumberInput.getText().isBlank() && !addressInput.getText().isBlank() && Helper.isValidPhone(phoneNumberInput.getText())) {
@@ -160,6 +207,11 @@ public class CustomerProfileEditController {
         }
     }
 
+    /**
+     * sets the new email to the user and database..
+     * @param event
+     * @throws SQLException
+     */
     @FXML
     void setEmailButtonAction(ActionEvent event) throws SQLException {
         boolean isValidEmail = Helper.isValidEmail(emailInput.getText());
