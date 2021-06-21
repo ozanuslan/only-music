@@ -8,13 +8,13 @@ import java.util.ArrayList;
 import java.util.Stack;
 
 public class Storage {
-    private static Storage storage;
-    private User activeUser;
-    private ArrayList<User> userList;
-    private ArrayList<Item> itemList;
-    private Item lastClickedItem;
-    private Order lastClidkedOrder;
-    private Stack<String> lastLocation = new Stack<>();
+    private static Storage storage; // Singleton object
+    private User activeUser; // Global active user in the system
+    private ArrayList<User> userList; // User list of the system
+    private ArrayList<Item> itemList; // Item list of the system
+    private Item lastClickedItem; // Stores the last clicked item block in the system for GUI operations
+    private Order lastClidkedOrder; // Stores the last clicked order block in the system for GUI operations
+    private Stack<String> lastLocation = new Stack<>(); // Stories last visited pages on a stack to go back for later
 
     public static Storage getStorage(){
         return storage == null ? storage = new Storage() : storage;
@@ -51,13 +51,12 @@ public class Storage {
     public void addLastLocation(String location) {
         lastLocation.add(location);
     }
+
     public String popLastLocation() {
        return lastLocation.pop();
     }
 
-    public void setLastLocation(Stack<String> lastLocation) {
-        this.lastLocation = lastLocation;
-    }
+    public void setLastLocation(Stack<String> lastLocation) { this.lastLocation = lastLocation; }
 
     public Item getLastClickedItem() {
         return lastClickedItem;
