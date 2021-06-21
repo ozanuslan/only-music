@@ -47,6 +47,11 @@ public class ItemPageController implements Initializable {
     SceneBuilder sceneBuilder = SceneBuilder.getSceneBuilder();
     private Item item = storage.getLastClickedItem();
 
+    /**
+     * Prints page when first opened
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         System.out.println(item.getName());
@@ -81,6 +86,10 @@ public class ItemPageController implements Initializable {
         sceneBuilder.createScene(storage.popLastLocation());
     }
 
+    /**
+     * Adds item to cart
+     * @param event
+     */
     @FXML
     void addToCartAction(ActionEvent event) {
         if(item.getStock() != 0) {

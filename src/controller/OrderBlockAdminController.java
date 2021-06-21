@@ -45,6 +45,11 @@ public class OrderBlockAdminController implements BlockController {
     DatabaseConnection connection = new DatabaseConnection();
     Connection connectDB = connection.getConnection();
 
+    /**
+     * Sets order and prints page
+     * @param data
+     * @param <T>
+     */
     public <T> void  setData(T data){
         this.order =(Order) data;
         orderIdLabel.setText("Id: "+String.valueOf(order.getId()));
@@ -70,12 +75,16 @@ public class OrderBlockAdminController implements BlockController {
         this.adminOrderPageController = (AdminOrderPageController) adminOrderPageController;
     }
 
+    /**
+     * Cancels order, increases stock in database and sets order cancelled in database
+     * @param event
+     * @throws SQLException
+     */
     @FXML
     void cancelButtonAction(ActionEvent event) throws SQLException {
         order.setStatus(2);
         adminOrderPageController.deleteGrid();
         adminOrderPageController.update();
-        Statement statement = connectDB.createStatement();
         String updateStatusQuery = "UPDATE `order` SET `status` = ? WHERE (`orderId` = ?)";
         PreparedStatement ps1 = connectDB.prepareStatement(updateStatusQuery);
         ps1.setString(1, "2");
@@ -92,12 +101,16 @@ public class OrderBlockAdminController implements BlockController {
         }
     }
 
+    /**
+     * Accepts order and sets order accepted in database
+     * @param event
+     * @throws SQLException
+     */
     @FXML
     void checkButtonAction(ActionEvent event) throws SQLException {
         order.setStatus(1);
         adminOrderPageController.deleteGrid();
         adminOrderPageController.update();
-        Statement statement = connectDB.createStatement();
         String updateStatusQuery = "UPDATE `order` SET `status` = ? WHERE (`orderId` = ?)";
         PreparedStatement ps1 = connectDB.prepareStatement(updateStatusQuery);
         ps1.setString(1, "1");
@@ -105,6 +118,11 @@ public class OrderBlockAdminController implements BlockController {
         ps1.executeUpdate();
     }
 
+    /**
+     * Opens order detail page
+     * @param event
+     * @throws Exception
+     */
     @FXML
     void orderDetailsAction(ActionEvent event) throws Exception {
         sceneBuilder.closeScene(orderDetailsButton);

@@ -72,6 +72,11 @@ public class MainPageController implements Initializable, DynamicGridController 
     ArrayList<Item> filteredList = storage.getItemList();
     GUIHelper guiHelper = GUIHelper.getGuiHelper();
 
+    /**
+     * Opens user's cart
+     * @param event
+     * @throws Exception
+     */
     @FXML
     void cartButtonAction(ActionEvent event) throws Exception {
         sceneBuilder.closeScene(cartButton);
@@ -79,11 +84,21 @@ public class MainPageController implements Initializable, DynamicGridController 
         sceneBuilder.createScene("cartPage");
     }
 
+    /**
+     * Log outs user
+     * @param event
+     * @throws Exception
+     */
     @FXML
     void logoutButtonAction(ActionEvent event) throws Exception {
         Helper.logOut(logoutButton);
     }
 
+    /**
+     * Opens user's profile page
+     * @param event
+     * @throws Exception
+     */
     @FXML
     void userButtonAction(ActionEvent event) throws Exception {
         sceneBuilder.closeScene(userButton);
@@ -91,6 +106,9 @@ public class MainPageController implements Initializable, DynamicGridController 
         sceneBuilder.createScene("customerProfilePage");
     }
 
+    /**
+     * These all buttons below for filter products in the main page
+     */
     @FXML
     void ampMenuButtonAction(ActionEvent event) {
          filterByCategory(ContentFilter.ItemFilterType.AMP);
@@ -147,11 +165,21 @@ public class MainPageController implements Initializable, DynamicGridController 
         update((ArrayList<Item>) ContentFilter.getFilteredItemList(filteredList, text));
     }
 
+    /**
+     * Prints page when first opened
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setSelected(menuAllButton);
         guiHelper.showDynamicGrid(filteredList, gridPane,this,"itemBlock",20,20);
     }
+
+    /**
+     * Update page rewrite everything
+     * @param itemList
+     */
     public void update(ArrayList<Item> itemList){
         deleteGrid();
         guiHelper.showDynamicGrid(itemList, gridPane,this,"itemBlock",20,20);
@@ -160,6 +188,9 @@ public class MainPageController implements Initializable, DynamicGridController 
         gridPane.getChildren().removeIf(node -> true);
     }
 
+    /**
+     * Change label styles
+     */
     public void addToCartFailed(){
         errorLabel.setText("Cannot be added to your cart, not enough stock");
         errorLabel.getStyleClass().clear();
@@ -173,6 +204,10 @@ public class MainPageController implements Initializable, DynamicGridController 
         errorLabel.getStyleClass().add("text-color-success");
     }
 
+    /**
+     * Sets one category selected
+     * @param button
+     */
     public void setSelected(Button button){
         setOthersInitial();
         button.getStyleClass().clear();
@@ -181,6 +216,9 @@ public class MainPageController implements Initializable, DynamicGridController 
         button.getStyleClass().add("icon-color-blue");
     }
 
+    /**
+     * Sets other categories unselected
+     */
     public void setOthersInitial(){
         setInitial(menuAllButton);
         setInitial(menuGuitarButton);

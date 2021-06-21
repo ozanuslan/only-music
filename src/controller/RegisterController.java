@@ -40,26 +40,32 @@ public class RegisterController {
     DatabaseConnection connection = new DatabaseConnection();
     Connection connectDB = connection.getConnection();
 
+    /**
+     * Takes credentials of new user
+     * @param event
+     * @throws SQLException
+     */
     public void registerButtonAction(ActionEvent event) throws SQLException {
-        if(usernameField.getText().isBlank() || passwordField.getText().isBlank() || nameField.getText().isBlank() || surnameField.getText().isBlank() || emailField.getText().isBlank()){
+        //Checks
+        if (usernameField.getText().isBlank() || passwordField.getText().isBlank() || nameField.getText().isBlank() || surnameField.getText().isBlank() || emailField.getText().isBlank()) {
             labelMessage.setText("Please enter empty fields.");
-        } else{
-            boolean register=true;
+        } else {
+            boolean register = true;
             boolean isValidEmail = Helper.isValidEmail(emailField.getText());
             Statement statement = connectDB.createStatement();
             String usernameQuery = "SELECT username FROM `user_account`";
             ResultSet queryResult = statement.executeQuery(usernameQuery);
-            while(queryResult.next()){
-                if(usernameField.getText().equals(queryResult.getString("username"))) register=false;
+            while (queryResult.next()) {
+                if (usernameField.getText().equals(queryResult.getString("username"))) register = false;
             }
-            if(!isValidEmail) register = false;
+            if (!isValidEmail) register = false;
 
-            if(register) {
+            if (register) {
                 registerUser();
-            }else{
+            } else {
                 labelMessage.getStyleClass().clear();
                 labelMessage.getStyleClass().add("text-color-error");
-                if(!isValidEmail) labelMessage.setText("Email is not valid.");
+                if (!isValidEmail) labelMessage.setText("Email is not valid.");
                 else labelMessage.setText("User name is already taken.");
             }
         }
@@ -69,10 +75,13 @@ public class RegisterController {
         Helper.goBackward(cancelButton);
     }
 
-    public void registerUser(){
-        String queryText = "INSERT INTO user_account"+"(username,password,name,surname,email) VALUES "+"(?,?,?,?,?)";
+    /**
+     * Database insertion of new registered user
+     */
+    public void registerUser() {
+        String queryText = "INSERT INTO user_account" + "(username,password,name,surname,email) VALUES " + "(?,?,?,?,?)";
         try {
-            PreparedStatement ps=connectDB.prepareStatement(queryText);
+            PreparedStatement ps = connectDB.prepareStatement(queryText);
             ps.setString(1, usernameField.getText());
             ps.setString(2, passwordField.getText());
             ps.setString(3, nameField.getText());
@@ -82,7 +91,7 @@ public class RegisterController {
             labelMessage.setText("Successfully registered.");
             Thread.sleep(1000);
             Helper.goBackward(cancelButton);
-        }  catch (Exception e3) {
+        } catch (Exception e3) {
             e3.printStackTrace();
         }
     }

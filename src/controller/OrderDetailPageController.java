@@ -54,6 +54,11 @@ public class OrderDetailPageController implements DynamicGridController,Initiali
     private Customer customer = order.getCustomer();
     GUIHelper guiHelper = GUIHelper.getGuiHelper();
 
+    /**
+     * Prints page
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         guiHelper.showDynamicGrid(order.getItems(),gridPane,this,"orderDetailPageBlock",20,20);

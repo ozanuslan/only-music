@@ -40,6 +40,10 @@ public class LoginController{
     SceneBuilder sb = SceneBuilder.getSceneBuilder();
     Storage storage = Storage.getStorage();
 
+    /**
+     * User logs in with this button
+     * @param event
+     */
     public void loginButtonAction(ActionEvent event){
 
         if(usernameField.getText().isBlank() && passwordField.getText().isBlank()){
@@ -48,11 +52,21 @@ public class LoginController{
             validateLogin();
         }
     }
+
+    /**
+     * Opens register page
+     * @param event
+     * @throws Exception
+     */
     public void registerButtonOnAction(ActionEvent event) throws Exception {
         sb.closeScene(registerButton);
         storage.addLastLocation("login");
         sb.createScene("register");
     }
+
+    /**
+     * Checks if the user credentials are valid
+     */
     public void validateLogin(){
         DatabaseConnection connection = new DatabaseConnection();
         Connection connectDB = connection.getConnection();

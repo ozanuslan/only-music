@@ -10,6 +10,9 @@ import model.Item;
 
 import java.io.IOException;
 
+/**
+ * Helper class for opening and closing pages throughout the project
+ */
 public class SceneBuilder {
 
     private static SceneBuilder sb;

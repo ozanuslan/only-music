@@ -36,6 +36,11 @@ public class ItemController implements BlockController {
     Customer customer = (Customer) storage.getActiveUser();
     Cart userCart = customer.getCart();
 
+    /**
+     * Opens item's page
+     * @param event
+     * @throws Exception
+     */
     @FXML
     void itemBlockAction(MouseEvent event) throws Exception {
         sceneBuilder.closeScene(addCardButton);
@@ -44,6 +49,10 @@ public class ItemController implements BlockController {
         sceneBuilder.createScene("itemPage");
     }
 
+    /**
+     * Adds item to cart
+     * @param event
+     */
     @FXML
     void addCardButtonAction(ActionEvent event) {
         if (userCart.addItem(item)) {
@@ -55,6 +64,11 @@ public class ItemController implements BlockController {
 
     private Item item;
 
+    /**
+     * Sets item and prints it
+     * @param data
+     * @param <T>
+     */
     public <T> void setData(T data) {
         this.item = (Item) data;
         itemNameLabel.setText(item.getName());

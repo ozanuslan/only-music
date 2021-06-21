@@ -21,6 +21,11 @@ public class Helper {
     static DatabaseConnection connection = new DatabaseConnection();
     static Connection connectDB = connection.getConnection();
 
+    /**
+     * Logs out the current user
+     * @param logoutButton
+     * @throws Exception
+     */
     public static void logOut(Button logoutButton) throws Exception {
         sb.closeScene(logoutButton);
         storage.setActiveUser(null);
@@ -30,11 +35,21 @@ public class Helper {
         sb.createScene("login");
     }
 
+    /**
+     * Goes to back page
+     * @param backwardButton
+     * @throws Exception
+     */
     public static void goBackward(Button backwardButton) throws Exception {
         sb.closeScene(backwardButton);
         sb.createScene(storage.popLastLocation());
     }
 
+    /**
+     * Checks if string s is positive number
+     * @param s
+     * @return
+     */
     public static boolean isPositiveNumber(String s) {
         try {
             int i = Integer.parseInt(s);
@@ -45,10 +60,19 @@ public class Helper {
         }
     }
 
+    /**
+     * Clears page
+     * @param gridPane
+     */
     public static void clearScreen(GridPane gridPane) {
         gridPane.getChildren().removeIf(node -> true);
     }
 
+    /**
+     * Gets all items in the database
+     * @return
+     * @throws SQLException
+     */
     public static ArrayList<Item> getItems() throws SQLException {
         ArrayList<Item> itemList = new ArrayList<>();
         String verifyLogin = "SELECT * FROM item";
@@ -166,6 +190,12 @@ public class Helper {
         return itemList;
     }
 
+    /**
+     * Find item by id
+     * @param il
+     * @param id
+     * @return
+     */
     public static Item findItem(List<Item> il, int id) {
         for (Item i : il) {
             if (id == i.getId()) return i;
@@ -173,6 +203,12 @@ public class Helper {
         return null;
     }
 
+    /**
+     * Find user by id
+     * @param ul
+     * @param id
+     * @return
+     */
     public static User findUser(List<User> ul, int id) {
         for (User u : ul) {
             if (id == u.getId()) return u;
@@ -180,7 +216,11 @@ public class Helper {
         return null;
     }
 
-    //email validator with regex
+    /**
+     * Email validator with regex
+     * @param email
+     * @return
+     */
     public static boolean isValidEmail(String email) {
         //Regular Expression
         String regex = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}";
@@ -191,6 +231,11 @@ public class Helper {
         return matcher.matches();
     }
 
+    /**
+     * Phone number validator with regex
+     * @param phone
+     * @return
+     */
     public static boolean isValidPhone(String phone) {
         //Regular Expression
         String regex = "^\\s*(?:\\+?(\\d{1,3}))?[-. (]*(\\d{3})[-. )]*(\\d{3})[-. ]*(\\d{4})(?: *x(\\d+))?\\s*$";
@@ -201,6 +246,10 @@ public class Helper {
         return matcher.matches();
     }
 
+    /**
+     * Gets customer orders by id from database
+     * @return
+     */
     public static List<Order> getCustomerOrders() {
         DatabaseConnection connection = new DatabaseConnection();
         Connection connectDB = connection.getConnection();
@@ -243,6 +292,10 @@ public class Helper {
         return new ArrayList<>();
     }
 
+    /**
+     * Gets all orders from database
+     * @return
+     */
     public static List<Order> getAllOrders() {
         DatabaseConnection connection = new DatabaseConnection();
         Connection connectDB = connection.getConnection();
@@ -289,6 +342,11 @@ public class Helper {
         return new ArrayList<>();
     }
 
+    /**
+     * Gets all registered users from database
+     * @return
+     * @throws SQLException
+     */
     public static ArrayList<User> getAllUsers() throws SQLException {
         DatabaseConnection connection = new DatabaseConnection();
         Connection connectDB = connection.getConnection();
@@ -319,6 +377,12 @@ public class Helper {
         return users;
     }
 
+    /**
+     * Sets customer address and updates database
+     * @param customer
+     * @param connectDB
+     * @throws SQLException
+     */
     public static void setCustomerAddress(Customer customer, Connection connectDB) throws SQLException {
         Statement statement = connectDB.createStatement();
         String addressQuery = "SELECT * FROM `address` where idUser= " + customer.getId();

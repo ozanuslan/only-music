@@ -25,6 +25,11 @@ public class OrderDetailPageBlockController implements BlockController {
 
     private CartItem cartItem;
 
+    /**
+     * Set item and print it
+     * @param data
+     * @param <T>
+     */
     public <T> void setData(T data){
         this.cartItem = (CartItem) data;
         double totalPrice = cartItem.getItem().getPrice() * cartItem.getQuantity();

@@ -16,7 +16,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class OrderBlockCustomerController implements BlockController{
+public class OrderBlockCustomerController implements BlockController {
 
     @FXML
     private Label priceLabel;
@@ -39,18 +39,23 @@ public class OrderBlockCustomerController implements BlockController{
     DatabaseConnection connection = new DatabaseConnection();
     Connection connectDB = connection.getConnection();
 
+    /**
+     * Sets order
+     *
+     * @param data
+     * @param <T>
+     */
     public <T> void setData(T data) {
         this.order = (Order) data;
         priceLabel.setText("$" + order.getTotalPrice());
         if (order.getStatus() != 0) {
             cancelButton.setVisible(false);
-            if(order.getStatus() == 2){
+            if (order.getStatus() == 2) {
                 orderStatusLabel.getStyleClass().clear();
                 orderStatusLabel.getStyleClass().add("text-item-price");
                 orderStatusLabel.getStyleClass().add("text-color-error");
                 orderStatusLabel.setText("Cancelled");
-            }
-            else {
+            } else {
                 orderStatusLabel.getStyleClass().clear();
                 orderStatusLabel.getStyleClass().add("text-item-price");
                 orderStatusLabel.getStyleClass().add("text-color-success");
@@ -63,12 +68,17 @@ public class OrderBlockCustomerController implements BlockController{
         this.customerOrderController = (CustomerOrderController) dynamicGridController;
     }
 
+    /**
+     * Cancels the order, sets orders cancelled in database and increases the stock in database
+     *
+     * @param event
+     * @throws SQLException
+     */
     @FXML
     void cancelButtonAction(ActionEvent event) throws SQLException {
         order.setStatus(2);
         customerOrderController.deleteGrid();
         customerOrderController.update();
-        Statement statement = connectDB.createStatement();
         String updateStatusQuery = "UPDATE `order` SET `status` = ? WHERE (`orderId` = ?)";
         PreparedStatement ps1 = connectDB.prepareStatement(updateStatusQuery);
         ps1.setString(1, "2");
@@ -85,6 +95,12 @@ public class OrderBlockCustomerController implements BlockController{
         }
     }
 
+    /**
+     * // Opens order detail page
+     *
+     * @param event
+     * @throws Exception
+     */
     @FXML
     void orderDetailsAction(ActionEvent event) throws Exception {
         sceneBuilder.closeScene(orderDetailsButton);

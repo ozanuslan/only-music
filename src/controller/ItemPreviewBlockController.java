@@ -33,6 +33,11 @@ public class ItemPreviewBlockController implements BlockController {
     DatabaseConnection db = new DatabaseConnection();
     Connection connectDB = db.getConnection();
 
+    /**
+     * Sets data and prints it
+     * @param data
+     * @param <T>
+     */
     public <T> void setData(T data){
         this.item = (Item) data;
         itemNameLabel.setText(item.getName());
@@ -46,6 +51,11 @@ public class ItemPreviewBlockController implements BlockController {
         this.adminItemPageController = (AdminItemPageController) dynamicGridController;
     }
 
+    /**
+     * Sets item's stock and updates database
+     * @param event
+     * @throws SQLException
+     */
     @FXML
     void setStockButtonAction(ActionEvent event) throws SQLException {
         if(Helper.isPositiveNumber(stockInput.getText())){
