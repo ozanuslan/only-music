@@ -24,6 +24,7 @@ public class SceneBuilder {
         Parent root = FXMLLoader.load(getClass().getResource("/GUI/"+scenePath+".fxml"));
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
+        stage.setTitle("Only-Music");
         stage.show();
     }
     public void closeScene(Button btn){
